@@ -1,0 +1,242 @@
+<!--
+-->
+<!DOCTYPE html>
+<html>
+<meta content="text/html; charset=utf-8" http-equiv="content-type">
+<head>
+	<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+
+	<script>
+
+		//自动更新列表的频率,单位：秒
+		var flush_time = 10;
+
+		//szyr jsonp的回调函数
+		function cb_anchor(o){
+
+            print_szyr_table(o);
+		}
+		
+		window.onload=function(){
+            begin_flush();
+		};
+
+		//加入定时器，每10秒执行一次
+		function begin_flush() {
+		    //更新room_list
+		    flush_room_list();
+		    setTimeout(begin_flush,flush_time*1000);
+        }
+
+		//使用jsonp跨域获取json
+		function flush_room_list() {
+		    // console.log("List has been updated. Update time:"+Date()+"\n\n");
+            //等价于在html中引入一个js，实际上是作为jsonp的调用
+            $("head").append('<script src="https://szroot.youxuanmeijia.cn/video_rest/index/anchor"> < /script>');
+        }
+
+        //jsonp回调函数cb_anchor用到的，用来更新table
+		function print_szyr_table(szyr_response) {
+		    var mytable = document.getElementById("szyr_table");
+			mytable.innerHTML = transform_anchorList_toTable(szyr_response.anchors);
+        }
+
+        //将json转换为table的innerHtml用于替换,不包含<table>,包含<th>
+		//返回值为string ： "<tr>....</tr> <tr>....</tr><tr>....</tr>"
+		function transform_anchorList_toTable(anchor_list) {
+		    var show_index = true;//是否自动添加序号
+		    //备选的表头
+		    //['房间号','房间名','当前状态','贡献','时长']
+		    var th_array = [
+		        '房间号',
+				 '房间名',
+				// '当前状态',
+				// '贡献',
+				// '时长'
+			];
+		    //对应的属性名
+			//['rid','nickname','status','donate','live_time']
+		    var attr_array = [
+		        'rid',
+				 'nickname',
+				// 'status',
+				// 'donate',
+				// 'live_time'
+			];
+		    //用于放置table中的字符串，最后再用join(" ")拼接起来
+			var table_content_array = [];
+
+			//输出位于首行的表头
+			table_content_array.push('<tr>');
+			if(show_index) table_content_array.push('<th>序号</th>');
+            for(var j=0,length=th_array.length;j<length;j++){
+                table_content_array.push('<th>'+th_array[j]+'</th>')
+            }
+            table_content_array.push('</tr>');
+
+            //逐行添加表格内容
+            for(var idx=0,len=anchor_list.length;idx<len;idx++){
+                //对于status=0即未开播的房间进行忽略
+                if(anchor_list[idx]["status"] === 0) continue;
+                //对donate!=0即有开秀需求小费的房间添加类名isShowing
+                if(anchor_list[idx]["donate"] !== 0) {
+                    table_content_array.push('<tr class="isShowing">');
+				}
+				else {
+                    table_content_array.push('<tr>');
+				}
+                //如果需要的话添加序号
+                if(show_index) table_content_array.push('<td>'+idx+'</td>');
+				for(var j=0,length=attr_array.length;j<length;j++){
+					table_content_array.push('<td>'+anchor_list[idx][attr_array[j]]+'</td>');
+				}
+				table_content_array.push('<td><button onclick=get_rtmp_byRoomID('+anchor_list[idx]["rid"]+');>播放</button></td>');
+                table_content_array.push('</tr>');
+
+            }
+            return table_content_array.join(" \n");
+        }
+
+	</script>
+
+	<script>
+		//这个函数用于获得已知房间号的 rtmp 地址
+		//回调函数格式为 callback(rtmp_url)
+        function get_rtmp_url(target_url,callback) {
+
+            //配置window.WebSocket对象
+            window.WebSocket = window.WebSocket || window.MozWebSocket;
+            var ws_url = target_url;
+            var rtmp_host="";
+
+            var count = 0;
+
+            //连接WebSocket并得到ws对象
+            var ws = new WebSocket(ws_url);
+
+            //设置事件的回调函数
+            //onopen:打开ws连接后
+            //onmessage：ws收到消息时
+            //onclose：ws连接关闭后
+            //onerror：ws连接发生错误时
+            ws.onopen = function() {
+                // console.log("打开ws连接");
+            };
+
+            ws.onmessage = function(e) {
+                // e.data contains received string.
+                //console.log("收到msg: " + (e.data));
+                var data_ = JSON.parse(e.data);
+                /*
+                    这个时候得到了某一条message的内容通过parse转换得到的对象
+                    里面包含了
+                        content（一个string，通过JSON.parse可以转换成对象）
+                        className，：一个string，表示本次操作的类型（可能是本来用于作为消息的样式类名？）
+                        cmd：命令的代码，含有rtmp信息的代码为159213，含有sid的代码为19213
+                */
+                var content_ = JSON.parse(data_["content"]);
+                //159213中有rtmp地址 格式为rtmp://xxxxxxx.xxxx
+                if(data_["cmd"] === 159213){
+                    // console.log('rtmp:',content_["rtmp"]);
+                    rtmp_host = content_["rtmp"];
+                }
+                //19213中有推流码 格式为lexxxxxx
+                if(data_["cmd"] === 19213){
+                    // console.log('sid:',content_["sid"]);
+                    ws.close();
+					var hls_url = "http://xyzaaa1988pullrtmp.yjyc-ask.com/live/" + content_["sid"] + "_aac/playlist.m3u8";
+                    if(callback)
+                        //callback(rtmp_host+'/'+content_["sid"]);
+						callback(hls_url);
+                    return;
+                }
+                if(count > 0){
+                    ws.close();
+                    alert("获取"+target_url+"的rtmp地址失败");
+				}
+				count++;
+            };
+
+            ws.onclose = function() {
+                //console.log("关闭ws连接");
+            };
+
+            ws.onerror = function(e) {
+                //alert("WebSocket连接发生错误，请按F12查看控制台");
+                console.log("ws连接发生错误");
+                console.log(e)
+            };
+        }
+
+        //封装了一下，只需要传入roomID，回调函数事先写好
+        function get_rtmp_byRoomID(target_roomID) {
+            // var target_roomID = document.getElementById("target_roomID").value;
+            var base_url = 'wss://szsjh5.com/bar_chat/-1_';
+			document.getElementById("current_room").innerHTML = target_roomID;
+            get_rtmp_url(base_url+target_roomID,play_live)
+        }
+
+        //这个是在获得rtmp地址后的回调函数
+		//吧iframe的url替换成播放的url
+        function play_live(rtmp_url) {
+            // console.log(rtmp_url);
+            //document.getElementById("live_area").innerHTML = "对应的rtmp地址为:\n\t"+rtmp_url+"\n";
+			//var play_rtmp_url="http://193.112.1.213:8080/learnjquery/dd/dd.html?roomid=";
+			var play_rtmp_url="http://193.112.1.213:8080/learnjquery/dd/123.html?rtmp_url=";
+			//var play_rtmp_url="123.html?rtmp_url=";
+			var play_hls_url = "http://xyzaaa1988pullrtmp.yjyc-ask.com/live/"+rtmp_url+"_aac/playlist.m3u8";
+			console.log(play_rtmp_url);
+			console.log(play_hls_url);
+			document.getElementById("live_area").innerHTML =(
+				'地址:<a href="'+play_rtmp_url+rtmp_url+'" target="view_window" >链接<a/>'
+			);
+            //var play_rtmp_url="http://193.112.1.213:8080/learnjquery/dd/dd.html?rtmp_url=";
+            console.log(play_rtmp_url+rtmp_url);
+            //http://193.112.1.213:8080/learnjquery/dd/dd.html?roomid=rtmp://xyzaaa1988pullrtmp.yjyc-ask.com/live/le311515312673952563997
+            change_iframe(play_rtmp_url+rtmp_url);
+        }
+
+	</script>
+
+	<script>
+		function change_iframe(url) {
+            var myIframe = $("#myIframe");
+            myIframe.attr("src",url);
+        }
+	</script>
+
+	<style>
+		#szyr_table{
+			/*collapse: collapse;*/
+			border-collapse: collapse;
+			float:left;
+		}
+		#szyr_table td,#szyr_table th{
+			padding-left: 10px;
+			padding-right: 10px;
+		}
+		/*donate不为0的房间标黄*/
+		tr.isShowing{
+			background-color: yellow;
+		}
+		#myIframe{
+			position:absolute;
+		}
+	</style>
+</head>
+<body>
+
+<div id="output_area"></div>
+<table border="1" id="szyr_table">
+	<tr>
+		<th>rid</th><th>status</th><th>donate</th><th>live_time</th>
+	</tr>
+</table>
+
+<div style="display:none">当前播放的是:<span id="current_room">无</span>&nbsp;&nbsp;&nbsp;<span id="live_area"></span></div>
+<div>
+	<iframe id="myIframe" width="750px" height="550px" src="http://193.112.1.213:8080/learnjquery/dd/dd.html"></iframe>
+</div>
+<script src="https://szroot.youxuanmeijia.cn/video_rest/index/anchor"></script>
+</body>
+</html>
