@@ -6,22 +6,28 @@
 
 from urllib import request
 from bs4 import BeautifulSoup
+import re
 
 
-def get_comics_list():
-    download_url = 'http://m.bzku520.com/shaonvmanhua/'
-    # head = {}
-    # head['User-Agent'] = 'Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166  Safari/535.19'
+#为图片的alt属性添加右引号，原html中没有闭合影响解析
+def add_quotation(str):
+    reg1 = r'(?<=alt=")([^/>]*)\s*(?=\/>)'
+    return re.sub(reg1,r'\1" ',str).replace('""','"')
+
+#获得列表
+def get_comics_list(download_url):
     download_req = request.Request(url=download_url)
     download_response = request.urlopen(download_req)
     download_response_data = download_response.read()
-    # download_html = download_response_data.replace(b'\r\n',b'\r').replace(b'\r',b'\r\n').decode('gbk', 'ignore')
     download_html = download_response_data.decode('gbk', 'ignore')
-    # print(download_html)
+    download_html = add_quotation(download_html)
     soup_texts = BeautifulSoup(download_html, 'lxml')
-    texts = soup_texts.find_all('img')
+    texts = soup_texts.find_all('ul',class_='pList')
     soup_text = BeautifulSoup(str(texts), 'lxml')
-    print(texts)
+    aa = soup_text.ul.children
+    for child in aa:
+        print(child)
+
     # 将\xa0无法解码的字符删除(这个其实就是网页中的&nbsp;)
     # print(download_response_data.replace(b'\r',b'').decode('gbk', 'ignore'))
     # print(texts)
@@ -29,7 +35,8 @@ def get_comics_list():
 
 
 def main():
-    get_comics_list()
+    download_url = 'http://m.bzku520.com/shaonvmanhua/'
+    get_comics_list(download_url)
 
 
 if __name__ == '__main__':
