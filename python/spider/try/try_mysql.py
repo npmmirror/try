@@ -12,7 +12,8 @@ def main():
     # db = pymysql.connect(host="193.112.1.213", user="hzh", password="1q2w3e4r5t", database="comics_site")
 
     # 使用cursor()方法获取操作游标
-    cursor = db.cursor()
+    cursor = db.cursor() \
+    .__init__()
 
     # SQL 插入语句
     sql = """INSERT INTO comics_list

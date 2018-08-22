@@ -17,7 +17,7 @@ class ComicItem:
     """漫画对象，代表一条漫画"""
     counter = 0
 
-    def __init__(self, target_url, name, img_url):
+    def __init__(self, target_url: object, name: object, img_url: object) -> object:
         self.target_url = target_url
         self.name = name
         self.img_url = img_url
