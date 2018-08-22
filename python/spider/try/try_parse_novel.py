@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 # Author: HZH create at 2018/8/20 17:59 
-# Description: The main function.
-
+# Description: 根据网上教程解析html
 
 from urllib import request
 from bs4 import BeautifulSoup
