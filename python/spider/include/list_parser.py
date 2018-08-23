@@ -18,7 +18,7 @@ class ComicItem:
     #  'xxx/xxx%s.jpg', '1', 'path:xxx/xxx','format:xxx/xxx%03d.jpg', '0', '1',
     # '1', '1', '0000', CURRENT_TIMESTAMP, '0000', CURRENT_TIMESTAMP);
 
-    def __init__(self, name, origin_path, img_url_format, cover_url=1, origin_host=1,):
+    def __init__(self, name, origin_path, img_url_format, cover_url=1, origin_host=1, ):
         self.comic_type_id = 1
         self.name = name
         self.origin_host = origin_host
@@ -28,14 +28,14 @@ class ComicItem:
         self.img_url_type = 1
         self.store_path = 1
         self.store_url_format = 1
-        self.stick = 1
-        self.priority = 1
-        self.state = 1
-        self.valid = 1
-        self.createId = 1
-        self.createDate = 1
-        self.modifyId = 1
-        self.modifyDate = 1
+        self.stick = 0  # 非置顶
+        self.priority = 1  # 默认优先级为1
+        self.state = 1  # 默认可用
+        self.valid = 1  # 默认可用
+        self.createId = 1  # 默认用户为1
+        self.createDate = 1  # 默认日期为现在
+        self.modifyId = 1  # 默认用户为1
+        self.modifyDate = 1  # 默认日期为现在
 
     def __str__(self):
         return "{}\t\t{}\t\t{}".format(self.name, self.origin_path, self.img_url_format)
@@ -50,47 +50,53 @@ class ComicItem:
               (comic_type_id,name,origin_host,origin_path,cover_url,img_url_format,img_url_type,store_path,store_url_format,stick,priority,state,valid,createId,createDate,modifyId,modifyDate)
               VALUES
               ('%s','%s','%s','%s','%s','%s','%s','%s','%s','0','1','1','1','0000',CURRENT_TIMESTAMP,'0000',CURRENT_TIMESTAMP);""" \
-        % (self.comic_type_id, self.origin_host, self.origin_path, self.cover_url, self.img_url_format, self.img_url_type, self.store_path, self.store_url_format)
-
+              % (self.comic_type_id, self.name, self.origin_host, self.origin_path, self.cover_url, self.img_url_format,
+                 self.img_url_type, self.store_path, self.store_url_format)
+        return sql
 
 
 class ComicItemConstructor:
-    def __init__(self):
+    def __init__(self, comics_iste):
         self.a = 1
 
-    def constructComicItem(self):
+    def construct_comic_item(self):
         return
 
 
 class ComicsSite:
     """网站对象"""
-    def __init__(self,list_url):
+
+    def __init__(self, list_url):
         self.list_url = list_url
-        self.comics_list = ListParser.get_comics_list(list_url)
+        self.origin_host = 1
+
+    def get_comics_list(self):
+        ListParser(self)
+        return ListParser.get_comics_list(self.list_url)
 
 
 class ListParser:
     """解析类"""
 
-    def __init__(self):
-        self.list_url = 1 # 存放当前页面的链接
-        self.comic_type_id = 1
-        self.name = 1
-        self.origin_host = 1
-        self.origin_path = 1
-        self.cover_url = 1
-        self.img_url_format = 1
-        self.img_url_type = 1
-        self.store_path = 1
-        self.store_url_format = 1
-        self.stick = 1
-        self.priority = 1
-        self.state = 1
-        self.valid = 1
-        self.createId = 1
-        self.createDate = 1
-        self.modifyId = 1
-        self.modifyDate = 1
+    def __init__(self, comics_site):
+        self.list_url = 1  # 存放当前页面的链接
+        # self.comic_type_id = 1
+        # self.name = 1
+        # self.origin_host = 1
+        # self.origin_path = 1
+        # self.cover_url = 1
+        # self.img_url_format = 1
+        # self.img_url_type = 1
+        # self.store_path = 1
+        # self.store_url_format = 1
+        # self.stick = 1
+        # self.priority = 1
+        # self.state = 1
+        # self.valid = 1
+        # self.createId = 1
+        # self.createDate = 1
+        # self.modifyId = 1
+        # self.modifyDate = 1
 
     # 为图片的alt属性添加右引号，替换双引号为单引号（网站的html源码写错了）
     @staticmethod
@@ -120,21 +126,33 @@ class ListParser:
 
 def main():
     download_url = [
-        'http://m.bzku520.com/shaonvmanhua/',
-        'http://m.lifanbzk.la/shaonvmanhua/',
-        "http://m.benzi8.cc/shaonv/",
-        "http://m.kmhua.net/shaonvmanhua/",
-        ]
-    comics_site = ComicsSite(download_url[0])
-    for item in comics_site.comics_list:
-        print(item)
+        {
+            "host": 'http://m.bzku520.com/',
+            "path": 'shaonvmanhua/'
+        },
+        {
+            "host": 'http://m.lifanbzk.la/',
+            "path": 'shaonvmanhua/'
+        },
+        {
+            "host": 'http://m.benzi8.cc/',
+            "path": 'shaonv/'
+        },
+        {
+            "host": 'http://m.kmhua.net/',
+            "path": 'shaonvmanhua/'
+        },
+    ]
+    comics_site = ComicsSite(download_url[0]["host"] + download_url[0]["path"])
+    for item in comics_site.get_comics_list():
+        print(item.get_sql())
 
 
 if __name__ == '__main__':
     main()
-    sql = """INSERT INTO comics_list
-                  (comic_type_id,name,origin_host,origin_path,cover_url,img_url_format,img_url_type,store_path,store_url_format,stick,priority,state,valid,createId,createDate,modifyId,modifyDate)
-                  VALUES
-                  ('%s','%s','http://xxx.xxx/','xxx/xxx.html','xxx/xxx.jpg','xxx/xxx%%s.jpg','1','path:xxx/xxx','format:xxx/xxx%%03d.jpg','0','1','1','1','0000',CURRENT_TIMESTAMP,'0000',CURRENT_TIMESTAMP);""" \
-          % ("h", "h")
-    print(sql)
+    # sql = """INSERT INTO comics_list
+    #               (comic_type_id,name,origin_host,origin_path,cover_url,img_url_format,img_url_type,store_path,store_url_format,stick,priority,state,valid,createId,createDate,modifyId,modifyDate)
+    #               VALUES
+    #               ('%s','%s','http://xxx.xxx/','xxx/xxx.html','xxx/xxx.jpg','xxx/xxx%%s.jpg','1','path:xxx/xxx','format:xxx/xxx%%03d.jpg','0','1','1','1','0000',CURRENT_TIMESTAMP,'0000',CURRENT_TIMESTAMP);""" \
+    #       % ("h", "h")
+    # print(sql)
