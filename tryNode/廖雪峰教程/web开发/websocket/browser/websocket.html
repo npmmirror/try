@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+
+</head>
+<body>
+<div id="user-list">
+    <div class="media" v-for="user in users">
+        <div class="media-left">
+            <img class="media-object" src="/static/user.png">
+            <div id="message-list">
+                <p v-for="item in messages">
+                    {{item}}
+                </p>
+            </div>
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading" v-text="user.name"></h4>
+
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var vmMessageList = new Vue({
+        el: '#message-list',
+        data: {
+            messages: []
+        }
+    });
+
+    var vmUserList = new Vue({
+        el: '#user-list',
+        data: {
+            users: []
+        }
+    });
+
+    var ws = new WebSocket('ws://localhost:3000/ws/chat');
+
+    ws.onmessage = function(event) {
+        var data = event.data;
+        console.log(data);
+        var msg = JSON.parse(data);
+        if (msg.type === 'list') {
+            vmUserList.users = msg.data;
+        } else if (msg.type === 'join') {
+            addToUserList(vmUserList.users, msg.user);
+            addMessage(vmMessageList.messages, msg);
+        } else if (msg.type === 'left') {
+            removeFromUserList(vmUserList.users, msg.user);
+            addMessage(vmMessageList.messages, msg);
+        } else if (msg.type === 'chat') {
+            addMessage(vmMessageList.messages, msg);
+        }
+    };
+</script>
+</html>

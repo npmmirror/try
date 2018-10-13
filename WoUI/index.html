@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>first</title>
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <!--<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>-->
+    <link rel="stylesheet/less" type="text/css" href="index.less" />
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.8.1/less.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+
+    <script src="include/layui/layui.all.js" ></script>
+    <link href="include/layui/layui.css" rel="stylesheet" type="text/css" />
+    <link href="index.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div
+    style="display:none"
+>
+    <div id="app">
+        <form id="myForm" action="a" method="post" onsubmit="return false;" prevent="false" @submit="checkForm">
+            <fieldset>
+                <legend>你好</legend>
+            </fieldset>
+            <div class="wo-item-wrapper">
+                <label class="wo-label" for="name">name</label><input id="name" type="text">
+            </div>
+            <div class="wo-item-wrapper">
+                <label class="wo-label" for="mobile">mobile</label><input id="mobile" type="number">
+            </div>
+            <div class="wo-item-wrapper">
+                <label class="wo-label" for="radio1">radio1</label><input name="radio" id="radio1" type="radio">
+                <label class="wo-label" for="radio2">radio2</label><input name="radio" id="radio2" type="radio">
+                <label class="wo-label" for="radio3">radio3</label><input name="radio" id="radio3" type="radio">
+            </div>
+            <div class="wo-item-wrapper">
+                <label class="wo-label" for="check1">label</label><input id="check1" type="checkbox">
+                <label class="wo-label" for="check2">label</label><input id="check2" type="checkbox">
+                <label class="wo-label" for="check3">label</label><input id="check3" type="checkbox">
+            </div>
+            <div class="wo-item-wrapper">
+                <label class="wo-label" for="date">label</label><input id="date" type="date">
+            </div>
+            <div class="clear">
+                <input type="submit">
+            </div>
+            <p>{{message}}</p>
+        </form>
+    </div>
+    <div class="wo-msg-list">
+        <ul>
+            <li><div class="wo-msg-item">1</div></li>
+            <li><div class="wo-msg-item">2</div></li>
+            <li><div class="wo-msg-item">3</div></li>
+            <li><div class="wo-msg-item">4</div></li>
+        </ul>
+    </div>
+
+    <div id="components-demo">
+        <fieldset>
+            <legend class="legend">你好</legend>
+        </fieldset>
+        <button-counter v-for="item in component_array"></button-counter>
+        <text v-for="item in component_array">{{item}}</text>
+        <br/>
+        <button @click="add">增加输入框</button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="dl_app"  style="margin: 300px  0 0 300px;width:150px;" >
+        <div class=" layui-form-select wo-form-select" >
+            <input class="layui-input-inline" type="text" :value="select_sum" @focus="show_dl" @blur="hide_dl"  placeholder="请选择商品分类"/>
+            <input class="layui-hide" type="text" :value="firstLevelCategory" readonly="readonly"   placeholder="一级分类（隐藏）"/>
+            <input class="layui-hide" type="text" :value="secondLevelCategory" readonly="readonly"   placeholder="二级分类（隐藏）"/>
+            <input class="layui-hide" type="text" :value="thirdLevelCategory" readonly="readonly"  placeholder="三级分类（隐藏）"/>
+            <i class="layui-edge"></i>
+        </div>
+        <div class="wo-dl-wrapper"
+             @mouseover="mouseenter_dl"
+             @mouseleave="mouseleave_dl"
+             @blur="hide_dl"
+             @focus="print('focus')"
+             :tabindex="0"
+        >
+            <!--这个tabindex属性是为了让div能够获得焦点-->
+            <dl class="wo-dl" v-show="seen">
+                <dt
+                        v-for="(item,index) in selected_list"
+                        :wo-index="index"
+                        class="wo-select-dd"
+                        @mousedown="selected_back"
+                        :style="{marginLeft:20*(index)+'px'}">
+                    {{item.name}}
+                </dt>
+                <dd
+                        v-for="(item,index) in dd_list"
+                        :wo-index="index"
+                        @mousedown="selected_dd"
+                        :style="{marginLeft:20*(selected_list.length)+'px'}"
+                >
+                    {{item.name}}
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div id="dl_app2">
+
+    </div>
+
+
+
+</body>
+</html>
+
+<script src="index.js"></script>

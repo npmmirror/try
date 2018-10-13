@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="zh-cn">
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+    <title >模板管理</title>
+
+    <link rel="stylesheet" type="text/css" href="/src/css/themes/default.css"/>
+    <!-- iview样式 -->
+    <link rel="stylesheet" type="text/css" href="/plugins/iview/css/iview.css"/>
+    <!--@import url("//unpkg.com/iview/dist/styles/iview.css");-->
+    <!--<link rel="stylesheet" type="text/css" href="//unpkg.com/iview/dist/styles/iview.css"/>-->
+    <!-- 引入layui样式 -->
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/plugins/popover/popover.css">
+    <!--   <script src="//unpkg.com/vue/dist/vue.js"></script>
+       <script src="//unpkg.com/iview/dist/iview.min.js"></script>-->
+    <!-- 引入vue -->
+    <script type="text/javascript" src="/plugins/vue/vue.min.js"></script>
+    <!-- iview js -->
+    <script type="text/javascript" src="/plugins/iview/js/iview.js"></script>
+    <script src="/properties/config.js"></script>
+    <!--引入layui.js-->
+    <script src="/plugins/layui/layui.js"></script>
+    <!--引入axios.js 用于ajax调用-->
+    <script src="/plugins/axios/axios.min.js"></script>
+    <script type="text/javascript" src="/plugins/jquery-1.9.1.min.js"></script>
+    <script src="/build/js/appToken.js"></script>
+    <script src="/plugins/popover/popover.js"></script>
+</head>
+<body>
+<!--隐藏元素-->
+<!--<p id="staffType"  th:attr="value=${staffType}"  hidden />-->
+<!--使用v-cloak技术，在vue渲染完毕前隐藏页面，渲染完成后显示-->
+<div id="app" v-cloak>
+
+    <!-- 搜索工具框 开始-->
+    <row style="padding: 10px">
+        <i-col span="24">
+            <Card>
+                <p slot="title">
+                    <Icon type="ios-search"></Icon>
+                    搜索条件
+                </p>
+                 <!--右上侧按钮列表-->
+                <i-button  slot="extra" type="info" :loading="loading" icon="ios-search" @click="toLoading" style="margin-right:10px">
+                    <span v-if="!loading">查询</span>
+                    <span v-else>查询中...</span>
+                </i-button>
+                <!--  <i-button  slot="extra" type="info"  @click="newSalaryTemplate" style="margin-right:10px">
+                    <span>新建模板</span>
+                </i-button> -->
+
+                 <!--查询表单内容-->
+                  <row :gutter="16">
+	                 <i-form ref="searchForm"  :model="searchForm"   label-position="right" :label-width="100">
+	                     <i-col span="6">
+	                         <form-item label="关键字：" prop="keyworld">
+	                             <i-input v-model="searchForm.keyworld" placeholder="模板编码/名称" ></i-input>
+	                         </form-item>
+	                     </i-col>
+	                 </i-form>
+                 </row>
+            </Card>
+        </i-col>
+    </row>
+
+    <!-- 搜索工具框 结束-->
+    <!-- 表单Grid，使用layerUI的表格组件 开始 -->
+    <row style="padding: 10px">
+        <i-col span="24">
+            <!-- 使用方法渲染模式 -->
+            <table id="listTable" lay-filter="listTable" class="layui-hide"> </table>
+            <script type="text/html" id="barTools">
+                <a class="layui-btn layui-btn-normal layui-btn-xs " lay-event="edit" >编辑模板</a>
+                <a class="layui-btn layui-btn-normal layui-btn-xs " lay-event="downLoad" >下载模板</a>
+            </script>
+
+        </i-col>
+    </row>
+    <!-- 表单Grid，使用layerUI的表格组件 结束 -->
+    <!--导出Excel隐藏表单-->
+    <iframe id="frame" name="iframe" style="display:none;"></iframe>
+    <!--导出Excel隐藏表单-->
+</div>
+
+<script type="text/html" id="templateTypeTpl">
+  {{# console.log(d) }}
+
+  {{#  if(d.templateType == 1){ }}
+    	考勤模板
+  {{#  } else if(d.templateType == 2){ }}
+ 		  工资模板
+  {{#  } else { }}
+		基础模板
+  {{# } }}
+</script>
+
+<script src="/src/js/comm.js" ></script>
+<script>
+
+/*
+* 贷后管理首页 台账 js
+*
+* */
+var layer;
+var table;
+var basePath;
+var vm;
+var tableColum;
+window.layinit(function (htConfig) {
+    var _htConfig = htConfig;
+    basePath = _htConfig.coreBasePath;
+    uiBasePath = _htConfig.uiBasePath;
+    vm = new Vue({
+        el: '#app',
+        data: {
+            editSalary:false,
+            loading: false,
+            exporting: false,//导出标志位
+            searchForm: {
+                keyworld: ''  //关键字
+            },
+            deleteForm: {
+                tableName:'',
+                params:[]
+            },
+        },
+
+        methods: {
+            //重载表格
+            toLoading: function () {
+                if (table == null) {
+                    return;
+                }
+                var self = this;
+                self.loading = true;
+                table.reload('listTable', {
+                    where: {
+                        keyworld: self.searchForm.keyworld  //关键字
+                    }
+                    , page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                });
+            },
+            ////  ----   单行操作界面显示  结束 -----------------
+            init: function () {
+                var self = this;
+                //使用layerUI的表格组件
+                layui.use(['layer', 'table', 'ht_ajax', 'ht_auth', 'ht_config'], function () {
+                    layer = layui.layer;
+                    table = layui.table;
+                    //执行渲染
+                    table.render({
+                        elem: '#listTable' //指定原始表格元素选择器（推荐id选择器）
+                        , id: 'listTable'
+
+                        , cols: [[
+                            {
+                                field: 'templateCode',
+                                title: '模板编号'
+                            }, {
+                                field: 'templateName',
+                                title: '模板名称'
+                            },
+                            {
+                                field: 'templateDesc',
+                                title: '模板描述'
+                            },
+                            {
+                                field: 'templateType'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ,
+                                title: '模板类型',
+                                templet: '#templateTypeTpl'
+                            },
+                            {
+                                    fixed: 'right',
+                                    title: '操作',
+                                    width: 178,
+                                    align: 'left',
+                                    toolbar: '#barTools'
+                                }
+                        ]], //设置表头
+                        url: basePath + 'salaryTemplate/getTemplateList',
+                        page: true,
+                        done: function (res, curr, count) {
+                            //数据渲染完的回调。你可以借此做一些其它的操作
+                            //如果是异步请求数据方式，res即为你接口返回的信息。
+                            //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                            self.loading = false;
+                        }
+                    });
+                    table.on('tool(listTable)', function (obj) {
+                        var selectedRowInfo = obj.data;
+                        if(obj.event === 'edit'){
+                        	 title ="编辑模板";
+                             var url = '/salaryTemplate/templateDetail?templateCode='+selectedRowInfo.templateCode;
+	                         layer.open({
+	                             type: 2,
+	                             title: title,
+	                             maxmin: true,
+	                             area: ['80%', '80%'],
+	                             content:url,
+	                             end: function () {
+	                            	 self.toLoadingTime();
+	                            }
+	                         });
+                        }else if(obj.event === 'downLoad'){
+							console.log("选择的行数据：", selectedRowInfo) ;
+							var url = basePath + 'salaryTemplate/downloadTemplate?templateCode='+selectedRowInfo.templateCode+'&templateName='+selectedRowInfo.templateName;
+							window.open(url);
+                        }
+                    });
+                })
+            },
+
+
+            //新建模板
+            newSalaryTemplate:function () {
+            	 var self = this;
+            	 title ="编辑模板";
+                 var url = '/salaryTemplate/templateDetail?templateCode';
+                 layer.open({
+                     type: 2,
+                     title: title,
+                     maxmin: true,
+                     area: ['1250px', '800px'],
+                     content:url,
+                     end: function () {
+                    	 self.toLoadingTime();
+                    }
+                 });
+            },
+
+            // 修改模板
+            updateTemplate:function(obj){
+
+            },
+
+            // 刷新
+            toLoadingTime: function () {
+                if (table == null) {
+                    return;
+                }
+                var self = this;
+                self.loading = true;
+                table.reload('listTable');
+            },
+        },
+        mounted:function(){
+            this.init();
+        }
+    });
+});
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

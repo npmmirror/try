@@ -1,0 +1,120 @@
+body{
+  --theme_color: blue;
+}
+
+@theme_color: #ff9c00;
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+
+/* 去掉数字框的上下箭头 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type="number"]{
+  -moz-appearance: textfield;
+}
+
+fieldset{
+  border:0;
+  border-top: 1px solid var(--theme_color);
+  legend{
+    margin-left: 20px;
+    padding: 0 10px;
+    font-size: 20px;
+    font-weight: 300;
+  }
+}
+
+
+#dl_app input{
+
+  height: 28px;
+  line-height: 28px;
+  width: 100%;
+  padding-left: 10px;
+  border: 1px solid #e6e6e6;
+  background-color: #fff;
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+
+.wo-label{
+  margin: 5px 10px;
+  display: inline-block;
+  padding: 9px;
+  height: 20px;
+  width: 100px;
+}
+
+.wo-dl-wrapper{
+  position: absolute;
+  display: block;
+  //border: 1px solid #e4e7ed;
+  margin-top: 10px;
+  min-width: 100%;
+  outline: none;
+
+  .wo-dl{
+    display: inline-block;
+    padding: 5px 0;
+    z-index: 1005;
+    min-width: 150px;
+    border: 1px solid #d2d2d2;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
+    box-sizing: border-box;
+  }
+
+  dt{
+    color: #999;
+    padding: 0 10px;
+    line-height: 36px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    &:hover{
+      background: rgba(0, 0, 0, .12);
+    }
+  }
+
+  dd{
+    cursor: pointer;
+    padding: 0 10px;
+    line-height: 36px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &:hover{
+      background: @theme_color;
+    }
+  }
+  .wo-select-dd{
+    //background: rgba(0,255,255,0.3)!important;
+  }
+}
+
+.wo-dl:last-child{
+  //background-color: rgba(0,0,0,0.1);
+}
+
+.wo-form-select input{
+}
+
+
+
+.wo-msg-list{
+  padding: 10px 10px;
+}
+
+.clear:before{content: "020"; display: block; height: 0; clear: both;visibility: hidden;}
+
+//.clear:after{content: "020"; display: block; height: 0; clear: both;visibility: hidden;}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%;width: 50%; margin: 20%;">
+       <div id="container" style="height: 50%"></div>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+
+
+
+
+
+
+option = {
+                    backgroundColor: 'rgba(9,50,106)',//这个背景颜色到时候要调成透明的
+    xAxis: {
+        type: 'category',
+        name:'月份',
+        nameLocation:'end',
+        nameTextStyle:{
+                color:'rgb(132,211,250)',
+                fontSize:'20'
+        },
+        boundaryGap: false,
+        data: ['6', '7', '8', '9', '10', '11','12', ],
+        
+        
+        splitLine:{
+            show:true,
+            lineStyle:{
+                color:'rgb(27,69,119)',
+                width:'2'
+            }
+        },
+        axisLine:{
+            lineStyle:{
+                color:'rgb(40,112,162)',
+                width:'5',
+            },
+        },
+        axisLabel:{
+                color:'rgb(132,211,250)',
+                fontSize:'20',
+                padding:10
+        }
+    },
+    yAxis: {
+        type: 'value',
+        name:'用户量',
+        nameLocation:'end',
+        nameTextStyle:{
+                color:'rgb(132,211,250)',
+                fontSize:'20'
+        },
+        splitLine:{
+            show:false,
+        },
+        axisLine:{
+            lineStyle:{
+                color:'rgb(40,112,162)',
+                width:'5'
+            }
+        },
+        axisLabel:{
+                color:'rgb(132,211,250)',
+                fontSize:'20',
+                padding:10
+        }
+    },
+    series: [{
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        type: 'line',
+        smooth: true,
+        lineStyle:{
+            // color:'rgb(238,90,28)',
+            width:'5',
+            color: {
+                type: 'linear',
+                x: 0.5,
+                y: 0,
+                x2: 1,
+                y2: 1,
+                colorStops: [{
+                    offset: 0, color: 'rgb(238,90,28)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(211,135,60)' // 100% 处的颜色
+                }],
+                globalCoord: false // 缺省为 false
+            }
+            
+        },
+        
+        areaStyle: {
+            color:'rgba(238,90,28,0.2)',
+            // color:'rgba(255,0,0,0.3)'
+        }
+    }]
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>

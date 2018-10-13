@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+       <style>
+           .container{
+               background: lightpink;
+           }
+       </style>
+   </head>
+   <body style="height: 100%; margin: 0">
+   <div id="pie_container" class="container" style="height: 300px;width: 300px;"></div>
+   <div id="bar_container" class="container" style="height: 300px;width: 300px;"></div>
+   <div id="line_container" class="container" style="height: 300px;width: 300px;"></div>
+   <div id="map_container" class="container" style="height: 300px;width: 300px;"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+       <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+       <script type="text/javascript">
+
+
+           // 初始化饼图
+           !function init_pie() {
+               var myChart = echarts.init(document.getElementById("pie_container"));
+               myChart.setOption({
+                   // title : {
+                   //     text: '某站点用户访问来源',
+                   //     subtext: '纯属虚构',
+                   //     x:'center'
+                   // },
+                   tooltip : {
+                       trigger: 'item',
+                       formatter: "{a} <br/>{b} : {c} ({d}%)"
+                   },
+                   // legend: {
+                   //     orient: 'vertical',
+                   //     left: 'left',
+                   //     data: ['移动端','PC端','小程序']
+                   // },
+                   series : [
+                       {
+                           name: '用户来源',
+                           type: 'pie',
+                           radius : '55%',
+                           center: ['50%', '60%'],
+                           data:[
+                               {value:135, name:'移动端'},
+                               {value:310, name:'PC端'},
+                               {value:434, name:'小程序'},
+                           ],
+                           itemStyle: {
+                               emphasis: {
+                                   shadowBlur: 10,
+                                   shadowOffsetX: 0,
+                                   shadowColor: 'rgba(0, 0, 0, 0.5)'
+                               }
+                           },
+                           label:{
+
+                           }
+                       }
+                   ],
+                   color:['rgb(255,135,64)','rgb(255,222,29)','rgb(79,197,136)']
+               },true);
+           }();
+
+
+/*
+
+           // 初始化饼图
+           !function init_pie() {
+               var myChart = echarts.init(document.getElementById("container"));
+               myChart.setOption({
+                   // title : {
+                   //     text: '某站点用户访问来源',
+                   //     subtext: '纯属虚构',
+                   //     x:'center'
+                   // },
+                   tooltip : {
+                       trigger: 'item',
+                       formatter: "{a} <br/>{b} : {c} ({d}%)"
+                   },
+                   // legend: {
+                   //     orient: 'vertical',
+                   //     left: 'left',
+                   //     data: ['移动端','PC端','小程序']
+                   // },
+                   series : [
+                       {
+                           name: '用户来源',
+                           type: 'pie',
+                           radius : '55%',
+                           center: ['50%', '60%'],
+                           data:[
+                               {value:135, name:'移动端'},
+                               {value:310, name:'PC端'},
+                               {value:434, name:'小程序'},
+                           ],
+                           itemStyle: {
+                               emphasis: {
+                                   shadowBlur: 10,
+                                   shadowOffsetX: 0,
+                                   shadowColor: 'rgba(0, 0, 0, 0.5)'
+                               }
+                           },
+                           label:{
+
+                           }
+                       }
+                   ],
+                   color:['rgb(255,135,64)','rgb(255,222,29)','rgb(79,197,136)']
+               },true);
+           }();
+
+
+
+
+           // 初始化饼图
+           !function init_pie() {
+               var myChart = echarts.init(document.getElementById("container"));
+               myChart.setOption({
+                   // title : {
+                   //     text: '某站点用户访问来源',
+                   //     subtext: '纯属虚构',
+                   //     x:'center'
+                   // },
+                   tooltip : {
+                       trigger: 'item',
+                       formatter: "{a} <br/>{b} : {c} ({d}%)"
+                   },
+                   // legend: {
+                   //     orient: 'vertical',
+                   //     left: 'left',
+                   //     data: ['移动端','PC端','小程序']
+                   // },
+                   series : [
+                       {
+                           name: '用户来源',
+                           type: 'pie',
+                           radius : '55%',
+                           center: ['50%', '60%'],
+                           data:[
+                               {value:135, name:'移动端'},
+                               {value:310, name:'PC端'},
+                               {value:434, name:'小程序'},
+                           ],
+                           itemStyle: {
+                               emphasis: {
+                                   shadowBlur: 10,
+                                   shadowOffsetX: 0,
+                                   shadowColor: 'rgba(0, 0, 0, 0.5)'
+                               }
+                           },
+                           label:{
+
+                           }
+                       }
+                   ],
+                   color:['rgb(255,135,64)','rgb(255,222,29)','rgb(79,197,136)']
+               },true);
+           }();
+
+
+
+
+           // 初始化饼图
+           !function init_pie() {
+               var myChart = echarts.init(document.getElementById("container"));
+               myChart.setOption({
+                   // title : {
+                   //     text: '某站点用户访问来源',
+                   //     subtext: '纯属虚构',
+                   //     x:'center'
+                   // },
+                   tooltip : {
+                       trigger: 'item',
+                       formatter: "{a} <br/>{b} : {c} ({d}%)"
+                   },
+                   // legend: {
+                   //     orient: 'vertical',
+                   //     left: 'left',
+                   //     data: ['移动端','PC端','小程序']
+                   // },
+                   series : [
+                       {
+                           name: '用户来源',
+                           type: 'pie',
+                           radius : '55%',
+                           center: ['50%', '60%'],
+                           data:[
+                               {value:135, name:'移动端'},
+                               {value:310, name:'PC端'},
+                               {value:434, name:'小程序'},
+                           ],
+                           itemStyle: {
+                               emphasis: {
+                                   shadowBlur: 10,
+                                   shadowOffsetX: 0,
+                                   shadowColor: 'rgba(0, 0, 0, 0.5)'
+                               }
+                           },
+                           label:{
+
+                           }
+                       }
+                   ],
+                   color:['rgb(255,135,64)','rgb(255,222,29)','rgb(79,197,136)']
+               },true);
+           }();
+*/
+
+       </script>
+   </body>
+</html>

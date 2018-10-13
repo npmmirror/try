@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+option = {
+                    backgroundColor: 'rgba(9,50,106)',//这个背景颜色到时候要调成透明的
+    title : {
+        text: '月入驻用户',
+        textStyle:{
+            color:'#fff',
+            fontSize:'30',
+        },
+        top:'5%',
+        left:'8%'
+        
+            // padding:'20%'
+        // subtext: '纯属虚构'
+        
+        // textStyle{
+        //     color:'#fff',
+        //     fontSize:'18',
+        // },
+        // fontStyle:{
+        //     color:'#fff',
+        //     fontSize:'18'
+            
+        // }
+    },
+    grid:{
+        top:'20%'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        right: '5%',
+        data:['采购商','供应商'],
+        textStyle:{
+            color:'#fff',
+            fontSize:'18'
+        },
+        top:'2%',
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+            
+            
+            
+            name:'月份',
+            nameLocation:'end',
+            nameTextStyle:{
+                    color:'rgb(132,211,250)',
+                    fontSize:'20'
+            },
+            axisLine:{
+                lineStyle:{
+                    color:'rgb(40,112,162)',
+                    width:'5',
+                },
+            },
+            axisLabel:{
+                    color:'rgb(132,211,250)',
+                    fontSize:'20',
+                    padding:10
+            }
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            
+            
+            name:'用户量',
+            nameLocation:'end',
+            nameTextStyle:{
+                    color:'rgb(132,211,250)',
+                    fontSize:'20'
+            },
+            splitLine:{
+                show:false,
+            },
+            axisLine:{
+                lineStyle:{
+                    color:'rgb(40,112,162)',
+                    width:'5'
+                }
+            },
+            axisLabel:{
+                    color:'rgb(132,211,250)',
+                    fontSize:'20',
+                    padding:10
+            }
+        }
+    ],
+    series : [
+        {
+            name:'采购商',
+            type:'bar',
+            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+            // markPoint : {
+            //     data : [
+            //         {type : 'max', name: '最大值'},
+            //         {type : 'min', name: '最小值'}
+            //     ]
+            // },
+            // markLine : {
+            //     data : [
+            //         {type : 'average', name: '平均值'}
+            //     ]
+            // }
+            barGap: 0,
+        },
+        {   
+            name:'供应商',
+            type:'bar',
+            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+            // markPoint : {
+            //     data : [
+            //         {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183},
+            //         {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
+            //     ]
+            // },
+            // markLine : {
+            //     data : [
+            //         {type : 'average', name : '平均值'}
+            //     ]
+            // }
+        }
+    ],
+    color:['rgb(52,253,198)','rgb(236,161,42)']
+};;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>
