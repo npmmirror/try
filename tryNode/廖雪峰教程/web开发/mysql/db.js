@@ -24,6 +24,7 @@ function generateId() {
 function defineModel(name, attributes) {
     var attrs = {};
     for (let key in attributes) {
+        if(!attributes.hasOwnProperty(key)) continue;
         let value = attributes[key];
         if (typeof value === 'object' && value['type']) {
             value.allowNull = value.allowNull || false;
