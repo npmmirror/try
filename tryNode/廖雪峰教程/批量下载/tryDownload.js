@@ -75,24 +75,24 @@ function DownloadTask({urlFormat, pageNumber, destination, onRun, onFinish}) {
     };
 }
 
-// function testFunc() {
-//     const urlfmt = 'http://huangzihao.gz01.bdysite.com/test_img/img1%s.jpg';
-//     const pageSize = 4;
-//     const storePath = 'tmp/001';
-// // downloadImages(urlfmt, pageSize, storePath);
-//
-//     let newTask = new DownloadTask({
-//         urlFormat: urlfmt,
-//         pageNumber: pageSize,
-//         destination: storePath,
-//         onRun: status => {
-//             console.log(JSON.stringify(status));
-//         },
-//         onFinish: res => {
-//             console.log(JSON.stringify(res))
-//         }
-//     }).start();
-// };
+function testFunc() {
+    const urlfmt = 'http://huangzihao.gz01.bdysite.com/test_img/img1%s.jpg';
+    const pageSize = 4;
+    const storePath = 'tmp/001/';
+// downloadImages(urlfmt, pageSize, storePath);
+
+    let newTask = new DownloadTask({
+        urlFormat: urlfmt,
+        pageNumber: pageSize,
+        destination: storePath,
+        onRun: status => {
+            console.log(JSON.stringify(status));
+        },
+        onFinish: res => {
+            console.log(JSON.stringify(res))
+        }
+    }).start();
+};
 
 // testFunc();
 module.exports = {DownloadTask};

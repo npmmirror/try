@@ -2,6 +2,7 @@
 const {DownloadTask} = require('./tryDownload');
 const {comicToMarkDown} = require('./tryMarkdown');
 const {getSomeComic, updateComicById} = require('./tryMysql');
+const {getTimes, storeMarkdownAndHtml} = require('./util');
 
 async function storeComic({urlFormat, pageSize, storePath, comic_name}) {
     return new Promise((resolve, reject) => {
@@ -40,14 +41,21 @@ async function start() {
     // console.log(comics);
     for (let comicItem of comics) {
         console.log(comicItem);
-        await storeComic({
+        let storePath = `comics/${getTimes()}/`;
+        let {markdown, html} = await storeComic({
             urlFormat: comicItem.img_url_format,
             pageSize: comicItem.page_number,
-            storePath: `comics/${Date.now()}`,
+            storePath,
             comic_name: comicItem.name,
-        }).then(() => {
-            console.log(`FINISH: ${comicItem.name}`)
-        })
+        });
+        await storeMarkdownAndHtml({markdown, html, storePath});
+        console.log(`FINISH: ${comicItem.name}`);
+        let affect = await updateComicById({
+            comic_id: comicItem.comic_id,
+            store_url_format: `${storePath}/img%s.jpg`,
+            store_path: storePath
+        });
+        console.log('SQL affect:', affect);
     }
     return 0;
 }
