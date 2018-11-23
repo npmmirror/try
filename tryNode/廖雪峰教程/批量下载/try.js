@@ -4,7 +4,7 @@ const {comicToMarkDown} = require('./tryMarkdown');
 const {getSomeComic, updateComicById} = require('./tryMysql');
 const {getTimes, storeMarkdownAndHtml} = require('./util');
 
-async function storeComic({urlFormat, pageSize, storePath, comic_name}) {
+async function storeComic({origin, urlFormat, pageSize, storePath, comic_name}) {
     return new Promise((resolve, reject) => {
         // const urlFormat = 'http://huangzihao.gz01.bdysite.com/test_img/img1%s.jpg';
         // const pageSize = 3;
@@ -22,6 +22,7 @@ async function storeComic({urlFormat, pageSize, storePath, comic_name}) {
             }
         }).start().then((res) => {
             let {markdown, html} = comicToMarkDown({
+                origin,
                 imgArray: res.imgArray,
                 name: comic_name,
                 cover: res.cover,
@@ -43,6 +44,7 @@ async function start() {
         console.log(comicItem);
         let storePath = `comics/${getTimes()}/`;
         let {markdown, html} = await storeComic({
+            origin: comicItem.origin_host + comicItem.origin_path,
             urlFormat: comicItem.img_url_format,
             pageSize: comicItem.page_number,
             storePath,
@@ -50,12 +52,12 @@ async function start() {
         });
         await storeMarkdownAndHtml({markdown, html, storePath});
         console.log(`FINISH: ${comicItem.name}`);
-        let affect = await updateComicById({
-            comic_id: comicItem.comic_id,
-            store_url_format: `${storePath}/img%s.jpg`,
-            store_path: storePath
-        });
-        console.log('SQL affect:', affect);
+        // let affect = await updateComicById({
+        //     comic_id: comicItem.comic_id,
+        //     store_url_format: `${storePath}img%s.jpg`,
+        //     store_path: storePath
+        // });
+        // console.log('SQL affect:', affect);
     }
     return 0;
 }

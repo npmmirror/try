@@ -2,7 +2,7 @@ const marked = require('marked');
 
 // Generate A MarkDown to read the comics.
 function comicToMarkDown(param) {
-    let {name, imgArray} = param;
+    let {origin, name, imgArray} = param;
     let pArr = [];
     pArr.push(`<link rel="stylesheet" type="text/css" href="../../md.css">`);
     pArr.push(`<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">`);
