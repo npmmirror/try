@@ -17,6 +17,9 @@ var sequelize = new Sequelize(mysql_config.database, mysql_config.username, mysq
         max: 5,
         min: 0,
         idle: 30000
+    },
+    logging: function (sql) {
+        //    do nothing
     }
 });
 

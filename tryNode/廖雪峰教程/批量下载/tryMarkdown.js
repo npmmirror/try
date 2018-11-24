@@ -7,7 +7,7 @@ function comicToMarkDown(param) {
     pArr.push(`<link rel="stylesheet" type="text/css" href="../../md.css">`);
     pArr.push(`<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">`);
     pArr.push(`## [${name}](url)`);
-    pArr.push(`### ${new Date().toLocaleString()}`);
+    pArr.push(`### ${new Date().toLocaleString()}  共${imgArray.length}页`);
     for (let item of imgArray) {
         pArr.push(`![](${item})`)
     }

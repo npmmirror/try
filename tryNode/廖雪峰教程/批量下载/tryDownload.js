@@ -53,7 +53,8 @@ function DownloadTask({urlFormat, pageNumber, destination, onRun, onFinish}) {
             download(this.urlFormat.replace('%s', ''), this.destination, {filename: `cover.${extensionName}`})
                 .then(() => {
                     cover = `cover.${extensionName}`
-                });
+                }).catch(() => {
+            });
 
             let downloadQueue = new PQueue({concurrency: 10});
             for (let i = 1; i <= this.pageNumber; i++) {
@@ -62,7 +63,8 @@ function DownloadTask({urlFormat, pageNumber, destination, onRun, onFinish}) {
                     download(downloadPath, this.destination, {filename: `img${i}.${extensionName}`})
                         .then(() => {
                             this.status.success++;
-                            imgArray.push(`img${i}.${extensionName}`);
+                            let idx = ('00' + i).slice(-3);
+                            imgArray.push(`img${idx}.${extensionName}`);
                             onFinally();
                         })
                         .catch(() => {
