@@ -63,6 +63,11 @@ var server = http.createServer(function (request, response) {
 
     var pathname = url.parse(querystring.unescape(request.url)).pathname;
 
+    pathname = pathname || '/index.html';
+    if (pathname.endsWith('/')) {
+        pathname += 'index.html';
+    }
+
     var realPath = path.join("comics", pathname);
 
 
@@ -156,7 +161,7 @@ var server = http.createServer(function (request, response) {
 
 });
 
-var port = 80;
+var port = 82;
 server.listen(port);
 
 console.log('server listen on port %d', port);
