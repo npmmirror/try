@@ -70,23 +70,36 @@
             list: [],
         },
         created() {
+            layer.load();
             axios.get('comic_data.json')
                 .then(res => {
                     this.list = res.data;
+                    layer.closeAll('loading');
                 })
         },
         methods: {
             toComic(index) {
                 var item = this.list[index];
                 //iframe层
-                layer.open({
-                    type: 2,
-                    title: item.comic_name,
-                    shadeClose: true,
-                    shade: 0.8,
-                    area: ['100%', '100%'],
-                    content: item.storePath + 'preview.html' //iframe的url
-                });
+                // layer.open({
+                //     type: 2,
+                //     title: item.comic_name,
+                //     shadeClose: true,
+                //     shade: 0.8,
+                //     area: ['100%', '100%'],
+                //     content: item.storePath + 'preview.html' //iframe的url
+                // });
+
+                axios.get(item.storePath + 'preview.html')
+                    .then(res => {
+                        layer.open({
+                            type: 1,
+                            // skin: 'layui-layer-rim', //加上边框
+                            area: ['100%', '100%'],
+                            content: res
+                        });
+
+                    });
             }
         }
     })
