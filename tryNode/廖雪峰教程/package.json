@@ -4,7 +4,8 @@
   "description": "",
   "main": "base/crypto.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "comicsServer": "node --use_strict 批量下载/staticServer.js 1>>run.log 2>>error.log"
   },
   "author": "",
   "license": "ISC",

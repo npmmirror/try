@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>comic</title>
+    <link rel="stylesheet" href="include/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="md.css">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script src="include/jquery-3.3.1.js"></script>
+    <script src="include/bootstrap.min.js"></script>
+    <script src="include/layer/layer.js"></script>
+    <script src="include/vue.js"></script>
+    <script src="include/axios.js"></script>
+    <style>
+        body {
+            background: #F5F5EE;
+            margin: 0 auto;
+        }
+
+        .list {
+            margin: 0 auto;
+            max-width: 750px;
+            /*display: flex;*/
+            /*flex-direction: row;*/
+            /*flex-wrap: wrap;*/
+            /*justify-content: space-between;*/
+        }
+
+        .item {
+            width: 28%;
+            text-align: center;
+            margin-top: 20px;
+            margin-left: 4%;
+            display: inline-block;
+        }
+
+        .item:nth-child(3n) {
+            margin-right: 4%;
+        }
+
+        .item .title {
+            /*height: 30px;*/
+            line-height: 30px;
+            /*margin-bottom: -30px;*/
+            background: #fff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .item img {
+            width: 100%;
+            /*margin: 0 auto;*/
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="list" id="comic_list">
+    <div class="item" v-for="(item,index) in list" @click="toComic(index)">
+        <img :src="item.cover_url">
+        <div class="title">{{item.comic_name}}</div>
+    </div>
+</div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#comic_list',
+        data: {
+            list: [],
+        },
+        created() {
+            axios.get('comic_data.json')
+                .then(res => {
+                    this.list = res.data;
+                })
+        },
+        methods: {
+            toComic(index) {
+                var item = this.list[index];
+                //iframe层
+                layer.open({
+                    type: 2,
+                    title: item.comic_name,
+                    shadeClose: true,
+                    shade: 0.8,
+                    area: ['100%', '100%'],
+                    content: item.storePath + 'preview.html' //iframe的url
+                });
+            }
+        }
+    })
+</script>
+</html>
