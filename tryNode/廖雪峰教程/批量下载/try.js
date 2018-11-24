@@ -49,7 +49,7 @@ async function start() {
             let {markdown, html} = await storeComic({
                 origin: comicItem.origin_host + comicItem.origin_path,
                 urlFormat: comicItem.img_url_format,
-                pageSize: 2 || comicItem.page_number,
+                pageSize: comicItem.page_number,
                 storePath,
                 comic_name: comicItem.name,
             });
@@ -67,7 +67,7 @@ async function start() {
                 store_url_format: `${storePath}img%s.jpg`,
                 store_path: storePath
             });
-            console.log(`FINISH: ${comicItem.name}`);
+            console.log(`FINISH: ${comicItem.name}\n`);
             // console.log('SQL affect:', affect);
         } catch (e) {
             let affect = await updateComicById({

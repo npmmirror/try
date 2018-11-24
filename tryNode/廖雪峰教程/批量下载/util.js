@@ -58,10 +58,11 @@ exports.ProgressPrinter = function ({total, name}) {
     this.finished = 0;
     this.do = function () {
         this.finished++;
-        //删除光标所在行
-        readline.clearLine(process.stdout, 0);
-        //移动光标到行首
-        readline.cursorTo(process.stdout, 0, 0);
+        // //删除光标所在行
+        // readline.clearLine(process.stdout, 0);
+        // //移动光标到行首
+        // readline.cursorTo(process.stdout, 0, 0);
+        readline.clearLine();
         process.stdout.write(`\r${name} -- current: ${this.finished}  total:${this.total}`, 'utf-8');
         if (this.finished === this.total) {
             this.end();

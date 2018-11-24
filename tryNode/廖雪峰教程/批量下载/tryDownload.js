@@ -60,10 +60,10 @@ function DownloadTask({urlFormat, pageNumber, destination, onRun, onFinish}) {
             for (let i = 1; i <= this.pageNumber; i++) {
                 let downloadPath = this.urlFormat.replace('%s', i);
                 downloadQueue.add(() => {
-                    download(downloadPath, this.destination, {filename: `img${i}.${extensionName}`})
+                    let idx = ('00' + i).slice(-3);
+                    download(downloadPath, this.destination, {filename: `img${idx}.${extensionName}`})
                         .then(() => {
                             this.status.success++;
-                            let idx = ('00' + i).slice(-3);
                             imgArray.push(`img${idx}.${extensionName}`);
                             onFinally();
                         })
