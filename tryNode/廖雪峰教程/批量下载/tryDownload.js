@@ -63,7 +63,7 @@ function DownloadTask({urlFormat, pageNumber, destination, onRun, onFinish}) {
                 downloadQueue.add(() => {
                     let idx = ('00' + i).slice(-3);
                     return util.limitTask({
-                        timeLimit: 300000,
+                        timeLimit: 180000,
                         task: download(downloadPath, this.destination, {filename: `img${idx}.${extensionName}`})
                     })
                 }).then(() => {

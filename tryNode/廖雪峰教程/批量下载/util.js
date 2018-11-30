@@ -104,7 +104,6 @@ function limitTask({task, timeLimit}) {
     let timeLimitTask = function () {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                console.log('time out');
                 reject(new Error(`timeout. (Limit : ${timeLimit})`));
             }, timeLimit)
         })
