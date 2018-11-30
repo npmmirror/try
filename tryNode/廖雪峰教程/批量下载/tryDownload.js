@@ -1,5 +1,6 @@
 const download = require('download');
 const PQueue = require('p-queue');
+const util = require('./util');
 
 // function downloadImages(urlFormat, pageNumber, destination) {
 //     if (arguments.length < 3) throw Error(`argument expect 3 but current ${arguments.length}`);
@@ -61,40 +62,41 @@ function DownloadTask({urlFormat, pageNumber, destination, onRun, onFinish}) {
                 let downloadPath = this.urlFormat.replace('%s', i);
                 downloadQueue.add(() => {
                     let idx = ('00' + i).slice(-3);
-                    download(downloadPath, this.destination, {filename: `img${idx}.${extensionName}`})
-                        .then(() => {
-                            this.status.success++;
-                            imgArray.push(`img${idx}.${extensionName}`);
-                            onFinally();
-                        })
-                        .catch(() => {
-                            this.status.fail++;
-                            onFinally();
-                        })
+                    return util.limitTask({
+                        timeLimit: 300000,
+                        task: download(downloadPath, this.destination, {filename: `img${idx}.${extensionName}`})
+                    })
+                }).then(() => {
+                    this.status.success++;
+                    imgArray.push(`img${idx}.${extensionName}`);
+                    onFinally();
+                }).catch(() => {
+                    this.status.fail++;
+                    onFinally();
                 })
             }
         })
     };
 }
 
-function testFunc() {
-    const urlfmt = 'http://huangzihao.gz01.bdysite.com/test_img/img1%s.jpg';
-    const pageSize = 4;
-    const storePath = 'tmp/001/';
-// downloadImages(urlfmt, pageSize, storePath);
-
-    let newTask = new DownloadTask({
-        urlFormat: urlfmt,
-        pageNumber: pageSize,
-        destination: storePath,
-        onRun: status => {
-            console.log(JSON.stringify(status));
-        },
-        onFinish: res => {
-            console.log(JSON.stringify(res))
-        }
-    }).start();
-};
+// function testFunc() {
+//     const urlfmt = 'http://huangzihao.gz01.bdysite.com/test_img/img1%s.jpg';
+//     const pageSize = 4;
+//     const storePath = 'tmp/001/';
+// // downloadImages(urlfmt, pageSize, storePath);
+//
+//     let newTask = new DownloadTask({
+//         urlFormat: urlfmt,
+//         pageNumber: pageSize,
+//         destination: storePath,
+//         onRun: status => {
+//             console.log(JSON.stringify(status));
+//         },
+//         onFinish: res => {
+//             console.log(JSON.stringify(res))
+//         }
+//     }).start();
+// }
 
 // testFunc();
 module.exports = {DownloadTask};
