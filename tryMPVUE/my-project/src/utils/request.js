@@ -7,7 +7,7 @@ const apiHost = config.apiHost
 const regetTokenTimeLimit = config.regetTokenTimeLimit
 let requestManager = {}
 requestManager.tokenRequest = function (param, time) {
-  time = time || 1
+  time = time || 0
   return new Promise((resolve, reject) => {
     let token = storage.token
     if (!token) {
