@@ -1,10 +1,10 @@
 <template>
     <div class="container" :style="backgroundSource">
 
-        <!-- <image mode='widthFix' style='width:100%;' src = 'https://www.ufa.hk/uploads/ufa/gds/GoodsVO/2018/03/15/05kRp6ivQLGuuFX2QXJjYA.jpg' ></image>  -->
+        <!--<image mode='widthFix' style='width:100%;' src = 'https://www.ufa.hk/uploads/ufa/gds/GoodsVO/2018/03/15/05kRp6ivQLGuuFX2QXJjYA.jpg' ></image>-->
         <div class="name">
-            {{room.rid}}
-            <!--{{ room.nickname}}-->
+            <!--{{room.rid}}-->
+            {{ room.nickname}}
         </div>
     </div>
 </template>
@@ -21,8 +21,8 @@
         computed: {
             backgroundSource() {
                 return {
-                    'background-image': 'url(https://www.ufa.hk/uploads/ufa/gds/GoodsVO/2018/03/15/05kRp6ivQLGuuFX2QXJjYA.jpg)',
-                    // 'background-image':`url(https://szroot.youxuanmeijia.cn/video_rest/video/img/get_cover?uid=${this.room.rid})`
+                    // 'background-image': 'url(https://www.ufa.hk/uploads/ufa/gds/GoodsVO/2018/03/15/05kRp6ivQLGuuFX2QXJjYA.jpg)',
+                    'background-image': `url(https://szroot.youxuanmeijia.cn/video_rest/video/img/get_cover?uid=${this.room.rid})`
                 };
             },
         },

@@ -1,13 +1,15 @@
 <template>
     <el-dialog
-            v-loading="isLoading"
+
             :title="nickName"
             :visible.sync="isPlaying"
             :before-close="onClose"
-            width="100%">
-        <div id="playerContainer">
-            {{rtmpUrl}}
-            <!--<img :src="`https://szroot.youxuanmeijia.cn/video_rest/video/img/get_cover?uid=${room.rid}`"/>-->
+            width="720px">
+        <div class="player-wrapper" v-loading="isLoading">
+            <div id="playerContainer">
+                {{rtmpUrl}}
+                <!--<img :src="`https://szroot.youxuanmeijia.cn/video_rest/video/img/get_cover?uid=${room.rid}`"/>-->
+            </div>
         </div>
     </el-dialog>
 </template>
@@ -48,12 +50,7 @@
             },
             rtmpUrl(newValue) {
                 let source = newValue;
-                source = "http://cyberplayerplay.kaywang.cn/cyberplayer/demo201711-L1.m3u8";
-                // source = "rtmp://cyberplayerplay.kaywang.cn/cyberplayer/demo201711-L1"
                 //香港卫视直播源
-                // source = 'http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8';
-                // source = 'rtmp://live.hkstv.hk.lxdns.com/live/hks';
-
                 const cyberplayer = window.cyberplayer;
                 if (source.endsWith('m3u8')) {
                     this.player = cyberplayer("playerContainer").setup({
@@ -110,5 +107,11 @@
 </script>
 
 <style scoped>
-
+    .player-wrapper {
+        margin: 0 auto;
+        /*这个fit-content可以自适应宽度*/
+        /*width: fit-content; */
+        width: 680px;
+        height: 448px;
+    }
 </style>
