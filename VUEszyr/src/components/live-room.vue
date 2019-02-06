@@ -1,7 +1,7 @@
 <template>
     <div class="container" :style="backgroundSource">
 
-        <!--<image mode='widthFix' style='width:100%;' src = 'https://www.ufa.hk/uploads/ufa/gds/GoodsVO/2018/03/15/05kRp6ivQLGuuFX2QXJjYA.jpg' ></image>-->
+        <img style='width:100%;' :src='backgroundUrl' alt=""/>
         <div class="name">
             <!--{{room.rid}}-->
             {{ room.nickname}}
@@ -15,16 +15,15 @@
         props: {
             room: Object,
         },
-        data() {
-            return {};
-        },
         computed: {
             backgroundSource() {
                 return {
-                    // 'background-image': 'url(https://www.ufa.hk/uploads/ufa/gds/GoodsVO/2018/03/15/05kRp6ivQLGuuFX2QXJjYA.jpg)',
-                    'background-image': `url(https://szroot.youxuanmeijia.cn/video_rest/video/img/get_cover?uid=${this.room.rid})`
+                    // 'background-image': `url(https://szroot.xue998.com/video_rest/video/img/get_cover?uid=${this.room.rid})`
                 };
             },
+            backgroundUrl() {
+                return `https://szroot.xue998.com/video_rest/video/img/get_cover?uid=${this.room.rid}`
+            }
         },
     };
 </script>
@@ -39,8 +38,12 @@
     }
 
     .name {
-        position: absolute;
         width: 100%;
+        height: 50px;
+        position: absolute;
         bottom: 0;
+        background: linear-gradient(to bottom, #eee0 10%, #333);
+        color: #fff;
+        line-height: 50px;
     }
 </style>

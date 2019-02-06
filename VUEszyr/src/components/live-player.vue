@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import getRtmp from '../util/getRtmpUrl';
+    import getRtmp from '../util/getRtmp';
 
     export default {
         name: "live-player",
@@ -37,7 +37,7 @@
                 if (!newValue) return;
                 this.rtmpUrl = '';
                 this.isLoading = true;
-                getRtmp(this.room.rid)
+                getRtmp(this.room.rid,)
                     .then(rtmpUrl => {
                         this.rtmpUrl = rtmpUrl;
                         this.isLoading = false;
@@ -68,8 +68,7 @@
                             reconnecttime: 5 // hls直播重连间隔秒数
                         },
                     });
-                }
-                if (source.startsWith('rtmp')) {
+                } else if (source.startsWith('rtmp')) {
                     this.player = cyberplayer("playerContainer").setup({
                         width: 680,
                         height: 448,
@@ -91,7 +90,8 @@
         methods: {
             onClose() {
                 this.$emit('close');
-                this.player.remove();
+                // this.player.remove();
+                this.player.stop();
             }
         },
         computed: {

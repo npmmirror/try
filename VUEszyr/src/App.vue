@@ -1,12 +1,12 @@
 <template>
-    <div id="app">
+    <div>
         <div class="room-list">
             <div class="room-item" :class="{emphasis:item.donate}" v-for="item in liveList" :key="item.rid"
                  @click="play(item)">
-                <live-room v-if="true" :room="item" @click="play(item)"></live-room>
+                <live-room :room="item"></live-room>
             </div>
         </div>
-        <live-player v-show="isPlaying" :room="room" :isPlaying="isPlaying" @close="onPlayerClose"></live-player>
+        <live-player :room="room" :isPlaying="isPlaying" @close="onPlayerClose"></live-player>
     </div>
 </template>
 
@@ -54,7 +54,7 @@
                 this.isPlaying = true;
                 this.room = roomData;
             },
-            onPlayerClose(){
+            onPlayerClose() {
                 this.isPlaying = false;
                 this.room = null;
             }
@@ -66,29 +66,53 @@
     body {
         background: #F5F5EE;
         margin: 0 auto;
-        max-width: 750px;
+        max-width: 1200px;
     }
 
     #app {
     }
 
     .room-list {
-        padding-left: 4%;
+        margin-top: 20px;
+        /*padding-left: 4%;*/
         display: flex;
         flex-wrap: wrap;
+        /*justify-content: space-around;*/
+        align-items: stretch;
     }
 
     .room-item {
-        width: 28%;
-        margin-right: 4%;
-        margin-bottom: 10px;
-        background: #fff;
+        width: 18%;
+        min-width: 170px;
+        margin-right: 15px;
+        margin-bottom: 15px;
         word-break: break-all;
-        border: 3px solid white;
         box-sizing: border-box;
+        background: #333;
+    }
+
+    .room-item:last-child {
+        margin-right: auto;
     }
 
     .emphasis {
-        border: 3px solid yellow;
+        position: relative;
+    }
+
+    .emphasis:before {
+        content: '有料';
+        position: absolute;
+        /*width: 20px;*/
+        height: 25px;
+        text-align: center;
+        line-height: 25px;
+        padding: 0 5px;
+        top: 5px;
+        right: 5px;
+        font-size: 15px;
+        background: red;
+        color: #fff;
+        z-index: 1;
+        border-radius: 7px;
     }
 </style>
