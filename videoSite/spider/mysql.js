@@ -43,6 +43,9 @@ async function addVideo({type = null, secret_key, origin_id = null}) {
 // }).then(res=>{
 //     console.log(res);
 // })
+async function query(sql){
+    return await sequelize.query(sql);
+}
 
 
-module.exports = {getAllVideo, addVideo, query:sequelize.query};
+module.exports = {getAllVideo, addVideo, query};
