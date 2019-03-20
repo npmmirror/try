@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    // Promise resolve_100+ 规范：https://promisesaplus.com/
+    // 目前这个promise支持链式调用、异步resolve
+    // 但是暂时只能支持返回一个同步的值不支持返回一个异步的promise
+    class myPromise {
+        constructor(executor) {
+            this.state = 'pending';
+            this.value = undefined;
+            this.reason = undefined;
+            this.onResolvedArray = [];
+            this.onRejectedArray = [];
+            const resolve = (val) => {
+                if (this.state === "pending") {
+                    this.state = 'resolved';
+                    this.value = val;
+                    this._doResolve();
+                }
+            };
+            const reject = (rejectReason) => {
+                if (this.state === "pending") {
+                    this.state = 'rejected';
+                    this.reason = rejectReason;
+                    this._doReject();
+                }
+            };
+            try {
+                executor(resolve, reject);
+            } catch (e) {
+                reject(e);
+            }
+        }
+
+        then(onResolved, onRejected) {
+            let promise2;
+            promise2 = new myPromise((resolve, reject) => {
+
+                // 遵循 2.2
+                const afterResolved = value => {
+                    try {
+                        onResolved
+                            ? resolvePromise(promise2, onResolved(value), resolve, reject)
+                            : resolvePromise(promise2, value, resolve, reject);
+                    } catch (e) {
+                        reject(e);
+                    }
+                };
+                const afterRejected = reason => {
+                    try {
+                        onRejected
+                            ? resolvePromise(promise2, onRejected(reason), resolve, reject)
+                            : reject(reason);
+                    } catch (e) {
+                        reject(e);
+                    }
+                };
+
+                // 2.1
+                switch (this.state) {
+                    case "pending":
+                        this.onResolvedArray.push(afterResolved);
+                        this.onRejectedArray.push(afterRejected);
+                        break;
+                    case "resolved":
+                        this.onResolvedArray.push(afterResolved);
+                        this._doResolve();
+                        break;
+                    case "rejected":
+                        this.onRejectedArray.push(afterRejected);
+                        this._doReject();
+                        break;
+                }
+            });
+            return promise2;
+        }
+
+        // 执行所有的 onResolved
+        _doResolve() {
+            // XXX: 模拟一下microTask
+            Promise.resolve().then(() => {
+                this.onResolvedArray.forEach(f => f(this.value));
+                this.onResolvedArray = [];
+            });
+        }
+
+        // 执行所有的 onRejected
+        _doReject() {
+            // XXX: 模拟一下microTask
+            Promise.resolve().then(() => {
+                this.onRejectedArray.forEach(f => f(this.reason));
+                this.onRejectedArray = [];
+            });
+        }
+
+        // then(null, onRejected) 的别名
+        catch(onRejected) {
+            return this.then(null, onRejected);
+        }
+
+        static resolve(val) {
+            return new myPromise((resolve) => {
+                resolve(val);
+            });
+        }
+
+        static reject(reason) {
+            return new myPromise((resolve, reject) => {
+                reject(reason);
+            });
+        }
+
+        static all(promiseList) {
+            return new myPromise((resolve, reject) => {
+                const result = [];
+                let count = 0;
+                promiseList.forEach((item, index) => {
+                    item
+                        .then(value => {
+                            count++;
+                            result[index] = value;
+                            if (count === promiseList.length - 1) {
+                                resolve(result);
+                            }
+                        })
+                        .catch(err => {
+                            reject(err);
+                        });
+                });
+            });
+        }
+
+        static race(promiseList) {
+            return new myPromise((resolve, reject) => {
+                promiseList.forEach(item => {
+                    item.then(resolve, reject);
+                });
+            });
+        }
+    }
+
+    // 处理onResolve返回promise时的情况
+    function resolvePromise(promise, x, resolve, reject) {
+        // debugger
+        if (promise === x) {
+            console.error(new TypeError('promise 循环错误'));
+            return;
+        }
+        try {
+            if ((typeof x === "object" || typeof x === "function") && typeof x.then === "function") {
+                x.then(
+                    value => {
+                        resolvePromise(promise, value, resolve, reject);
+                    },
+                    reason => {
+                        reject(reason);
+                    }
+                );
+            } else {
+                resolve(x);
+            }
+        } catch (e) {
+            reject(e);
+        }
+    }
+
+
+    // 对比测试
+    function test(promiseConstructor) {
+        function log(msg) {
+            console.log(promiseConstructor.name + '\t\t', msg);
+        }
+
+        const testCase = [
+            {
+                ["测试同步promise"]() {
+                    let resolve_immediate = promiseConstructor.resolve('immediate');
+                    resolve_immediate.then(value => {
+                        log('resolved', value);
+                    });
+                    let reject_immediate = promiseConstructor.reject('immediate');
+                    reject_immediate.catch(value => {
+                        log('rejected', value);
+                    });
+                }
+            },
+            {
+                ["测试异步promise"]() {
+                    new promiseConstructor((resolve) => {
+                        setTimeout(() => {
+                            resolve(1);
+                        }, 100);
+                    })
+                        .then(val => log('resolve', val));
+                    new promiseConstructor((resolve, reject) => {
+                        setTimeout(() => {
+                            reject(2);
+                        }, 100);
+                    })
+                        .catch(val => log('reject1', val));
+                }
+            },
+            {
+                ["测试链式调用和throw方法"]() {
+                    new promiseConstructor((resolve) => {
+                        setTimeout(() => {
+                            resolve(1);
+                        }, 100);
+                    })
+                        .then(value => {
+                            log(value);
+                            return value + 1;
+                        })
+                        .catch(value => {
+                            log('我不应该出现', value);
+                            return value + 1;
+                        })
+                        .then(value => {
+                            log(value);
+                            throw value + 1;
+                        })
+                        .catch(value => {
+                            log(value);
+                            throw value + 1;
+                            // return value + 1;
+                        })
+                        .then(value => {
+                            log(value);
+                        })
+                        .catch(log);
+                }
+            },
+            {
+                ["测试返回promise"]() {
+                    new promiseConstructor((resolve) => {
+                        setTimeout(() => {
+                            resolve(1);
+                        }, 100);
+                    })
+                        .then(value => {
+                            return new promiseConstructor((resolve) => {
+                                setTimeout(() => {
+                                    resolve(value + 1);
+                                    resolve(value + 1); // 这里重复调用了resolve，但是并不会有什么后果
+                                });
+                            });
+                        })
+                        .then(value => {
+                            log(value);
+                            return value + 1;
+                        })
+                        .then(value => {
+                            return new promiseConstructor((resolve, reject) => {
+                                setTimeout(() => {
+                                    reject(value + 1);
+                                    resolve(value + 1); // 这里重复调用了resolve，但是并不会有什么后果
+                                });
+                            });
+                        })
+                        .catch(value => {
+                            log(value);
+                            return value + 1;
+                        });
+                }
+            },
+            {
+                ["测试promise.all"]() {
+                    promiseConstructor.all([
+                        promiseConstructor.resolve(1),
+                        promiseConstructor.resolve(2)
+                    ])
+                        .then(log)
+                        .catch((err) => {
+                            log(err, '我不出现');
+                        });
+                    promiseConstructor.all([
+                        promiseConstructor.reject(1),
+                        promiseConstructor.resolve('我不出现1'),
+                        promiseConstructor.reject('我不出现2'),
+                    ])
+                        .then((err) => {
+                            log(err, '我不出现');
+                        })
+                        .catch(log);
+                }
+            },
+            {
+                ["测试promise.race"]() {
+                    promiseConstructor.race([
+                        new promiseConstructor(resolve => {
+                            setTimeout(() => {
+                                resolve('我不出现');
+                            }, 200);
+                        }),
+                        new promiseConstructor(resolve => {
+                            setTimeout(() => {
+                                resolve(1);
+                            }, 100);
+                        })
+                    ])
+                        .then(log)
+                        .catch((err) => {
+                            log(err, '我不出现');
+                        });
+                    promiseConstructor.race([
+                        promiseConstructor.reject(1),
+                        promiseConstructor.resolve('我不出现1'),
+                        promiseConstructor.reject('我不出现2'),
+                    ])
+                        .then((err) => {
+                            log(err, '我不出现');
+                        })
+                        .catch(log);
+                }
+            },
+            {
+                ["测试循环promise"]() {
+                    let a = new promiseConstructor(resolve => {
+                        setTimeout(() => {
+                            resolve(1);
+                        }, 100);
+                    })
+                        .then(() => {
+                            return 2;
+                        })
+                        .then(value => {
+                            log(value, '应该报循环引用错误2');
+                            return a;
+                        });
+                    // 不知道为什么，这里如果加一个.catch或者.then就不会报错了
+                    // 原生的promise也是这样
+                }
+            }
+        ];
+        for (let i = 0, len = testCase.length; i < len; i++) {
+            const item = testCase[i];
+            setTimeout(() => {
+                const name = Object.keys(item)[0];
+                console.group(name);
+                item[name]();
+                setTimeout(() => {
+                    console.groupEnd();
+                }, 900);
+            }, i * 1000);
+        }
+    }
+    test(myPromise);
+    test(Promise);
+</script>
+</html>
