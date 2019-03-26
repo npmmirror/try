@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>draggable</title>
+    <script src="./jquery.min.js">
+    </script>
+    <script>
+        $(document).ready(function () {
+            let btn = $(".button");
+            let enter = false;
+            let disX = 0, disY = 0;
+            btn.mousedown(function (e) {
+                enter = true;
+                disX = e.pageX - btn.offset().left;
+                disY = e.pageY - btn.offset().top;
+                $(document).on('mousemove', onMove);
+                $(document).on('mouseup', () => {
+                    console.log('up');
+                    $(document).off('mousemove', onMove);
+                });
+            });
+
+            function onMove(e) {
+                //console.log(e);
+                btn.offset({
+                    top: e.pageY - disY,
+                    left: e.pageX - disX
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+
+<div class='button' style='user-select:none;cursor:move;padding:20px;margin:50px;background:gray;color:#fff;'>
+    我是一个可以拖拽的元素
+</div>
+
+</body>
+</html>
