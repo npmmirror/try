@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script src="myPromise.js"></script>
+<script>
+    // Promise resolve_100+ 规范：https://promisesaplus.com/
+
+    // 对比测试
+    function test(promiseConstructor) {
+        function log(...msg) {
+            console.log(promiseConstructor.name + '\t\t', ...msg);
+        }
+
+        const testCase = [
+            {
+                ["测试同步promise"]() {
+                    let resolve_immediate = promiseConstructor.resolve('immediate');
+                    resolve_immediate.then(value => {
+                        log('resolved', value);
+                    });
+                    let reject_immediate = promiseConstructor.reject('immediate');
+                    reject_immediate.catch(value => {
+                        log('rejected', value);
+                    });
+                }
+            },
+            {
+                ["测试异步promise"]() {
+                    new promiseConstructor((resolve) => {
+                        setTimeout(() => {
+                            resolve(1);
+                        }, 100);
+                    })
+                        .then(val => log('resolve', val));
+                    new promiseConstructor((resolve, reject) => {
+                        setTimeout(() => {
+                            reject(2);
+                        }, 100);
+                    })
+                        .catch(val => log('reject1', val));
+                }
+            },
+            {
+                ["测试链式调用和throw方法"]() {
+                    new promiseConstructor((resolve) => {
+                        setTimeout(() => {
+                            resolve(1);
+                        }, 100);
+                    })
+                        .then(value => {
+                            log(value);
+                            return value + 1;
+                        })
+                        .catch(value => {
+                            log('我不应该出现', value);
+                            return value + 1;
+                        })
+                        .then(value => {
+                            log(value);
+                            throw value + 1;
+                        })
+                        .catch(value => {
+                            log(value);
+                            throw value + 1;
+                            // return value + 1;
+                        })
+                        .then(value => {
+                            log(value);
+                        })
+                        .catch(log);
+                }
+            },
+            {
+                ["测试返回promise"]() {
+                    new promiseConstructor((resolve) => {
+                        setTimeout(() => {
+                            resolve(1);
+                        }, 100);
+                    })
+                        .then(value => {
+                            return new promiseConstructor((resolve) => {
+                                setTimeout(() => {
+                                    resolve(value + 1);
+                                    resolve(value + 1); // 这里重复调用了resolve，但是并不会有什么后果
+                                });
+                            });
+                        })
+                        .then(value => {
+                            log(value);
+                            return value + 1;
+                        })
+                        .then(value => {
+                            return new promiseConstructor((resolve, reject) => {
+                                setTimeout(() => {
+                                    reject(value + 1);
+                                    resolve(value + 1); // 这里重复调用了resolve，但是并不会有什么后果
+                                });
+                            });
+                        })
+                        .catch(value => {
+                            log(value);
+                            return value + 1;
+                        });
+                }
+            },
+            {
+                ["测试promise.all"]() {
+                    promiseConstructor.all([
+                        promiseConstructor.resolve(1),
+                        promiseConstructor.resolve(2)
+                    ])
+                        .then(log)
+                        .catch((err) => {
+                            log(err, '我不出现');
+                        });
+                    promiseConstructor.all([
+                        promiseConstructor.reject(1),
+                        promiseConstructor.resolve('我不出现1'),
+                        promiseConstructor.reject('我不出现2'),
+                    ])
+                        .then((err) => {
+                            log(err, '我不出现');
+                        })
+                        .catch(log);
+                }
+            },
+            {
+                ["测试promise.race"]() {
+                    promiseConstructor.race([
+                        new promiseConstructor(resolve => {
+                            setTimeout(() => {
+                                resolve('我不出现');
+                            }, 200);
+                        }),
+                        new promiseConstructor(resolve => {
+                            setTimeout(() => {
+                                resolve(1);
+                            }, 100);
+                        })
+                    ])
+                        .then(log)
+                        .catch((err) => {
+                            log(err, '我不出现');
+                        });
+                    promiseConstructor.race([
+                        promiseConstructor.reject(1),
+                        promiseConstructor.resolve('我不出现1'),
+                        promiseConstructor.reject('我不出现2'),
+                    ])
+                        .then((err) => {
+                            log(err, '我不出现');
+                        })
+                        .catch(log);
+                }
+            },
+            {
+                ["测试循环promise"]() {
+                    let a = new promiseConstructor(resolve => {
+                        // setTimeout(() => {
+                            resolve(1);
+                        // }, 100);
+                    })
+                        .then(() => {
+                            return 2;
+                        })
+                        .then(value => {
+                            log(value, '应该报循环引用错误2');
+                            return a;
+                        });
+                    // 不知道为什么，这里如果加一个.catch或者.then就不会报错了
+                    // 原生的promise也是这样
+                }
+            }
+        ];
+        testCase.splice(0,6);
+        for (let i = 0, len = testCase.length; i < len; i++) {
+            const item = testCase[i];
+            setTimeout(() => {
+                const name = Object.keys(item)[0];
+                console.group(name);
+                item[name]();
+                setTimeout(() => {
+                    console.groupEnd();
+                }, 900);
+            }, i * 1000);
+        }
+    }
+    test(myPromise);
+    test(Promise);
+</script>
+</html>
