@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    // const list = [1, 4, 3, 2, 8, 5, 9, 4, 7, 6, 0];
+    const list = ()=>[2,2,4,8,6,3,2,100,1,5,3];
+
+    // 快速排序，建立新数组
+    function quickSort1(list, compare) {
+        if (list.length <= 1) return;
+        compare = compare || function (a, b) {
+            return a - b;
+        };
+        const pivotIdx = Math.floor(Math.random() * list.length);
+        const pivot = list[pivotIdx];
+        if (isNaN(pivot)) debugger;
+        const left = [], middle = [], right = [];
+        list.forEach(item => {
+            const r = compare(item, pivot);
+            if (r < 0) {
+                left.push(item);
+            } else if (r === 0) {
+                middle.push(item);
+            } else if (r > 0) {
+                right.push(item);
+            } else {
+                throw new Error('need compare function');
+            }
+        });
+        quickSort1(left, compare);
+        quickSort1(right, compare);
+        [...left, ...middle, ...right].forEach((item, idx, array) => {
+            list[idx] = array[idx];
+        });
+    }
+
+    // 不开数组的快排
+    function quickSort2(list, compare) {
+        compare = compare || function (a, b) {
+            return a - b;
+        };
+
+        function swap(a, b) {
+            let temp = list[a];
+            list[a] = list[b];
+            list[b] = temp;
+        }
+
+        function sort(left, right) {
+            if (left >= right - 1) return;
+            let min = left;
+            let max = right;
+            let pivotIdx = left + Math.floor(Math.random() * (right - left));
+            const pivot = list[pivotIdx];
+            let i = min;
+            while (i < max) {
+                const r = compare(list[i], pivot);
+                if (r < 0) {
+                    swap(i, min);
+                    min++;
+                    i++;
+                } else if (r === 0) {
+                    i++;
+                } else if (r > 0) {
+                    max--;
+                    swap(i, max);
+                } else {
+                    throw new Error('need compare function');
+                }
+            }
+            sort(left, min);
+            sort(max, right);
+        }
+
+        sort(0, list.length);
+    }
+
+    // 非递归快排
+    function quickSort3(list, compare) {
+        compare = compare || function (a, b) {
+            return a - b;
+        };
+
+        function swap(a, b) {
+            let temp = list[a];
+            list[a] = list[b];
+            list[b] = temp;
+        }
+
+        const stack = [];
+        stack.push([0, list.length]);
+
+        while (stack.length !== 0) {
+            let [left, right] = stack.pop();
+            if (left >= right - 1) continue;
+            let min = left;
+            let max = right;
+            let pivotIdx = left + Math.floor(Math.random() * (right - left));
+            const pivot = list[pivotIdx];
+            let i = min;
+            while (i < max) {
+                const r = compare(list[i], pivot);
+                if (r < 0) {
+                    swap(i, min);
+                    min++;
+                    i++;
+                } else if (r === 0) {
+                    i++;
+                } else if (r > 0) {
+                    max--;
+                    swap(i, max);
+                } else {
+                    throw new Error('need compare function');
+                }
+            }
+            stack.push([left, min]);
+            stack.push([max, right]);
+        }
+    }
+
+    const list1 = list();
+    const list2 = list();
+    const list3 = list();
+    const list4 = list();
+
+    list1.sort((a, b) => (b - a));
+    quickSort1(list2, (a, b) => (b - a));
+    quickSort2(list3, (a, b) => (b - a));
+    // quickSort3(list4);
+    quickSort3(list4, (a, b) => (b - a));
+
+    console.log(`原始数组\n`, list());
+    console.log('Array.sort\n', list1);
+    console.log('递归新数组快排\n', list2);
+    console.log('递归原地快排\n', list3);
+    console.log('非递归原地快排\n', list4);
+
+</script>
+</html>
