@@ -1,11 +1,15 @@
 /* eslint-disable taro/props-reserve-keyword */
 import Taro, { Component } from "@tarojs/taro";
-import { View, Text, Image } from "@tarojs/components";
+import { View, Text, Image, Input, Button } from "@tarojs/components";
 import "./index.scss";
-// const cax = require('../../components/cax/index')
-// import * as cax from '../../components/cax/index'
 import cax from "../../components/cax/index";
-import drawText from "./draw";
+import drawText from "../index2/draw";
+import template1 from "./template/1.json";
+import template2 from "./template/2.json";
+import template3 from "./template/10000years.json";
+import template4 from "./template/demaxiya.json";
+
+const templateList = [template3, template1, template2, template4];
 
 export default class Index extends Component {
   config = {
@@ -19,170 +23,94 @@ export default class Index extends Component {
   constructor() {
     super();
     this.state = {
-      value: ""
+      userInput: []
     };
+    this.stage = null;
+    this.userInput = [];
   }
-
-  componentWillMount() {}
 
   componentDidMount() {
+    this.getTemplate();
+  }
+
+  // 获得模版
+  getTemplate() {
+    const template = JSON.parse(JSON.stringify(templateList[0]));
+    templateList.push(templateList.shift());
+    this.template = template;
+    this.setState({
+      userInput: template.userInput
+    });
+    this.userInput = template.userInput;
+    this.draw();
+  }
+
+  draw = () => {
+    let { stageProps, textGroupList } = this.template;
+    const { width = 375, height = 500 } = stageProps;
     const info = Taro.getSystemInfoSync();
-    const stage = new cax.Stage(
-      info.windowWidth,
-      info.windowHeight / 2,
-      "myCanvas",
-      this.$scope
-    );
-    stage.scale = info.windowWidth / 375;
-    stage.scale = 1;
 
-    const rect = new cax.Rect(100, 100, {
-      fillStyle: "black"
+    // 计算画布的真实宽高
+    const actualWidth = info.windowWidth * (600 / 750);
+    const actualHeight = (height * actualWidth) / width;
+    const stage = (this.stage =
+      this.stage ||
+      new cax.Stage(actualWidth, actualHeight, "myCanvas", this.$scope));
+    stage.scale = actualWidth / width;
+
+    stage.empty();
+    // 背景色
+    const rect = new cax.Rect(width, height, {
+      fillStyle: stageProps.background || "#FFFFFF"
     });
-
-    rect.originX = 50;
-    rect.originY = 50;
-    rect.x = 100;
-    rect.y = 100;
-    rect.rotation = 30;
-
-    rect.on("touchstart", () => {
-      console.log("rect touchstart");
-    });
-
-    rect.on("touchmove", () => {
-      console.log("rect touchmove");
-    });
-
-    rect.on("touchend", () => {
-      console.log("rect touchend");
-    });
-
-    const getImg = () => {
-      const ctx = this.$scope.selectComponent("#myCanvas");
-      wx.canvasToTempFilePath(
-        {
-          // x: 100,
-          // y: 200,
-          // width: 50,
-          // height: 50,
-          // destWidth: 100,
-          // destHeight: 100,
-          canvasId: stage.ctx.canvasId,
-          success: res => {
-            console.log(res.tempFilePath);
-            this.setState({
-              value: res.tempFilePath
-            });
-            // Taro.previewImage({
-            //   current: res.tempFilePath, // 当前显示图片的http链接
-            //   urls: [res.tempFilePath] // 需要预览的图片http链接列表
-            // });
-          },
-          fail: e => {}
-        },
-        ctx
-      );
-    };
-
-    rect.on("tap", () => {
-      getImg();
-    });
-
     stage.add(rect);
-
-    const button = new cax.Button({
-      width: 100,
-      height: 40,
-      text: "I am button!"
+    // 逐条文字添加
+    textGroupList.forEach(item => {
+      item = JSON.parse(JSON.stringify(item));
+      item.children.forEach(child => {
+        this.userInput.forEach((keyword, index) => {
+          child.text = child.text.replace(
+            new RegExp(`{keyword${index}}`, "g"),
+            keyword.text
+          );
+        });
+      });
+      const textGroup = drawText(cax, item);
+      stage.add(textGroup);
     });
-    button.y = 170;
-    button.x = 20;
-    stage.add(button);
-    const bitmap = new cax.Bitmap("../../images/wx.png");
+    stage.update();
+  };
 
-    bitmap.on("tap", () => {
-      console.log("bitmap tap");
-    });
-
-    stage.add(bitmap);
-
-    const sprite = new cax.Sprite({
-      framerate: 7,
-      imgs: [
-        "https://r.photo.store.qq.com/psb?/V137Nysk1nVBJS/09YJstVgoLEi0niIWFcOJCyGmkyDaYLq.tlpDE62Zdc!/r/dDMBAAAAAAAA"
-      ],
-      frames: [
-        // x, y, width, height, originX, originY ,imageIndex
-        [0, 0, 32, 32],
-        [32 * 1, 0, 32, 32],
-        [32 * 2, 0, 32, 32],
-        [32 * 3, 0, 32, 32],
-        [32 * 4, 0, 32, 32],
-        [32 * 5, 0, 32, 32],
-        [32 * 6, 0, 32, 32],
-        [32 * 7, 0, 32, 32],
-        [32 * 8, 0, 32, 32],
-        [32 * 9, 0, 32, 32],
-        [32 * 10, 0, 32, 32],
-        [32 * 11, 0, 32, 32],
-        [32 * 12, 0, 32, 32],
-        [32 * 13, 0, 32, 32],
-        [32 * 14, 0, 32, 32]
-      ],
-      animations: {
-        walk: {
-          frames: [0, 1]
+  // 生成图片
+  getImg = callback => {
+    const ctx = this.$scope.selectComponent("#myCanvas");
+    Taro.canvasToTempFilePath(
+      {
+        canvasId: this.stage.ctx.canvasId,
+        success: res => {
+          if (typeof callback === "function") {
+            callback(res.tempFilePath);
+          } else {
+            Taro.previewImage({
+              current: res.tempFilePath, // 当前显示图片的http链接
+              urls: [res.tempFilePath] // 需要预览的图片http链接列表
+            });
+          }
         },
-        happy: {
-          frames: [11, 12, 13, 14]
-        },
-        win: {
-          frames: [7, 8, 9, 10]
+        fail: e => {
+          Taro.showToast({
+            title: e,
+            icon: "none"
+          });
         }
       },
-      currentAnimation: "walk",
-      animationEnd: function() {}
-    });
+      ctx
+    );
+  };
 
-    sprite.x = 100;
-    sprite.y = 100;
-    stage.add(sprite);
-
-    const textJson = {
-      x: 20,
-      y: 200,
-      children: [
-        {
-          text: "雷猴啊类",
-          color: "#00FF00",
-          font: "30px Arial"
-        },
-        {
-          text: "丢雷楼某啊",
-          color: "red",
-          font: "34px Arial",
-          marginLeft: 10,
-          marginTop: 5,
-          // rotation: 180
-        }
-      ]
-    };
-
-    const textGroup = drawText(cax, textJson);
-    stage.add(textGroup);
-
-    setInterval(() => {
-      rect.rotation++;
-      stage.update();
-    }, 16);
-
-    stage.update();
-    getImg();
-    setTimeout(() => {
-      getImg();
-    }, 1000);
-  }
+  handleClick = () => {
+    this.draw();
+  };
 
   componentWillUnmount() {}
 
@@ -190,12 +118,58 @@ export default class Index extends Component {
 
   componentDidHide() {}
 
+  handleInput(index, e) {
+    this.userInput[index].text = e.detail.value;
+    this.draw();
+  }
+
+  saveImage = () => {
+    this.getImg(url => {
+      Taro.saveImageToPhotosAlbum({
+        filePath: url,
+        success() {
+          Taro.showToast({
+            title: "保存成功",
+            icon: "success",
+            duration: 2000
+          });
+        },
+        fail(e) {
+          if (e.errMsg.indexOf("cancel") !== -1) return;
+          Taro.showToast({
+            title: "保存失败",
+            icon: "none",
+            duration: 2000
+          });
+        }
+      });
+    });
+  };
+
   render() {
     return (
-      <View className='index'>
-        <Text>Hello world!3</Text>
-        <cax-canvas id='myCanvas' />
-        <Image mode='widthFix' src={this.state.value} />
+      <View>
+        <View className='canvas-wrap'>
+          <cax-canvas id='myCanvas' onTap={this.getImg} />
+        </View>
+        <View className='input-list'>
+          {this.state.userInput.map((item, index) => (
+            <Input
+              type='text'
+              className='my-input'
+              value={item.text}
+              key={index}
+              onInput={this.handleInput.bind(this, index)}
+            />
+          ))}
+        </View>
+        <Button onClick={this.getTemplate.bind(this)}>换个模版</Button>
+        <Button onClick={this.saveImage}>保存图片</Button>
+        {/* <Button onClick={this.handleClick} style='display:none;'>点我画图</Button>
+        <Button onClick={this.getImg} style='display:none;'>
+          点我生成图片
+        </Button> */}
+        {/* taro 必须要有这个事件才会加入到小程序的作用域中。。。 */}
       </View>
     );
   }

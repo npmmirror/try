@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cax Editor</title>
+    <script src="https://unpkg.com/cax@latest/dist/cax.js"></script>
+    <script src="../cax/draw.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.6.0/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui@2.6.0/lib/index.js"></script>
+    <script src="https://unpkg.com/underscore@1.9.1/underscore.js"></script>
+    <style>
+        #app {
+            width: 1000px;
+            float: left;
+        }
+        @font-face {
+            font-family: siyuan;
+        }
+    </style>
+</head>
+<body>
+<div id="app" style="padding: 10px;">
+    <el-dialog :visible.sync="dialogVisible">
+        <div>
+            <el-button type="primary" @click="handleImport">确定导入</el-button>
+            <el-input v-model="jsonData" :rows="20" type="textarea"/>
+        </div>
+    </el-dialog>
+    <el-form inline size="mini">
+        <el-form-item label="画布宽">
+            <el-input v-model="stageProps.width" type="number" style="width: 80px"/>
+        </el-form-item>
+        <el-form-item label="画布高">
+            <el-input v-model="stageProps.height" type="number" style="width: 80px"/>
+        </el-form-item>
+        <!--<el-form-item label="绘制质量">-->
+            <!--<el-input v-model="stageProps.scale" type="number" style="width: 80px"/>-->
+        <!--</el-form-item>-->
+        <el-form-item label="背景色">
+            <el-input v-model="stageProps.background" type="text" style="width: 100px"/>
+        </el-form-item>
+        <!--<el-row>-->
+        <!--<el-button type="primary" @click="handleAddTextGroup" size="mini">添加</el-button>-->
+        <el-button @click="handleShowDialog" size="mini">导入/导出</el-button>
+    </el-form>
+    <el-form inline size="mini">
+        <el-form-item label="X坐标">
+            <el-input v-model="templateData.x" type="number" style="width: 80px"/>
+        </el-form-item>
+        <el-form-item label="Y坐标">
+            <el-input v-model="templateData.y" type="number" style="width: 80px"/>
+        </el-form-item>
+        <el-form-item label="字体">
+            <el-input v-model="templateData.font" type="text" style="width: 120px"/>
+        </el-form-item>
+        <el-form-item label="文字内容">
+            <el-input v-model="templateData.text" type="text" style="width: 200px"/>
+        </el-form-item>
+        <el-button type="primary" @click="handleAddTextGroup" size="mini">添加</el-button>
+    </el-form>
+    <el-form inline size="mini">
+        <el-form-item label="模拟用户输入">
+            <el-input v-for="(item,index) in userInput" v-model="item.text" :placeholder="'keyword'+index"
+                      style="width: 100px;margin-left: 5px;"/>
+        </el-form-item>
+        <el-button @click="userInput.pop()" size="mini">-1</el-button>
+        <el-button @click="userInput.push({text: ''})" size="mini">+1</el-button>
+        <el-button @click="getImg" type="primary" size="mini">生成图片</el-button>
+    </el-form>
+    <el-table
+            size="mini"
+            :data="textGroupList"
+            style="width: 100%">
+        <el-table-column type="expand">
+            <template slot-scope="props">
+                <div style="width: 100%;border:2px solid #ccc;padding: 10px;margin-left: -40px;">
+                    <el-button @click="handleAddTextItem(props.row)" size="mini">新增</el-button>
+                    <el-table :data="props.row.children">
+                        <el-table-column label="文字内容" min-width="150">
+                            <template slot-scope="scope">
+                                <el-input v-model="scope.row.text" size="mini"/>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="字体" width="150">
+                            <template slot-scope="scope">
+                                <el-input v-model="scope.row.font" size="mini"/>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="颜色" width="120">
+                            <template slot-scope="scope">
+                                <el-input v-model="scope.row.color" size="mini"/>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="左边距" width="100">
+                            <template slot-scope="scope">
+                                <el-input v-model="scope.row.marginLeft" type="number" size="mini"/>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="上边距" width="100">
+                            <template slot-scope="scope">
+                                <el-input v-model="scope.row.marginTop" type="number" size="mini"/>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="旋转" width="100">
+                            <template slot-scope="scope">
+                                <el-input v-model="scope.row.rotation" type="number" size="mini"/>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="操作" width="100">
+                            <template slot-scope="scope">
+                                <el-button type="danger" @click="handleDeleteTextItem(props, scope)" size="mini">删除
+                                </el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </div>
+            </template>
+        </el-table-column>
+        <el-table-column label="X坐标" width="150">
+            <template slot-scope="scope">
+                <el-input v-model="scope.row.x" type="number" size="mini"/>
+            </template>
+        </el-table-column>
+        <el-table-column label="Y坐标" width="150">
+            <template slot-scope="scope">
+                <el-input v-model="scope.row.y" type="number" size="mini"/>
+            </template>
+        </el-table-column>
+        <el-table-column label="旋转" width="150">
+            <template slot-scope="scope">
+                <el-input v-model="scope.row.rotation" type="number" size="mini"/>
+            </template>
+        </el-table-column>
+        <el-table-column label="内容" min-width="150">
+            <template slot-scope="scope">
+                <span>{{ resolveText(scope.row) }}</span>
+            </template>
+        </el-table-column>
+        <el-table-column label="操作" width="150">
+            <template slot-scope="scope">
+                <el-button type="danger" @click="handleDeleteTextGroup(scope)" size="mini">删除</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+</div>
+
+<canvas id="myCanvas" style="width: 500px;height: 500px;border: 1px solid #333;float: left;"></canvas>
+<img style="width: 500px;float: left;" id="previewBlock" src="">
+<div style="clear: both;">
+    <h3>说明：</h3>
+    <ol>
+        <li>向右偏移和向下偏移对整个图像有效</li>
+        <li>绘制质量的值越大图像分辨率越高即越清晰，但是过大对性能有影响</li>
+        <li>关于文字：
+            <ul>
+                <li>X轴方向从左到右，Y轴方向从上到下</li>
+                <li>旋转对整个文字块有效</li>
+                <li>文字的左下角对应坐标点</li>
+                <li>文字内容可以填写“{keyword0}”、“{keyword1}”、“{keyword2}”。。。，会被替换为用户输入</li>
+                <li>颜色填写<a href="http://www.w3school.com.cn/cssref/pr_text_color.asp">符合css</a>的颜色编号或者字符，如“#000000”代表黑色，“red”代表红色
+                </li>
+                <li>字体需要<a href="http://www.w3school.com.cn/cssref/pr_font_font.asp">符合css</a>的格式，如“italic bold 12px
+                    arial”代表斜体加粗12px Arial字体
+                </li>
+                <li>左边距和上边距是累加的，会影响到后面的文字</li>
+                <li>旋转都是顺时针计算的，单位为 °，360°即旋转一周，圆心为文字的坐标（即左下角）</li>
+            </ul>
+        </li>
+    </ol>
+</div>
+</body>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        name: 'App',
+        data() {
+            return {
+                dialogVisible: false,
+                templateData: {
+                    x: 100,
+                    y: 100,
+                    font: "22px Arial",
+                    text: "填写文字或者{keyword0}",
+                },
+                jsonData: '',
+                stageProps: {
+                    scale: 1,
+                    background: "#FFFFFF",
+                    width: 500,
+                    height: 500
+                },
+                textGroupList: [],
+                userInput: [],
+                eventListenerList: [],
+            };
+        },
+        mounted() {
+            this.handleChange();
+        },
+        watch: {
+            stageProps: {
+                deep: true,
+                handler() {
+                    this.handleChange();
+                }
+            },
+            textGroupList: {
+                deep: true,
+                handler() {
+                    this.handleChange();
+                }
+            },
+            userInput: {
+                deep: true,
+                handler() {
+                    this.handleChange();
+                }
+            },
+        },
+        methods: {
+            handleChange() {
+                const { stageProps, textGroupList, userInput } = this;
+                this.eventListenerList.forEach(handler => {
+                    handler(JSON.parse(JSON.stringify({ stageProps, textGroupList, userInput })));
+                });
+            },
+            addEventListener(handler) {
+                this.eventListenerList.push(handler);
+            },
+            resolveText(Text) {
+                return Text.children.map(item => item.text).join("");
+            },
+            // 添加一小段文字
+            handleAddTextItem(Text) {
+                Text.children.push({
+                    text: "填写文字或者{keyword0}",
+                    color: "#000000",
+                    font: this.templateData.font || "22px Arial",
+                    marginLeft: 0,
+                    marginTop: 0,
+                    rotation: 0
+                });
+            },
+            handleDeleteTextItem({ row }, { $index }) {
+                row.children.splice($index, 1);
+            },
+            // 添加一组新的文字
+            handleAddTextGroup() {
+                this.textGroupList.push({
+                    x: this.templateData.x || 100,
+                    y: this.templateData.y || 100,
+                    rotation: 0,
+                    children: [
+                        {
+                            text: this.templateData.text || "填写文字或者{keyword0}",
+                            color: "#000000",
+                            font: this.templateData.font || "22px Arial",
+                            marginLeft: 0,
+                            marginTop: 0,
+                            rotation: 0
+                        }
+                    ]
+                });
+            },
+            handleDeleteTextGroup({ $index }) {
+                this.textGroupList.splice($index, 1);
+            },
+
+            handleShowDialog() {
+                this.jsonData = JSON.stringify({
+                    stageProps: this.stageProps,
+                    textGroupList: this.textGroupList,
+                    userInput: this.userInput,
+                }, null, "    ");
+                this.dialogVisible = true;
+            },
+            handleImport() {
+                const data = JSON.parse(this.jsonData);
+                this.stageProps = data.stageProps;
+                this.textGroupList = data.textGroupList;
+                this.userInput = data.userInput;
+                this.dialogVisible = false;
+            },
+            getImg() {
+                getImg(this.stageProps);
+            }
+        }
+    });
+
+    vm.addEventListener(_.throttle(function (data) {
+        draw(data.stageProps, data.textGroupList, data.userInput);
+    }, 200));
+
+    function draw(stageProps, textGroupList, userInput) {
+        const { width = 500, height = 500, scale = 1, background = 'yellow' } = stageProps;
+
+        const ctx = document.getElementById('myCanvas');
+        ctx.style.width = width + 'px';
+        ctx.style.height = height + 'px';
+
+        const stage = new cax.Stage(
+            width * scale,
+            height * scale,
+            "#myCanvas",
+        );
+        stage.scale = scale;
+        stage.disableMoveDetection = false;
+
+        // 背景色
+        const rect = new cax.Rect(width, height, {
+            fillStyle: stageProps.background
+        });
+        stage.add(rect);
+
+        textGroupList.forEach(item => {
+            item.children.forEach(child => {
+                userInput.forEach((keyword, index) => {
+                    child.text = child.text.replace(new RegExp(`{keyword${index}}`, 'g'), keyword.text);
+                });
+            });
+            const textGroup = drawText(cax, item, userInput);
+            stage.add(textGroup);
+        });
+        stage.update();
+    }
+
+    function getImg({ width = 500, height = 500 }) {
+        const ctx = document.getElementById('myCanvas');
+        const previewBlock = document.getElementById('previewBlock');
+        previewBlock.style.width = width + 'px';
+        previewBlock.style.height = height + 'px';
+        previewBlock.src = ctx.toDataURL('img/jpeg');
+    }
+
+    vm.jsonData = `{
+    "stageProps": {
+        "scale": 1.5,
+        "background": "#00FFFF",
+        "width": 500,
+        "height": 500
+    },
+    "textGroupList": [
+        {
+            "x": 20,
+            "y": 200,
+            "rotation": 0,
+            "children": [
+                {
+                    "text": "雷猴啊类",
+                    "color": "#00FF00",
+                    "font": "bold 20px Arial",
+                    "marginLeft": 0,
+                    "marginTop": 0,
+                    "rotation": 0
+                },
+                {
+                    "text": "吃饭了没啊",
+                    "color": "red",
+                    "font": "34px Arial",
+                    "marginLeft": 10,
+                    "marginTop": 5,
+                    "rotation": 30
+                }
+            ]
+        },
+        {
+            "x": "30",
+            "y": "400",
+            "rotation": 0,
+            "children": [
+                {
+                    "text": "填写文字或者",
+                    "color": "#000000",
+                    "font": "22px Arial",
+                    "marginLeft": 0,
+                    "marginTop": 0,
+                    "rotation": 0
+                },
+                {
+                    "text": "{keyword1}",
+                    "color": "red",
+                    "font": "bold 28px Arial",
+                    "marginLeft": "5",
+                    "marginTop": 0,
+                    "rotation": 0
+                },
+                {
+                    "text": "好不好",
+                    "color": "#000000",
+                    "font": "22px Arial",
+                    "marginLeft": "5",
+                    "marginTop": 0,
+                    "rotation": 0
+                }
+            ]
+        },
+        {
+            "x": 100,
+            "y": 100,
+            "rotation": 0,
+            "children": [
+                {
+                    "text": "填写文字或者{keyword}",
+                    "color": "#000000",
+                    "font": "22px Arial",
+                    "marginLeft": 0,
+                    "marginTop": 0,
+                    "rotation": 0
+                }
+            ]
+        }
+    ],
+    "userInput": [
+        {
+            "text": "输入1"
+        },
+        {
+            "text": "爱的色放"
+        }
+    ]
+}`;
+    vm.handleImport();
+</script>
+</html>

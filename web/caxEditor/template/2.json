@@ -1,0 +1,101 @@
+{
+    "stageProps": {
+        "scale": "1.5",
+        "background": "yellow",
+        "width": 500,
+        "height": 500
+    },
+    "textGroupList": [
+        {
+            "x": "20",
+            "y": 100,
+            "rotation": "-15",
+            "children": [
+                {
+                    "text": "如何",
+                    "color": "#000000",
+                    "font": "38px Arial",
+                    "marginLeft": "0",
+                    "marginTop": 0,
+                    "rotation": 0
+                }
+            ]
+        },
+        {
+            "x": "60",
+            "y": "170",
+            "rotation": 0,
+            "children": [
+                {
+                    "text": "才能拥有一个幸福的家？",
+                    "color": "#000000",
+                    "font": "28px Arial",
+                    "marginLeft": 0,
+                    "marginTop": 0,
+                    "rotation": 0
+                }
+            ]
+        },
+        {
+            "x": "20",
+            "y": "250",
+            "rotation": "-15",
+            "children": [
+                {
+                    "text": "首先",
+                    "color": "#000000",
+                    "font": "28px Arial",
+                    "marginLeft": 0,
+                    "marginTop": 0,
+                    "rotation": 0
+                }
+            ]
+        },
+        {
+            "x": "20",
+            "y": "320",
+            "rotation": 0,
+            "children": [
+                {
+                    "text": "你得先用上",
+                    "color": "#000000",
+                    "font": "28px Arial",
+                    "marginLeft": 0,
+                    "marginTop": 0,
+                    "rotation": 0
+                }
+            ]
+        },
+        {
+            "x": "100",
+            "y": "400",
+            "rotation": 0,
+            "children": [
+                {
+                    "text": "{keyword0}",
+                    "color": "red",
+                    "font": "bold 48px Arial",
+                    "marginLeft": 0,
+                    "marginTop": 0,
+                    "rotation": 0
+                },
+                {
+                    "text": "{keyword1}",
+                    "color": "#000000",
+                    "font": "bold 48px Arial",
+                    "marginLeft": "10",
+                    "marginTop": 0,
+                    "rotation": 0
+                }
+            ]
+        }
+    ],
+    "userInput": [
+        {
+            "text": "和兴"
+        },
+        {
+            "text": "白花油"
+        }
+    ]
+}

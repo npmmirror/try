@@ -1,12 +1,34 @@
 page {
-  background: red;
+  .input-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 
-  .index {
-    background: yellow;
+    .my-input {
+      display: inline-block;
+      width: 100px;
+      flex: 1;
+      margin: 20px;
+      padding: 10px;
+      background: #eee;
+    }
+  }
+
+  .canvas-wrap {
+    text-align: center;
+    font-size:0;
+  }
+
+  #myCanvas {
+    display: inline-block;
+    width: 600px;
+    height: 600px;
+    margin: auto;
+    border: 10px solid red;
   }
 
   Image {
-    width: 375px;
-    background: pink;
+    width: 100%;
   }
 }

@@ -1,0 +1,87 @@
+{
+    "stageProps": {
+        "scale": 1,
+        "background": "#00FFFF",
+        "width": 500,
+        "height": 500
+    },
+    "textGroupList": [
+        {
+            "x": 20,
+            "y": 200,
+            "rotation": 0,
+            "children": [
+                {
+                    "text": "雷猴啊类",
+                    "color": "#00FF00",
+                    "font": "bold 20px Arial",
+                    "marginLeft": 0,
+                    "marginTop": 0,
+                    "rotation": 0
+                },
+                {
+                    "text": "吃饭了没啊",
+                    "color": "red",
+                    "font": "34px Arial",
+                    "marginLeft": 10,
+                    "marginTop": 5,
+                    "rotation": 30
+                }
+            ]
+        },
+        {
+            "x": "30",
+            "y": "400",
+            "rotation": 0,
+            "children": [
+                {
+                    "text": "填写文字或者",
+                    "color": "#000000",
+                    "font": "18px Arial",
+                    "marginLeft": 0,
+                    "marginTop": 0,
+                    "rotation": 0
+                },
+                {
+                    "text": "{keyword1}",
+                    "color": "red",
+                    "font": "bold 28px Arial",
+                    "marginLeft": "5",
+                    "marginTop": 0,
+                    "rotation": 0
+                },
+                {
+                    "text": "好不好",
+                    "color": "#000000",
+                    "font": "18px Arial",
+                    "marginLeft": "5",
+                    "marginTop": 0,
+                    "rotation": 0
+                }
+            ]
+        },
+        {
+            "x": 100,
+            "y": 100,
+            "rotation": 0,
+            "children": [
+                {
+                    "text": "填写文字或者{keyword}",
+                    "color": "#000000",
+                    "font": "18px Arial",
+                    "marginLeft": 0,
+                    "marginTop": 0,
+                    "rotation": 0
+                }
+            ]
+        }
+    ],
+    "userInput": [
+        {
+            "text": "输入1"
+        },
+        {
+            "text": "输入2"
+        }
+    ]
+}

@@ -1,0 +1,232 @@
+{
+  "stageProps": {
+    "scale": 1.5,
+    "background": "#d9e9ff",
+    "width": "500",
+    "height": "501"
+  },
+  "textGroupList": [
+    {
+      "x": 60,
+      "y": "60",
+      "rotation": 0,
+      "children": [
+        {
+          "text": "曾经有一份真诚的爱情放在",
+          "color": "#000000",
+          "font": "22px Arial",
+          "marginLeft": 0,
+          "marginTop": 0,
+          "rotation": 0
+        },
+        {
+          "text": "{keyword0}",
+          "color": "red",
+          "font": "bold 30px Arial",
+          "marginLeft": "3",
+          "marginTop": 0,
+          "rotation": 0
+        },
+        {
+          "text": "面前",
+          "color": "#000000",
+          "font": "22px Arial",
+          "marginLeft": "3",
+          "marginTop": 0,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "x": 60,
+      "y": "100",
+      "rotation": 0,
+      "children": [
+        {
+          "text": "{keyword0}",
+          "color": "red",
+          "font": "bold 30px Arial",
+          "marginLeft": "0",
+          "marginTop": 0,
+          "rotation": 0
+        },
+        {
+          "text": "没有珍惜",
+          "color": "#000000",
+          "font": "22px Arial",
+          "marginLeft": "3",
+          "marginTop": 0,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "x": 60,
+      "y": "140",
+      "rotation": 0,
+      "children": [
+        {
+          "text": "等失去的时候",
+          "color": "#000000",
+          "font": "22px Arial",
+          "marginLeft": 0,
+          "marginTop": 0,
+          "rotation": 0
+        },
+        {
+          "text": "{keyword0}",
+          "color": "red",
+          "font": "bold 30px Arial",
+          "marginLeft": "3",
+          "marginTop": 0,
+          "rotation": 0
+        },
+        {
+          "text": "才后悔莫及",
+          "color": "#000000",
+          "font": "22px Arial",
+          "marginLeft": "3",
+          "marginTop": 0,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "x": 60,
+      "y": "180",
+      "rotation": 0,
+      "children": [
+        {
+          "text": "人世间最痛苦的事莫过于此",
+          "color": "#000000",
+          "font": "22px Arial",
+          "marginLeft": 0,
+          "marginTop": 0,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "x": 60,
+      "y": "220",
+      "rotation": 0,
+      "children": [
+        {
+          "text": "如果上天能够给我一个再来一次的机会",
+          "color": "#000000",
+          "font": "22px Arial",
+          "marginLeft": 0,
+          "marginTop": 0,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "x": 60,
+      "y": "260",
+      "rotation": 0,
+      "children": [
+        {
+          "text": "{keyword0}",
+          "color": "red",
+          "font": "bold 30px Arial",
+          "marginLeft": 0,
+          "marginTop": 0,
+          "rotation": 0
+        },
+        {
+          "text": "会对那个女孩子说三个字",
+          "color": "#000000",
+          "font": "22px Arial",
+          "marginLeft": "3",
+          "marginTop": 0,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "x": 60,
+      "y": "300",
+      "rotation": 0,
+      "children": [
+        {
+          "text": "我爱你",
+          "color": "#000000",
+          "font": "22px Arial",
+          "marginLeft": 0,
+          "marginTop": 0,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "x": 60,
+      "y": "340",
+      "rotation": 0,
+      "children": [
+        {
+          "text": "如果非要在这份爱上加上一个",
+          "color": "#000000",
+          "font": "22px Arial",
+          "marginLeft": 0,
+          "marginTop": 0,
+          "rotation": 0
+        },
+        {
+          "text": "期限",
+          "color": "red",
+          "font": "30px 黑体",
+          "marginLeft": 0,
+          "marginTop": 0,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "x": "60",
+      "y": "380",
+      "rotation": 0,
+      "children": [
+        {
+          "text": "{keyword0}",
+          "color": "red",
+          "font": "bold 30px Arial",
+          "marginLeft": 0,
+          "marginTop": 0,
+          "rotation": 0
+        },
+        {
+          "text": "希望是",
+          "color": "#000000",
+          "font": "22px Arial",
+          "marginLeft": 0,
+          "marginTop": 0,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "x": "150",
+      "y": "470",
+      "rotation": 0,
+      "children": [
+        {
+          "text": "{keyword1}！",
+          "color": "red",
+          "font": "bold 70px Arial",
+          "marginLeft": 0,
+          "marginTop": 0,
+          "rotation": 0
+        }
+      ]
+    }
+  ],
+  "userInput": [
+    {
+      "text": "我"
+    },
+    {
+      "text": "一万年"
+    }
+  ]
+}

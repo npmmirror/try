@@ -1,0 +1,53 @@
+{
+  "stageProps": {
+    "scale": 1.5,
+    "background": "yellow",
+    "width": 500,
+    "height": 500
+  },
+  "textGroupList": [
+    {
+      "x": "50",
+      "y": "180",
+      "rotation": 0,
+      "children": [
+        {
+          "text": "{keyword0}",
+          "color": "#000000",
+          "font": "70px Arial",
+          "marginLeft": 0,
+          "marginTop": 0,
+          "rotation": 0
+        },
+        {
+          "text": "太牛逼",
+          "color": "#000000",
+          "font": "33px Arial",
+          "marginLeft": 0,
+          "marginTop": 0,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "x": 100,
+      "y": "300",
+      "rotation": 0,
+      "children": [
+        {
+          "text": "无文案可匹配",
+          "color": "#000000",
+          "font": "40px Arial",
+          "marginLeft": 0,
+          "marginTop": 0,
+          "rotation": 0
+        }
+      ]
+    }
+  ],
+  "userInput": [
+    {
+      "text": "德玛西亚"
+    }
+  ]
+}

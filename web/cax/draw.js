@@ -3,6 +3,7 @@ function drawText(cax, textJson) {
     const group = new cax.Group();
     group.x = textJson.x || 0;
     group.y = textJson.y || 0;
+    group.rotation = textJson.rotation;
 
     let currentPosition = {
         x: 0,
@@ -11,12 +12,13 @@ function drawText(cax, textJson) {
 
     // 遍历数组并逐个添加文字，后面文字的偏移量加上了前面文字的宽度，还不支持换行
     textJson.children.forEach(item => {
-        currentPosition.x += item.marginLeft || 0;
-        currentPosition.y += item.marginTop || 0;
+        currentPosition.x += +item.marginLeft || 0;
+        currentPosition.y += +item.marginTop || 0;
 
         const text = new cax.Text(item.text, {
             font: item.font,
-            color: item.color
+            color: item.color,
+            baseline: 'bottom'
         });
         text.x = currentPosition.x;
         text.y = currentPosition.y;

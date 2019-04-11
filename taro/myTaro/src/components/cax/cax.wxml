@@ -1,10 +1,10 @@
-<canvas 
+<canvas
     class="cax-canvas"
-    bindtouchstart="touchStart" 
-    bindtouchmove="touchMove" 
-    bindtouchend="touchEnd" 
-    canvas-id="{{ id }}" 
-    style="border: 1px solid;width: {{width}}px; height: {{height}}px;">
+    bindtouchstart="touchStart"
+    bindtouchmove="touchMove"
+    bindtouchend="touchEnd"
+    canvas-id="{{ id }}"
+    style="width: {{width}}px; height: {{height}}px;">
     <slot></slot>
 </canvas>
 
