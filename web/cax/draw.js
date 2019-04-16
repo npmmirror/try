@@ -1,3 +1,4 @@
+// 这个文件要与小程序的同步：用于在cax中绘制文字
 function drawText(cax, textJson) {
 
     const group = new cax.Group();
