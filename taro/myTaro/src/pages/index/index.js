@@ -1,51 +1,96 @@
 /* eslint-disable taro/props-reserve-keyword */
-import Taro, { Component } from "@tarojs/taro";
-import { View, Text, Image, Input, Button } from "@tarojs/components";
-import "./index.scss";
-import cax from "../../components/cax/index";
-import drawText from "../index2/draw";
+import Taro, { Component } from '@tarojs/taro';
+import { View, Text, Image, Input, Button } from '@tarojs/components';
+import './index.scss';
+import cax from '../../components/cax/index';
+import drawText from '../index2/draw';
 // import template1 from "./template/1.json";
 // import template2 from "./template/2.json";
 // import template3 from "./template/10000years.json";
 // import template4 from "./template/demaxiya.json";
-import getRandomTemplate from "../../api/template";
+import getRandomTemplate from '../../api/template';
 
 // const templateList = [template3, template1, template2, template4];
 
 export default class Index extends Component {
   config = {
-    navigationBarTitleText: "首页",
+    navigationBarTitleText: '首页',
     usingComponents: {
       // 这里为组件要另外取一个名字 cax-canvas，不能跟cax库重名
-      "cax-canvas": "../../components/cax/cax"
+      'cax-canvas': '../../components/cax/cax'
     }
   };
 
   constructor() {
     super();
-    this.state = {
-      userInput: []
-    };
+    // this.state = {
+    //   userInput: []
+    // };
     this.stage = null;
+    this.templateList = [];
     this.userInput = [];
   }
 
   componentDidMount() {
-    this.getTemplate();
+    this.keywords =
+      (this.$router.params.corpName || '') + (this.$router.params.major || '');
+    this.userInput = [
+      { text: this.$router.params.corpName || '' },
+      { text: this.$router.params.major || '' }
+    ];
+    this.generateImage();
+  }
+
+  generateImage() {
+    this.getTemplate().then(this.draw);
   }
 
   // 获得模版
   getTemplate() {
-    getRandomTemplate().then(data => {
-      this.currentTemplate = data[0];
-      const template = JSON.parse(data[0].patternText);
-      this.template = template;
-      this.setState({
-        userInput: template.userInput
-      });
-      this.userInput = JSON.parse(JSON.stringify(template.userInput));
-      this.draw();
-      this.userInput.forEach(item => (item.text = ""));
+    return new Promise((resolve, reject) => {
+      if (this.templateList && this.templateList.length) {
+        const currentTemplate = this.templateList.shift();
+        this.template = JSON.parse(currentTemplate.patternText);
+        resolve();
+        return;
+      }
+      getRandomTemplate({
+        keywords: this.keywords || '',
+        limit: 10
+      })
+        .then(data => {
+          // 根据id手动去重
+          const keyMap = {};
+          this.templateList = data.reduce((result, cur) => {
+            if (!keyMap[cur.id]) {
+              result.push(cur);
+              keyMap[cur.id] = true;
+            }
+            return result;
+          }, []);
+
+          const currentTemplate = this.templateList.shift();
+          this.template = JSON.parse(currentTemplate.patternText);
+          // const template = JSON.parse(data[0].patternText);
+          // this.currentTemplate = data[0];
+          // const template = JSON.parse(data[0].patternText);
+          // this.template = template;
+          // this.setState({
+          //   userInput: template.userInput
+          // });
+          // this.userInput = JSON.parse(JSON.stringify(template.userInput));
+          // this.userInput = template.userInput;
+          // this.userInput.forEach((item, index) => {
+          //   item.text = '';
+          //   if (index === 0) {
+          //     item.text = this.$router.params.corpName;
+          //   } else if (index === 1) {
+          //     item.text = this.$router.params.major;
+          //   }
+          // });
+          resolve();
+        })
+        .catch(reject);
     });
   }
 
@@ -59,18 +104,19 @@ export default class Index extends Component {
     const actualHeight = (height * actualWidth) / width;
     const stage = (this.stage =
       this.stage ||
-      new cax.Stage(actualWidth, actualHeight, "myCanvas", this.$scope));
+      new cax.Stage(actualWidth, actualHeight, 'myCanvas', this.$scope));
     stage.scale = actualWidth / width;
 
     stage.empty();
 
     // 背景色
     const rect = new cax.Rect(width, height, {
-      fillStyle: stageProps.background || "#FFFFFF"
+      fillStyle: stageProps.background || '#FFFFFF'
     });
     stage.add(rect);
 
-    const bitmap = new cax.Bitmap("../../images/qr.png");
+    // 右下角的小图片
+    const bitmap = new cax.Bitmap('../../images/qr.png');
     bitmap.scale = 0.4;
     bitmap.y = bitmap.x = 490 - 225 * bitmap.scale;
     stage.add(bitmap);
@@ -81,7 +127,7 @@ export default class Index extends Component {
       item.children.forEach(child => {
         this.userInput.forEach((keyword, index) => {
           child.text = child.text.replace(
-            new RegExp(`{keyword${index}}`, "g"),
+            new RegExp(`{keyword${index}}`, 'g'),
             keyword.text
           );
         });
@@ -91,21 +137,29 @@ export default class Index extends Component {
     });
 
     // 不加setTimeout 图片就不显示。。。我也不知道为什么
-    Taro.showLoading();
+    Taro.showLoading({
+      title: '加载中',
+      mask: true
+    });
     setTimeout(() => {
       Taro.hideLoading();
       stage.update();
+      setTimeout(() => {
+        this.getImg(url => {
+          this.imgUrl = url;
+        });
+      }, 1000);
     }, 100);
   };
 
   // 生成图片
   getImg = callback => {
-    const ctx = this.$scope.selectComponent("#myCanvas");
+    const ctx = this.$scope.selectComponent('#myCanvas');
     Taro.canvasToTempFilePath(
       {
         canvasId: this.stage.ctx.canvasId,
         success: res => {
-          if (typeof callback === "function") {
+          if (typeof callback === 'function') {
             callback(res.tempFilePath);
           } else {
             Taro.previewImage({
@@ -117,7 +171,7 @@ export default class Index extends Component {
         fail: e => {
           Taro.showToast({
             title: e,
-            icon: "none"
+            icon: 'none'
           });
         }
       },
@@ -135,10 +189,10 @@ export default class Index extends Component {
 
   componentDidHide() {}
 
-  handleInput(index, e) {
-    this.userInput[index].text = e.detail.value;
-    // this.draw();
-  }
+  // handleInput(index, e) {
+  //   this.userInput[index].text = e.detail.value;
+  //   // this.draw();
+  // }
 
   saveImage = () => {
     this.getImg(url => {
@@ -146,16 +200,16 @@ export default class Index extends Component {
         filePath: url,
         success() {
           Taro.showToast({
-            title: "保存成功",
-            icon: "success",
+            title: '保存成功',
+            icon: 'success',
             duration: 2000
           });
         },
         fail(e) {
-          if (e.errMsg.indexOf("cancel") !== -1) return;
+          if (e.errMsg.indexOf('cancel') !== -1) return;
           Taro.showToast({
-            title: "保存失败",
-            icon: "none",
+            title: '保存失败',
+            icon: 'none',
             duration: 2000
           });
         }
@@ -163,13 +217,21 @@ export default class Index extends Component {
     });
   };
 
+  onShareAppMessage() {
+    return {
+      // title: that.data.detail.content,
+      title: `${this.$router.params.corpName}的毒文案`,
+      imageUrl: this.imgUrl
+    };
+  }
+
   render() {
     return (
       <View className='container'>
         <View className='canvas-wrap'>
           <cax-canvas id='myCanvas' onTap={this.getImg} />
         </View>
-        <View className='input-list'>
+        {/* <View className='input-list'>
           {this.state.userInput.map((item, index) => (
             <View className='input-item' key={item.text}>
               <View className='label'>{item.text}</View>
@@ -181,15 +243,18 @@ export default class Index extends Component {
               />
             </View>
           ))}
-        </View>
+        </View> */}
         <View className='btn-group'>
-          <View className='row'>
+          {/* <View className='row'>
             <Button onClick={this.handleClick}>确定</Button>
-          </View>
+          </View> */}
           <View className='row'>
-            <Button type='primary' onClick={this.getTemplate.bind(this)}>
+            <Button type='primary' onClick={this.generateImage.bind(this)}>
               换一个
             </Button>
+          </View>
+          <View className='row'>
+            <Button openType='share'>分享</Button>
             <Button onClick={this.saveImage}>保存图片</Button>
           </View>
         </View>

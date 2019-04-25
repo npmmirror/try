@@ -1,8 +1,8 @@
-import request from "../util/request";
+import request from '../util/request';
 
-function getRandomTemplate() {
+export default function getRandomTemplate(data) {
   return request({
-    url: "/v2/cms/copywritingPattern/findRandom"
+    url: '/v2/cms/copywritingPattern/findRandom',
+    data
   });
 }
-export default getRandomTemplate;

@@ -1,0 +1,66 @@
+@import '../../variable.scss';
+
+page {
+  min-height: 100%;
+}
+
+.container {
+  margin: 20px;
+  padding: 20px;
+  border: $black-border;
+  background: #ff6933;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 10px 10px 20px rgba($color: #000000, $alpha: 0.3);
+}
+
+.title {
+  padding: 50px 20px;
+  color: $font-color;
+
+  &__content {
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+.operation {
+  padding: 20px;
+
+  .input-item {
+    margin-bottom: 30px;
+
+    &__label {
+      color: $font-color;
+      font-weight: bold;
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    &__input {
+      background: #fff;
+      padding: 15px;
+      border: $black-border;
+      font-size: 40px;
+      line-height: 50px;
+    }
+
+    &__input--placeholder {
+      color: #ccc;
+    }
+  }
+
+  &__button {
+    font-size: 40px;
+    font-weight: bold;
+
+    &[type=primary] {
+      margin: 80px;
+      border: $black-border;
+      color: $font-color;
+      background: yellowgreen;
+    }
+  }
+}
