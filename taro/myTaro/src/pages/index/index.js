@@ -4,12 +4,13 @@ import { View, Text, Image, Input, Button } from "@tarojs/components";
 import "./index.scss";
 import cax from "../../components/cax/index";
 import drawText from "../index2/draw";
-import template1 from "./template/1.json";
-import template2 from "./template/2.json";
-import template3 from "./template/10000years.json";
-import template4 from "./template/demaxiya.json";
+// import template1 from "./template/1.json";
+// import template2 from "./template/2.json";
+// import template3 from "./template/10000years.json";
+// import template4 from "./template/demaxiya.json";
+import getRandomTemplate from "../../api/template";
 
-const templateList = [template3, template1, template2, template4];
+// const templateList = [template3, template1, template2, template4];
 
 export default class Index extends Component {
   config = {
@@ -35,14 +36,17 @@ export default class Index extends Component {
 
   // 获得模版
   getTemplate() {
-    const template = JSON.parse(JSON.stringify(templateList[0]));
-    templateList.push(templateList.shift());
-    this.template = template;
-    this.setState({
-      userInput: template.userInput
+    getRandomTemplate().then(data => {
+      this.currentTemplate = data[0];
+      const template = JSON.parse(data[0].patternText);
+      this.template = template;
+      this.setState({
+        userInput: template.userInput
+      });
+      this.userInput = JSON.parse(JSON.stringify(template.userInput));
+      this.draw();
+      this.userInput.forEach(item => (item.text = ""));
     });
-    this.userInput = template.userInput;
-    this.draw();
   }
 
   draw = () => {
@@ -59,11 +63,18 @@ export default class Index extends Component {
     stage.scale = actualWidth / width;
 
     stage.empty();
+
     // 背景色
     const rect = new cax.Rect(width, height, {
       fillStyle: stageProps.background || "#FFFFFF"
     });
     stage.add(rect);
+
+    const bitmap = new cax.Bitmap("../../images/qr.png");
+    bitmap.scale = 0.4;
+    bitmap.y = bitmap.x = 490 - 225 * bitmap.scale;
+    stage.add(bitmap);
+
     // 逐条文字添加
     textGroupList.forEach(item => {
       item = JSON.parse(JSON.stringify(item));
@@ -78,7 +89,13 @@ export default class Index extends Component {
       const textGroup = drawText(cax, item);
       stage.add(textGroup);
     });
-    stage.update();
+
+    // 不加setTimeout 图片就不显示。。。我也不知道为什么
+    Taro.showLoading();
+    setTimeout(() => {
+      Taro.hideLoading();
+      stage.update();
+    }, 100);
   };
 
   // 生成图片
@@ -120,7 +137,7 @@ export default class Index extends Component {
 
   handleInput(index, e) {
     this.userInput[index].text = e.detail.value;
-    this.draw();
+    // this.draw();
   }
 
   saveImage = () => {
@@ -148,28 +165,34 @@ export default class Index extends Component {
 
   render() {
     return (
-      <View>
+      <View className='container'>
         <View className='canvas-wrap'>
           <cax-canvas id='myCanvas' onTap={this.getImg} />
         </View>
         <View className='input-list'>
           {this.state.userInput.map((item, index) => (
-            <Input
-              type='text'
-              className='my-input'
-              value={item.text}
-              key={index}
-              onInput={this.handleInput.bind(this, index)}
-            />
+            <View className='input-item' key={item.text}>
+              <View className='label'>{item.text}</View>
+              <Input
+                type='text'
+                className='input'
+                placeholder={`请输入${item.text}`}
+                onInput={this.handleInput.bind(this, index)}
+              />
+            </View>
           ))}
         </View>
-        <Button onClick={this.getTemplate.bind(this)}>换个模版</Button>
-        <Button onClick={this.saveImage}>保存图片</Button>
-        {/* <Button onClick={this.handleClick} style='display:none;'>点我画图</Button>
-        <Button onClick={this.getImg} style='display:none;'>
-          点我生成图片
-        </Button> */}
-        {/* taro 必须要有这个事件才会加入到小程序的作用域中。。。 */}
+        <View className='btn-group'>
+          <View className='row'>
+            <Button onClick={this.handleClick}>确定</Button>
+          </View>
+          <View className='row'>
+            <Button type='primary' onClick={this.getTemplate.bind(this)}>
+              换一个
+            </Button>
+            <Button onClick={this.saveImage}>保存图片</Button>
+          </View>
+        </View>
       </View>
     );
   }
