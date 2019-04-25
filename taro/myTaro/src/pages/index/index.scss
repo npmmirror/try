@@ -39,7 +39,7 @@ page {
   margin: 20px;
   padding: 35px;
   border: $black-border;
-  background: #ff6933;
+  background: $container-background;
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -78,7 +78,8 @@ page {
     &[type=primary] {
       border: $black-border;
       color: $font-color;
-      background: yellowgreen;
+      background: $button-background;
     }
+
   }
 }

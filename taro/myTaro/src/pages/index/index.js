@@ -254,8 +254,12 @@ export default class Index extends Component {
             </Button>
           </View>
           <View className='row'>
-            <Button openType='share'>分享</Button>
-            <Button onClick={this.saveImage}>保存图片</Button>
+            <Button type='default' openType='share'>
+              分享
+            </Button>
+            <Button type='default' onClick={this.saveImage}>
+              保存图片
+            </Button>
           </View>
         </View>
       </View>
