@@ -100,7 +100,7 @@ export default class Index extends Component {
     const info = Taro.getSystemInfoSync();
 
     // 计算画布的真实宽高
-    const actualWidth = info.windowWidth * (600 / 750);
+    const actualWidth = info.windowWidth * (750 / 750);
     const actualHeight = (height * actualWidth) / width;
     const stage = (this.stage =
       this.stage ||
@@ -117,9 +117,28 @@ export default class Index extends Component {
 
     // 右下角的小图片
     const bitmap = new cax.Bitmap('../../images/qr.png');
-    bitmap.scale = 0.4;
-    bitmap.y = bitmap.x = 490 - 225 * bitmap.scale;
+    bitmap.scale = (width / 750) * (84 / 225); //84 是设计尺寸，225是图片原始尺寸
+    // bitmap.y = bitmap.x = (750 - 58) * bitmap.scale;
+    bitmap.x = (608 / 750) * width;
+    bitmap.y = (611 / 750) * height;
     stage.add(bitmap);
+    const text = new cax.Text('扫码生成', {
+      font: '12px Arial',
+      color: '#000000',
+      baseline: 'bottom'
+    });
+    const text2 = new cax.Text('您的专属毒文案', {
+      font: '12px Arial',
+      color: '#000000',
+      baseline: 'bottom'
+    });
+    text.scale = text2.scale = width / 750;
+    text.x = (628 / 750) * width;
+    text.y = (720 / 750) * height;
+    text2.x = (608 / 750) * width;
+    text2.y = (740 / 750) * height;
+    stage.add(text);
+    stage.add(text2);
 
     // 逐条文字添加
     textGroupList.forEach(item => {
@@ -189,11 +208,6 @@ export default class Index extends Component {
 
   componentDidHide() {}
 
-  // handleInput(index, e) {
-  //   this.userInput[index].text = e.detail.value;
-  //   // this.draw();
-  // }
-
   saveImage = () => {
     this.getImg(url => {
       Taro.saveImageToPhotosAlbum({
@@ -231,34 +245,16 @@ export default class Index extends Component {
         <View className='canvas-wrap'>
           <cax-canvas id='myCanvas' onTap={this.getImg} />
         </View>
-        {/* <View className='input-list'>
-          {this.state.userInput.map((item, index) => (
-            <View className='input-item' key={item.text}>
-              <View className='label'>{item.text}</View>
-              <Input
-                type='text'
-                className='input'
-                placeholder={`请输入${item.text}`}
-                onInput={this.handleInput.bind(this, index)}
-              />
-            </View>
-          ))}
-        </View> */}
         <View className='btn-group'>
-          {/* <View className='row'>
-            <Button onClick={this.handleClick}>确定</Button>
-          </View> */}
           <View className='row'>
-            <Button type='primary' onClick={this.generateImage.bind(this)}>
-              换一个
-            </Button>
+            <Button onClick={this.generateImage.bind(this)}>再来一次</Button>
           </View>
           <View className='row'>
-            <Button type='default' openType='share'>
-              分享
+            <Button className='main-color' onClick={this.saveImage}>
+              保存到相册
             </Button>
-            <Button type='default' onClick={this.saveImage}>
-              保存图片
+            <Button className='emm' openType='share'>
+              邀请朋友玩
             </Button>
           </View>
         </View>

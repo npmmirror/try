@@ -3,3 +3,24 @@ $font-color: #333;
 $container-background:#f5f5d5;
 $button-background:#1abc9c;
 $button-default-background: #ecf0f1;
+
+$main-color: #EC6631;
+
+@mixin button($background-color) {
+  background: $background-color;
+  border: 4rpx solid rgba(0, 0, 0, 1);
+  border-radius: 10rpx;
+  text-align: center;
+  font-weight: bold;
+}
+
+@mixin input() {
+  background: rgba(255, 255, 255, 1);
+  border: 4rpx solid rgba(0, 0, 0, 1);
+}
+
+@mixin input-placeholder {
+  font-size: 30rpx;
+  color: rgba(204, 204, 204, 1);
+  line-height: 10rpx;
+}

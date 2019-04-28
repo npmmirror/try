@@ -1,85 +1,65 @@
 @import '../../variable.scss';
 
-page {
-  // .input-list {
-  //   .input-item {
-  //     padding: 10px;
-  //     display: flex;
-  //     flex-direction: row;
-  //     align-items: center;
-
-  //     .label {
-  //       padding-left: 20px;
-  //       width: 230px;
-  //     }
-
-  //     .input {
-  //       padding: 10px;
-  //       width: 0;
-  //       flex: 1;
-  //       background: #eee;
-  //     }
-  //   }
-  // }
-
-  .canvas-wrap {
-    text-align: center;
-    font-size: 0;
-  }
-
-  #myCanvas {
-    display: inline-block;
-    width: 600px;
-    height: 600px;
-    border: $black-border;
-  }
+.canvas-wrap {
+  text-align: center;
+  font-size: 0;
 }
 
-.container {
-  margin: 20px;
-  padding: 35px;
-  border: $black-border;
-  background: $container-background;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 10px 10px 20px rgba($color: #000000, $alpha: 0.3);
+#myCanvas {
+  display: inline-block;
+  width: 750px;
+  height: 750px;
+  // border: $black-border;
+}
+
+page {
+  height: 100%;
 }
 
 .container {
   height: 100%;
   display: flex;
   flex-direction: column;
+  // background: $main-background;
 
   .btn-group {
+    padding: 50px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    // justify-content: flex-end;
   }
 }
 
 .row {
   display: flex;
   flex-direction: row;
-  margin: 20px 0;
+  margin-bottom: 75px;
 
   Button {
     width: 0;
     flex: 1;
-    border: $black-border;
     font-size: 40px;
-    font-weight: bold;
+    height: 88px;
+    line-height: 80px;
+
+    @include button(#fff);
 
     &:nth-child(n+2) {
-      margin-left: 20px;
+      margin-left: 30px;
     }
 
     &[type=primary] {
-      border: $black-border;
-      color: $font-color;
+
       background: $button-background;
     }
 
+    &.main-color {
+      background: $main-color;
+    }
+
+    &.emm {
+      background: #FDC400;
+    }
   }
 }

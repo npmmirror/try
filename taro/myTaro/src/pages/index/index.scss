@@ -1,66 +1,91 @@
 @import '../../variable.scss';
 
 page {
-  min-height: 100%;
+  height: 100%;
 }
 
 .container {
-  margin: 40px;
-  padding: 20px;
-  border: $black-border;
-  background: $container-background;
+  // margin: 40px;
+  // padding: 20px;
+  // border: $black-border;
+  background: $main-color;
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  box-shadow: 10px 10px 20px rgba($color: #000000, $alpha: 0.3);
+  // box-shadow: 10px 10px 20px rgba($color: #000000, $alpha: 0.3);
 }
 
 .title {
-  padding: 50px 20px;
-  color: $font-color;
+  // padding: 50px 20px;
+  height: 393px;
+  position: relative;
+  // color: $font-color;
 
   &__content {
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
+    // font-size: 50px;
+    // font-weight: bold;
+    // text-align: center;
+  }
+}
+
+.image {
+  position: absolute;
+  &__2019 {
+    width: 172px;
+    height: 86px;
+    left: 54px;
+    top: 77px;
+  }
+
+  &__text {
+    width: 596px;
+    height: 86px;
+    left: 53px;
+    top: 153px;
+  }
+
+  &__quill {
+    width: 214px;
+    height: 260px;
+    left: 524px;
+    top: 134px;
   }
 }
 
 .operation {
-  padding: 20px;
+  padding: 0 50px;
 
   .input-item {
-    margin-bottom: 30px;
+    margin-bottom: 60px;
 
     &__label {
-      color: $font-color;
-      font-weight: bold;
-      font-size: 40px;
+      font-size:36px;
+      font-weight:bold;
+      color:rgba(1,1,1,1);
       margin-bottom: 15px;
     }
 
     &__input {
-      background: #fff;
-      padding: 15px;
-      border: $black-border;
-      font-size: 40px;
-      line-height: 50px;
+
+      @include input;
+      line-height: 80px;
+      height: 80px;
+      padding-left: 15px;
     }
 
     &__input--placeholder {
-      color: #ccc;
+      @include input-placeholder;
     }
   }
 
   &__button {
+    margin-top: 140px;
     font-size: 40px;
     font-weight: bold;
 
     &[type=primary] {
-      margin: 80px;
-      border: $black-border;
-      color: $font-color;
-      background: $button-background;
+      @include button(#FDC400);
+      color: #000000;
     }
   }
 }

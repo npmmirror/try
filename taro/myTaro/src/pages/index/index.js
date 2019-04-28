@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Input, Form, Button } from '@tarojs/components';
+import { View, Image, Input, Form, Button } from '@tarojs/components';
 import './index.scss';
 
 export default class Index extends Component {
@@ -35,12 +35,15 @@ export default class Index extends Component {
     return (
       <View className='container'>
         <View className='title'>
-          <View className='title__content'>快来查看你的毒文案</View>
+          {/* <View className='title__content'>快来查看你的毒文案</View> */}
+          <Image className='image image__2019' src='../../images/2019.png'></Image>
+          <Image className='image image__text' src='../../images/text.png'></Image>
+          <Image className='image image__quill' src='../../images/quill.png'></Image>
         </View>
         <View className='operation'>
           <Form onSubmit={this.handleSubmit}>
             <View className='input-item'>
-              <View className='input-item__label'>企业名称</View>
+              <View className='input-item__label'>输入您的公司名称  (*^▽^*)</View>
               <Input
                 className='input-item__input'
                 name='corpName'
@@ -49,7 +52,7 @@ export default class Index extends Component {
               />
             </View>
             <View className='input-item'>
-              <View className='input-item__label'>主营</View>
+              <View className='input-item__label'>输入您的主营产品</View>
               <Input
                 className='input-item__input'
                 name='major'
@@ -62,7 +65,7 @@ export default class Index extends Component {
               className='operation__button'
               formType='submit'
             >
-              提交
+              生成
             </Button>
           </Form>
         </View>
