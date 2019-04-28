@@ -3,7 +3,7 @@ import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Image, Input, Button } from '@tarojs/components';
 import './index.scss';
 import cax from '../../components/cax/index';
-import drawText from '../index2/draw';
+import drawText from './draw';
 // import template1 from "./template/1.json";
 // import template2 from "./template/2.json";
 // import template3 from "./template/10000years.json";
