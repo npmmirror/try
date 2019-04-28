@@ -1,43 +1,12 @@
 @import '../../variable.scss';
 
 page {
-  // .input-list {
-  //   .input-item {
-  //     padding: 10px;
-  //     display: flex;
-  //     flex-direction: row;
-  //     align-items: center;
-
-  //     .label {
-  //       padding-left: 20px;
-  //       width: 230px;
-  //     }
-
-  //     .input {
-  //       padding: 10px;
-  //       width: 0;
-  //       flex: 1;
-  //       background: #eee;
-  //     }
-  //   }
-  // }
-
-  .canvas-wrap {
-    text-align: center;
-    font-size: 0;
-  }
-
-  #myCanvas {
-    display: inline-block;
-    width: 600px;
-    height: 600px;
-    border: $black-border;
-  }
+  min-height: 100%;
 }
 
 .container {
-  margin: 20px;
-  padding: 35px;
+  margin: 40px;
+  padding: 20px;
   border: $black-border;
   background: $container-background;
   min-height: 100%;
@@ -46,40 +15,52 @@ page {
   box-shadow: 10px 10px 20px rgba($color: #000000, $alpha: 0.3);
 }
 
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+.title {
+  padding: 50px 20px;
+  color: $font-color;
 
-  .btn-group {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+  &__content {
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
   }
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-  margin: 20px 0;
+.operation {
+  padding: 20px;
 
-  Button {
-    width: 0;
-    flex: 1;
-    border: $black-border;
+  .input-item {
+    margin-bottom: 30px;
+
+    &__label {
+      color: $font-color;
+      font-weight: bold;
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    &__input {
+      background: #fff;
+      padding: 15px;
+      border: $black-border;
+      font-size: 40px;
+      line-height: 50px;
+    }
+
+    &__input--placeholder {
+      color: #ccc;
+    }
+  }
+
+  &__button {
     font-size: 40px;
     font-weight: bold;
 
-    &:nth-child(n+2) {
-      margin-left: 20px;
-    }
-
     &[type=primary] {
+      margin: 80px;
       border: $black-border;
       color: $font-color;
       background: $button-background;
     }
-
   }
 }

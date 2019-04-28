@@ -12,8 +12,8 @@ import './app.scss';
 class App extends Component {
   config = {
     pages: [
-      'pages/home/index',
-      'pages/index/index'
+      'pages/index/index',
+      'pages/painter/index',
       // 'pages/index2/index',
     ],
     window: {

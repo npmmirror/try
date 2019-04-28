@@ -1,0 +1,85 @@
+@import '../../variable.scss';
+
+page {
+  // .input-list {
+  //   .input-item {
+  //     padding: 10px;
+  //     display: flex;
+  //     flex-direction: row;
+  //     align-items: center;
+
+  //     .label {
+  //       padding-left: 20px;
+  //       width: 230px;
+  //     }
+
+  //     .input {
+  //       padding: 10px;
+  //       width: 0;
+  //       flex: 1;
+  //       background: #eee;
+  //     }
+  //   }
+  // }
+
+  .canvas-wrap {
+    text-align: center;
+    font-size: 0;
+  }
+
+  #myCanvas {
+    display: inline-block;
+    width: 600px;
+    height: 600px;
+    border: $black-border;
+  }
+}
+
+.container {
+  margin: 20px;
+  padding: 35px;
+  border: $black-border;
+  background: $container-background;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 10px 10px 20px rgba($color: #000000, $alpha: 0.3);
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .btn-group {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0;
+
+  Button {
+    width: 0;
+    flex: 1;
+    border: $black-border;
+    font-size: 40px;
+    font-weight: bold;
+
+    &:nth-child(n+2) {
+      margin-left: 20px;
+    }
+
+    &[type=primary] {
+      border: $black-border;
+      color: $font-color;
+      background: $button-background;
+    }
+
+  }
+}
