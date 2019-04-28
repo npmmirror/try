@@ -96,7 +96,7 @@ export default class Index extends Component {
 
   draw = () => {
     let { stageProps, textGroupList } = this.template;
-    const { width = 375, height = 500 } = stageProps;
+    const { width = 750, height = 750 } = stageProps;
     const info = Taro.getSystemInfoSync();
 
     // 计算画布的真实宽高
@@ -116,29 +116,19 @@ export default class Index extends Component {
     stage.add(rect);
 
     // 右下角的小图片
-    const bitmap = new cax.Bitmap('../../images/qr.png');
-    bitmap.scale = (width / 750) * (84 / 225); //84 是设计尺寸，225是图片原始尺寸
-    // bitmap.y = bitmap.x = (750 - 58) * bitmap.scale;
-    bitmap.x = (608 / 750) * width;
+    const bitmap = new cax.Bitmap('../../images/smallqr.png');
+    // bitmap.scale = (width / 750) * (84 / 225); //84 是设计尺寸，225是图片原始尺寸
+    bitmap.scale = width / 750;
+    bitmap.x = (603 / 750) * width;
     bitmap.y = (611 / 750) * height;
     stage.add(bitmap);
-    const text = new cax.Text('扫码生成', {
-      font: '12px Arial',
-      color: '#000000',
-      baseline: 'bottom'
-    });
-    const text2 = new cax.Text('您的专属毒文案', {
-      font: '12px Arial',
-      color: '#000000',
-      baseline: 'bottom'
-    });
-    text.scale = text2.scale = width / 750;
-    text.x = (628 / 750) * width;
-    text.y = (720 / 750) * height;
-    text2.x = (608 / 750) * width;
-    text2.y = (740 / 750) * height;
-    stage.add(text);
-    stage.add(text2);
+
+    // 28 * 84
+    const bitmap2 = new cax.Bitmap('../../images/text2.png');
+    bitmap2.scale = width / 750;
+    bitmap2.x = (700 / 750) * width;
+    bitmap2.y = (611 / 750) * height;
+    stage.add(bitmap2);
 
     // 逐条文字添加
     textGroupList.forEach(item => {
@@ -242,8 +232,8 @@ export default class Index extends Component {
   render() {
     return (
       <View className='container'>
-        <View className='canvas-wrap'>
-          <cax-canvas id='myCanvas' onTap={this.getImg} />
+        <View className='canvas-wrap' onTap={this.getImg}>
+          <cax-canvas id='myCanvas' />
         </View>
         <View className='btn-group'>
           <View className='row'>
