@@ -14,7 +14,7 @@ import getRandomTemplate from '../../api/template';
 
 export default class Index extends Component {
   config = {
-    navigationBarTitleText: '首页',
+    navigationBarTitleText: '众家毒文案',
     usingComponents: {
       // 这里为组件要另外取一个名字 cax-canvas，不能跟cax库重名
       'cax-canvas': '../../components/cax/cax'

@@ -4,7 +4,8 @@ import './index.scss';
 
 export default class Index extends Component {
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '众家毒文案',
+    navigationBarBackgroundColor: '#EC6631'
   };
 
   componentWillMount() {}
@@ -36,14 +37,16 @@ export default class Index extends Component {
       <View className='container'>
         <View className='title'>
           {/* <View className='title__content'>快来查看你的毒文案</View> */}
-          <Image className='image image__2019' src='../../images/2019.png'></Image>
-          <Image className='image image__text' src='../../images/text.png'></Image>
-          <Image className='image image__quill' src='../../images/quill.png'></Image>
+          <Image className='image image__2019' src='../../images/2019.png' />
+          <Image className='image image__text' src='../../images/text.png' />
+          <Image className='image image__quill' src='../../images/quill.png' />
         </View>
         <View className='operation'>
           <Form onSubmit={this.handleSubmit}>
             <View className='input-item'>
-              <View className='input-item__label'>输入您的公司名称  (*^▽^*)</View>
+              <View className='input-item__label'>
+                输入您的公司名称 (*^▽^*)
+              </View>
               <Input
                 className='input-item__input'
                 name='corpName'
