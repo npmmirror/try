@@ -119,15 +119,15 @@ export default class Index extends Component {
     const bitmap = new cax.Bitmap('../../images/smallqr.png');
     // bitmap.scale = (width / 750) * (84 / 225); //84 是设计尺寸，225是图片原始尺寸
     bitmap.scale = width / 750;
-    bitmap.x = (603 / 750) * width;
-    bitmap.y = (611 / 750) * height;
+    bitmap.x = (556 / 750) * width;
+    bitmap.y = (575 / 750) * height;
     stage.add(bitmap);
 
     // 28 * 84
     const bitmap2 = new cax.Bitmap('../../images/text2.png');
     bitmap2.scale = width / 750;
-    bitmap2.x = (700 / 750) * width;
-    bitmap2.y = (611 / 750) * height;
+    bitmap2.x = (685 / 750) * width;
+    bitmap2.y = (576 / 750) * height;
     stage.add(bitmap2);
 
     // 逐条文字添加
