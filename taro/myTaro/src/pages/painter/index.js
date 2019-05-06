@@ -54,9 +54,10 @@ export default class Index extends Component {
         resolve();
         return;
       }
+      const {corpName,major} = this.$router.params;
       getRandomTemplate({
         keywords: this.keywords || '',
-        limit: 10
+        limit: 100
       })
         .then(data => {
           // 根据id手动去重
@@ -67,7 +68,21 @@ export default class Index extends Component {
               keyMap[cur.id] = true;
             }
             return result;
-          }, []);
+          }, [])
+          .filter(item=>{
+            // 把拥有专属企业却没有出现关键词的文案过滤掉
+            const ownerCorpName = item.corName;
+            if(!ownerCorpName){
+              return true;
+            }
+            return (
+              ownerCorpName.indexOf(corpName) !== -1
+              // || ownerCorpName.indexOf(major) !== -1
+              || corpName.indexOf(ownerCorpName) !== -1
+              || major.indexOf(ownerCorpName) !== -1
+            )
+            return true;
+          });
 
           const currentTemplate = this.templateList.shift();
           this.template = JSON.parse(currentTemplate.patternText);
@@ -224,6 +239,7 @@ export default class Index extends Component {
   onShareAppMessage() {
     return {
       // title: that.data.detail.content,
+      path: 'pages/index/index',
       title: `${this.$router.params.corpName}的毒文案`,
       imageUrl: this.imgUrl
     };

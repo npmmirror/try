@@ -22,7 +22,7 @@ export default class Index extends Component {
     const data = e.detail.value;
     if (!data.corpName || !data.major) {
       Taro.showToast({
-        title: '你不填我怎么生成呢？',
+        title: '请输入公司名称和主营 (*^▽^*)',
         icon: 'none'
       });
       return;
