@@ -27,6 +27,20 @@ export default class Index extends Component {
       });
       return;
     }
+    if(data.corpName.length > 4){
+      Taro.showToast({
+        title: '公司名称不能超过4个字 (*^▽^*)',
+        icon: 'none'
+      });
+      return;
+    }
+    if(data.major.length > 3){
+      Taro.showToast({
+        title: '主营不能超过3个字 (*^▽^*)',
+        icon: 'none'
+      });
+      return;
+    }
     Taro.navigateTo({
       url: `/pages/painter/index?corpName=${data.corpName}&major=${data.major}`
     });
@@ -72,6 +86,7 @@ export default class Index extends Component {
             </Button>
           </Form>
         </View>
+        <View className='notice'>法律免责条款：本游戏纯属娱乐，进入即默认同意游戏过程的所有操作以及呈现方式，我方不承担法律责任。</View>
       </View>
     );
   }

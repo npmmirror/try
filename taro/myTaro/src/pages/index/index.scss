@@ -79,7 +79,7 @@ page {
   }
 
   &__button {
-    margin-top: 140px;
+    margin-top: 120px;
     font-size: 40px;
     font-weight: bold;
 
@@ -88,4 +88,10 @@ page {
       color: #000000;
     }
   }
+}
+
+.notice{
+  padding: 40px 40px 0;
+  font-size: 24px;
+  color: #333333;
 }
