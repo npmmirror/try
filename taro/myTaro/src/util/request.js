@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro';
 
-const host = 'https://www.ufa.hk:88/mini-app';
+const host = 'https://www.ufa.hk/mini-app';
 // const host = 'http://192.168.1.11:9092/mini-app';
 export default function request({ url, data, method = 'GET', header }) {
   return new Promise((resolve, reject) => {
