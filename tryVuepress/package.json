@@ -1,0 +1,14 @@
+{
+  "name": "tryVuepress",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vuepress dev .",
+    "build": "vuepress build ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vuepress": "^1.0.3"
+  }
+}
