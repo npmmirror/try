@@ -1,0 +1,7 @@
+<!-- pages/comic/browser2.wxml -->
+<view class="wrap">
+  <view wx:for="{{imageList}}" wx:key="*this"  class="img">
+    <image mode="aspectFit" lazy-load="{{true}}" src="{{transportUrl+item}}" />
+    <view class="index">{{index+1}}</view>
+  </view>
+</view>

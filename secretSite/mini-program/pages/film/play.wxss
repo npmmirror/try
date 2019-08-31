@@ -1,0 +1,5 @@
+/* pages/film/play.wxss */
+page{
+  height: 100%;
+  font-size: 0;
+}

@@ -1,0 +1,7 @@
+<!--pages/film/play.wxml-->
+<video
+  src="{{videoSrc}}"
+  controls
+  style='width:100%;height:800rpx;'
+  autoplay
+></video>

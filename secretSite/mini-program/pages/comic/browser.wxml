@@ -1,0 +1,14 @@
+<view class='container'>
+  <view class='image_box'>
+    <image class='comic_img' mode='aspectFit' src='{{imgUrl}}'></image>
+    <image style='display:none;' src="{{preload_imgUrl}}" bindload='preload_Image'></image>
+  </view>
+  <view class='option_box flex_row' bindtap='closeMenu'>
+    <view class='paging' bindtap='paging' data-direction='-1'></view>
+    <view class='paging' bindtap='paging' data-direction='1'></view>
+  </view>
+  <view class='static_box'>
+    <text class='current_number'>当前：{{pageNo}}/{{pageNumber}}</text>
+    <text class='preload_number'>预加载{{preloadPageNo}}/{{pageNumber}}</text>
+  </view>
+</view>

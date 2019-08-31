@@ -1,0 +1,52 @@
+{
+  "pages": [
+    "pages/live/list/list",
+    "pages/live/play/play",
+    "pages/comic/list",
+    "pages/comic/browser",
+    "pages/film/list",
+    "pages/film/play",
+    "pages/mine/history",
+    "pages/comic/browser2"
+  ],
+  "tabBar": {
+    "color": "#cdcdcd",
+    "selectedColor": "#00aced",
+    "backgroundColor": "#F2F2F2",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/live/list/list",
+        "iconPath": "images/icons/live_inactive.png",
+        "selectedIconPath": "images/icons/live_active.png",
+        "text": "秀场直播"
+      },
+      {
+        "pagePath": "pages/comic/list",
+        "iconPath": "images/icons/comic_inactive.png",
+        "selectedIconPath": "images/icons/comic_active.png",
+        "text": "里番漫画"
+      },
+      {
+        "pagePath": "pages/film/list",
+        "iconPath": "images/icons/film_inactive.png",
+        "selectedIconPath": "images/icons/film_active.png",
+        "text": "岛国电影"
+      },
+      {
+        "pagePath": "pages/mine/history",
+        "iconPath": "images/icons/history_inactive.png",
+        "selectedIconPath": "images/icons/history_active.png",
+        "text": "历史记录"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "dark",
+    "backgroundColor": "#f2f2f2",
+    "navigationBarBackgroundColor": "#F2F2F2",
+    "navigationBarTitleText": "偷鸡小程序",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
+}
