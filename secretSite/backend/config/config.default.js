@@ -20,7 +20,8 @@ module.exports = appInfo => {
 
   // add your user config here
   const userConfig = {
-    // myAppName: 'egg',
+    // SZYR 接口地址
+    szyrHost: 'https://szroot.dlcdmy.cn',
   };
 
   return {
