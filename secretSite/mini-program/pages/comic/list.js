@@ -1,10 +1,7 @@
 // pages/comic/list.js
 const history = getApp().globalData.history;
 Page({
-  // api: "http://localhost:8088/",
-  // api: "http://localhost:8088/test.php",
-  api: "http://huangzihao.gz01.bdysite.com/index2.php",
-  // api: "http://huangzihao.gz01.bdysite.com/test.php",
+  api: "http://106.53.82.122:7001/comic/getList/?limit=9",
   /**
    * 页面的初始数据
    */
@@ -51,7 +48,7 @@ Page({
         console.log("res", res)
         if(res.statusCode == 200){
           self.setData({
-            comics_list:res.data.comics
+            comics_list:res.data
           })
           wx.stopPullDownRefresh()
         } else {

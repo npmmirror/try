@@ -2,9 +2,9 @@
 const ws = require('../../../utils/websocket.js');
 module.exports = function get_rtmp_url(room_id) {
     return new Promise((resolve, reject) => {
-      const base_url = 'wss://szsjh5.com/bar_chat/-1_';
+      const base_url = 'wss://wslgr.xue998.com/bar_chat/-1_';
       const ws_url = base_url + room_id;
-      let rtmp_host = 'rtmp://bgp209-h5.xiaohuasuan.com/live';
+      let rtmp_host = 'rtmp://bgp209-pull2.ituiguang.top/live';
       let count = 0;
       ws.init(ws_url);
       ws.onmessage = function (res) {

@@ -1,7 +1,7 @@
 // pages/film/list.js
 const history = getApp().globalData.history;
 Page({
-  api: 'http://193.112.1.213:3001/video?limit=10',
+  api: 'http://106.53.82.122:7001/video/getList?limit=10',
 
   /**
    * 页面的初始数据

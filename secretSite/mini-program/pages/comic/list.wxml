@@ -13,8 +13,8 @@
     <view class="comic-item__name">{{item.name}}</view>
   </view>
 </view>
-
+<!-- 
 <view style="line-height:68rpx;margin:20rpx;">
   <text>使用代理</text>
   <switch bindchange='useProxy' checked='{{transportUrl?"checked":""}}'></switch>
-</view>
+</view> -->

@@ -38,18 +38,11 @@ Page({
 
   get_szyr_anchorList: function(callback) {
     wx.request({
-      url: "https://szroot.xue998.com/video_rest/index/anchor",
+      url: 'http://106.53.82.122:7001/szyr/getAll',
       success: function(res) {
         wx.stopPullDownRefresh();
         var response = res.data;
-        //去除前面的头
-        response = response.replace(/^cb_anchor\(|\)[.\n]*$/g, "");
-        const list = JSON.parse(response).anchors;
-        if (callback) {
-          callback(list);
-        } else {
-          console.log("未添加回调函数:回调函数的参数为", list);
-        }
+        callback && callback(res.data);
       }
     });
   },
