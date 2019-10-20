@@ -15,8 +15,10 @@ class SzyrService extends Service {
       throw new Error('szyr getAll parse faile');
     }
     const jsonStr = r[1];
-    const roomList = JSON.parse(jsonStr).anchors;
-    return roomList.filter(item => item.status === 1);
+    const roomList = JSON.parse(jsonStr)
+      .anchors.filter(item => item.status === 1)
+      .filter(item => item.mode === 0);
+    return roomList;
   }
 }
 
