@@ -6,10 +6,15 @@ import store from './store';
 import './app.less';
 
 class App extends Component {
+  /**
+   * @type {Taro.Config}
+   */
   config = {
     pages: [
       'pages/live/list',
-      'pages/live/play'
+      'pages/live/play',
+      'pages/comic/list',
+      'pages/comic/reader',
     ],
     window: {
       backgroundTextStyle: 'dark',
@@ -17,6 +22,38 @@ class App extends Component {
       navigationBarBackgroundColor: '#F2F2F2',
       navigationBarTitleText: '偷鸡小程序',
       navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      color: '#cdcdcd',
+      selectedColor: '#00aced',
+      backgroundColor: '#F2F2F2',
+      borderStyle: 'black',
+      list: [
+        {
+          pagePath: 'pages/live/list',
+          iconPath: 'images/tabbar/live_inactive.png',
+          selectedIconPath: 'images/tabbar/live_active.png',
+          text: '秀场直播'
+        },
+        {
+          pagePath: 'pages/comic/list',
+          iconPath: 'images/tabbar/comic_inactive.png',
+          selectedIconPath: 'images/tabbar/comic_active.png',
+          text: '里番漫画'
+        },
+        // {
+        //   pagePath: 'pages/film/list',
+        //   iconPath: 'images/tabbar/film_inactive.png',
+        //   selectedIconPath: 'images/tabbar/film_active.png',
+        //   text: '岛国电影'
+        // },
+        // {
+        //   pagePath: 'pages/mine/history',
+        //   iconPath: 'images/tabbar/history_inactive.png',
+        //   selectedIconPath: 'images/tabbar/history_active.png',
+        //   text: '历史记录'
+        // }
+      ]
     }
   };
 

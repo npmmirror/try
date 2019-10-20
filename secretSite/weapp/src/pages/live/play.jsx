@@ -9,8 +9,6 @@ import './play.less';
 class LivePlay extends Component {
   config = {
     navigationBarTitleText: '直播',
-    backgroundTextStyle: 'dark',
-    backgroundColor: '#f2f2f2'
   };
 
   componentDidMount() {

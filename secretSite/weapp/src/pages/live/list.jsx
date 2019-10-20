@@ -10,8 +10,6 @@ class LiveList extends Component {
   config = {
     navigationBarTitleText: '直播',
     enablePullDownRefresh: true,
-    backgroundTextStyle: 'dark',
-    backgroundColor: '#f2f2f2'
   };
 
   componentDidMount() {
