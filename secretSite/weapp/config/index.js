@@ -1,3 +1,4 @@
+const path = require('path');
 const config = {
   projectName: 'weapp',
   date: '2019-10-9',
@@ -9,6 +10,9 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
+  alias: {
+    '@': path.resolve(__dirname, '..', 'src'),
+  },
   plugins: {
     babel: {
       sourceMap: true,
