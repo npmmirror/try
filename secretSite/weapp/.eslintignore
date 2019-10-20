@@ -1,0 +1,6 @@
+config/*
+dist/*
+package.json
+package-lock.json
+*.d.ts
+*.tsx
