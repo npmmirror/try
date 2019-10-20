@@ -22,5 +22,3 @@ export async function request(url, options = {}) {
   }
   return res.data;
 }
-
-export const todo = '';
