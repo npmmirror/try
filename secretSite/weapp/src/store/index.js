@@ -1,11 +1,13 @@
 import liveStore from './live';
 import comicStore from './comic';
 import videoStore from './video';
+import historyStore from './history';
 
 const store = {
   liveStore,
   comicStore,
-  videoStore
+  videoStore,
+  historyStore
 };
 
 export default store;

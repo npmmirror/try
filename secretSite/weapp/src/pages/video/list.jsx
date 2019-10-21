@@ -4,7 +4,7 @@ import { observer, inject } from '@tarojs/mobx';
 
 import './list.less';
 
-@inject('videoStore')
+@inject('videoStore', 'historyStore')
 @observer
 class VideoList extends Component {
   config = {
@@ -21,9 +21,14 @@ class VideoList extends Component {
     return videoStore.getList();
   }
 
-  handleClickVideo = (room) => {
-    const { videoStore } = this.props;
-    videoStore.setVideo(room);
+  handleClickVideo = (video) => {
+    const { videoStore, historyStore } = this.props;
+    videoStore.setVideo(video);
+    historyStore.addHistory({
+      type: 'video',
+      cover: video.coverSrc,
+      data: video
+    });
     Taro.navigateTo({
       url: '/pages/video/play'
     });

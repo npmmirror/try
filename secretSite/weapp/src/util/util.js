@@ -22,3 +22,26 @@ export async function request(url, options = {}) {
   }
   return res.data;
 }
+
+
+function formatNumber(n) {
+  const strN = n.toString();
+  return strN[1] ? strN : `0${strN}`;
+}
+
+export function formatTime(date) {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  const second = date.getSeconds();
+
+  return `${
+    [year, month, day].map(formatNumber)
+      .join('/')
+  } ${
+    [hour, minute, second].map(formatNumber)
+      .join(':')
+  }`;
+}

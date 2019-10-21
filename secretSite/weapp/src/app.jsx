@@ -17,6 +17,7 @@ class App extends Component {
       'pages/comic/reader',
       'pages/video/list',
       'pages/video/play',
+      'pages/mine/history',
     ],
     window: {
       backgroundTextStyle: 'dark',
@@ -49,12 +50,12 @@ class App extends Component {
           selectedIconPath: 'images/tabbar/film_active.png',
           text: '岛国电影'
         },
-        // {
-        //   pagePath: 'pages/mine/history',
-        //   iconPath: 'images/tabbar/history_inactive.png',
-        //   selectedIconPath: 'images/tabbar/history_active.png',
-        //   text: '历史记录'
-        // }
+        {
+          pagePath: 'pages/mine/history',
+          iconPath: 'images/tabbar/history_inactive.png',
+          selectedIconPath: 'images/tabbar/history_active.png',
+          text: '历史记录'
+        }
       ]
     }
   };

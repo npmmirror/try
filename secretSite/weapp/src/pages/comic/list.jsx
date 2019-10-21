@@ -4,7 +4,7 @@ import { observer, inject } from '@tarojs/mobx';
 
 import './list.less';
 
-@inject('comicStore')
+@inject('comicStore', 'historyStore')
 @observer
 class ComicList extends Component {
   config = {
@@ -22,8 +22,14 @@ class ComicList extends Component {
   }
 
   handleClick = (comic) => {
-    const { comicStore } = this.props;
+    const { comicStore, historyStore } = this.props;
     comicStore.setComic(comic);
+    historyStore.addHistory({
+      type: 'comic',
+      name: comic.name,
+      cover: comic.cover_url,
+      data: comic
+    });
     Taro.navigateTo({
       url: '/pages/comic/reader'
     });
