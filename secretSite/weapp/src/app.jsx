@@ -61,15 +61,9 @@ class App extends Component {
   };
 
   componentDidMount() {
-  }
-
-  componentDidShow() {
-  }
-
-  componentDidHide() {
-  }
-
-  componentDidCatchError() {
+    Taro.setEnableDebug({
+      enableDebug: true
+    });
   }
 
   // 在 App 类中的 render() 函数没有实际作用

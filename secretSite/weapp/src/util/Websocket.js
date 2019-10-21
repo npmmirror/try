@@ -6,11 +6,7 @@ export default class Websocket extends Events {
    */
   constructor(url) {
     super();
-    this._connect(url)
-      .then(() => {
-      })
-      .catch(() => {
-      });
+    this._connect(url);
     this.timer = setInterval(() => this._heartBeat(), 5000);
   }
 
