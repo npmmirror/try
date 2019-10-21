@@ -6,5 +6,5 @@ import { request } from '../util/util';
  * @returns {Promise<*>}
  */
 export async function getComicList(limit = 100) {
-  return request(`/comic/getList/?limit=${limit}`);
+  return request(`/comic/getList?limit=${limit}`);
 }

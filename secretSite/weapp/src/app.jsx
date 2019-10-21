@@ -15,6 +15,8 @@ class App extends Component {
       'pages/live/play',
       'pages/comic/list',
       'pages/comic/reader',
+      'pages/video/list',
+      'pages/video/play',
     ],
     window: {
       backgroundTextStyle: 'dark',
@@ -41,12 +43,12 @@ class App extends Component {
           selectedIconPath: 'images/tabbar/comic_active.png',
           text: '里番漫画'
         },
-        // {
-        //   pagePath: 'pages/film/list',
-        //   iconPath: 'images/tabbar/film_inactive.png',
-        //   selectedIconPath: 'images/tabbar/film_active.png',
-        //   text: '岛国电影'
-        // },
+        {
+          pagePath: 'pages/video/list',
+          iconPath: 'images/tabbar/film_inactive.png',
+          selectedIconPath: 'images/tabbar/film_active.png',
+          text: '岛国电影'
+        },
         // {
         //   pagePath: 'pages/mine/history',
         //   iconPath: 'images/tabbar/history_inactive.png',
