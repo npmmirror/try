@@ -13,6 +13,8 @@ class App extends Component {
     pages: [
       'pages/live/list',
       'pages/live/play',
+      'pages/wandou/list',
+      'pages/wandou/play',
       'pages/comic/list',
       'pages/comic/reader',
       'pages/video/list',
@@ -37,6 +39,12 @@ class App extends Component {
           iconPath: 'images/tabbar/live_inactive.png',
           selectedIconPath: 'images/tabbar/live_active.png',
           text: '秀场直播'
+        },
+        {
+          pagePath: 'pages/wandou/list',
+          iconPath: 'images/tabbar/wandou_inactive.png',
+          selectedIconPath: 'images/tabbar/wandou_active.png',
+          text: '豌豆直播'
         },
         {
           pagePath: 'pages/comic/list',

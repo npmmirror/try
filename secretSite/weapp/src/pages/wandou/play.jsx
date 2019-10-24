@@ -4,15 +4,15 @@ import { observer, inject } from '@tarojs/mobx';
 
 import './play.less';
 
-@inject('liveStore')
+@inject('wandouStore')
 @observer
-class LivePlay extends Component {
+class WandouLivePlay extends Component {
   config = {
-    navigationBarTitleText: '直播',
+    navigationBarTitleText: '豌豆直播',
   };
 
   componentDidMount() {
-    const { liveStore: { room } } = this.props;
+    const { wandouStore: { room } } = this.props;
     if (room.nickName) {
       Taro.setNavigationBarTitle({
         title: room.nickname
@@ -21,8 +21,8 @@ class LivePlay extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { liveStore: { room } } = this.props;
-    const { liveStore: { room: prevRoom } } = prevProps;
+    const { wandouStore: { room } } = this.props;
+    const { wandouStore: { room: prevRoom } } = prevProps;
     if (room.nickname !== prevRoom.nickname) {
       Taro.setNavigationBarTitle({
         title: room.nickname
@@ -31,16 +31,15 @@ class LivePlay extends Component {
   }
 
   componentWillUnmount() {
-    this.props.liveStore.resetRoom();
+    this.props.wandouStore.resetRoom();
   }
-
 
   handleStateChange = (e) => {
     console.log('live-player state change:', JSON.stringify(e.detail));
   };
 
   setClipBoard = () => {
-    const room = this.props.liveStore.room;
+    const room = this.props.wandouStore.room;
     const { rtmpUrl = '' } = room;
     Taro.setClipboardData({
       data: rtmpUrl
@@ -48,7 +47,7 @@ class LivePlay extends Component {
   };
 
   render() {
-    const room = this.props.liveStore.room;
+    const room = this.props.wandouStore.room;
     const { rtmpUrl = '' } = room;
     return (
       <View className='wrap'>
@@ -75,4 +74,4 @@ class LivePlay extends Component {
   }
 }
 
-export default LivePlay;
+export default WandouLivePlay;

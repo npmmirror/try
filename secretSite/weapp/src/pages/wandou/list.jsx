@@ -4,11 +4,11 @@ import { observer, inject } from '@tarojs/mobx';
 
 import './list.less';
 
-@inject('liveStore')
+@inject('wandouStore')
 @observer
-class LiveList extends Component {
+class WandouLiveList extends Component {
   config = {
-    navigationBarTitleText: '直播',
+    navigationBarTitleText: '豌豆直播',
     enablePullDownRefresh: true,
   };
 
@@ -17,15 +17,15 @@ class LiveList extends Component {
   }
 
   getLiveList() {
-    const { liveStore } = this.props;
-    return liveStore.getList();
+    const { wandouStore } = this.props;
+    return wandouStore.getList();
   }
 
   onClickRoom = (room) => {
-    const { liveStore } = this.props;
-    liveStore.setRoom(room);
+    const { wandouStore } = this.props;
+    wandouStore.setRoom(room);
     Taro.navigateTo({
-      url: '/pages/live/play'
+      url: '/pages/wandou/play'
     });
   };
 
@@ -36,21 +36,24 @@ class LiveList extends Component {
   }
 
   render() {
-    const list = this.props.liveStore.list;
+    const list = this.props.wandouStore.list;
     return (
       <View className='wrap'>
         {
           list.map((item) => (
-            <View key={item.rid} className='live-item' onClick={() => this.onClickRoom(item)}>
+            <View key={item.uid} className='live-item' onClick={() => this.onClickRoom(item)}>
               <Image
                 className='live-item__cover'
                 mode='aspectFill'
                 src={item.avatar}
                 lazyLoad
               />
-              <View className='live-item__name'>{item.nickname}</View>
+              <View className='live-item__name'>
+                {item.title}
+                {item.user_nicename}
+              </View>
               {
-                item.donate > 0 && (
+                item.type === '2' && (
                   <View className='live-item--playing'>在秀</View>
                 )
               }
@@ -62,4 +65,4 @@ class LiveList extends Component {
   }
 }
 
-export default LiveList;
+export default WandouLiveList;
