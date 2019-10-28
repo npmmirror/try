@@ -3,10 +3,10 @@ const Sequelize = require('sequelize');
 // import Sequelize from 'Sequelize';
 const mysqlConfig = {
     "dialect": "mysql",
-    "database": "comics_site",
-    "username": "hzh",
-    "password": "1q2w3e4r5t",
-    "host": "193.112.1.213",
+    "database": "mydb",
+    "username": "user",
+    "password": "psw",
+    "host": "localhost",
     "port": 3306
 };
 

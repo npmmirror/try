@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="./pixi.js"></script>
+    <script src="https://cdn.staticfile.org/pixi.js/5.1.5/pixi.js"></script>
     <style>
         html, body {
             padding: 0;
@@ -43,16 +43,16 @@
   let sprite,sprite2;
 
     PIXI.loader
-      .add("img.png")
+      .add("09.png")
       .load(function () {
 
         sprite = new PIXI.Sprite(
-          PIXI.loader.resources["img.png"].texture
+          PIXI.loader.resources["09.png"].texture
         );
 
         app.stage.addChild(sprite);
         sprite2 = new PIXI.Sprite(
-          PIXI.loader.resources["img.png"].texture
+          PIXI.loader.resources["09.png"].texture
         );
 
         app.stage.addChild(sprite2);
