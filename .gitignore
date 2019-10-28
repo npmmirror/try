@@ -5,3 +5,4 @@ __pycache__
 /tryNode/廖雪峰教程/批量下载/tmp
 /tryWebpack/build
 dist
+.vscode
