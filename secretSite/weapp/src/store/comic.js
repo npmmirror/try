@@ -1,5 +1,5 @@
 import { observable } from 'mobx';
-import { getComicList } from '../services/comic';
+import { getComicList } from '@/services/comic';
 
 const comicStore = observable({
   list: [],

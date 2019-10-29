@@ -1,5 +1,5 @@
-import { request } from '../util/util';
-import SzyrSocket from '../util/SzyrSocket';
+import { request } from '@/util/util';
+import SzyrSocket from '@/util/SzyrSocket';
 
 /**
  * 获取直播列表

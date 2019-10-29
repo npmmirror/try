@@ -1,5 +1,5 @@
 import { observable } from 'mobx';
-import { getVideoList } from '../services/video';
+import { getVideoList } from '@/services/video';
 
 const videoStore = observable({
   list: [],

@@ -1,4 +1,4 @@
-import { request } from '../util/util';
+import { request } from '@/util/util';
 
 /**
  * 获取里番漫画列表

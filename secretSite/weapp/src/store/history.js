@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 import Taro from '@tarojs/taro';
-import { formatTime } from '../util/util';
+import { formatTime } from '@/util/util';
 
 
 const typeMap = {

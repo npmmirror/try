@@ -1,5 +1,5 @@
 import { observable } from 'mobx';
-import getRtmpUrl, { getLiveList } from '../services/live';
+import getRtmpUrl, { getLiveList } from '@/services/live';
 
 /*
 备注一下属性值有哪些

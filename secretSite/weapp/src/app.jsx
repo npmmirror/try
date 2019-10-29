@@ -69,9 +69,12 @@ class App extends Component {
   };
 
   componentDidMount() {
-    Taro.setEnableDebug({
-      enableDebug: true
-    });
+    // 在手机上主动启动开发者模式，绕开域名检查
+    if (Taro.getSystemInfoSync().platform !== 'devtools') {
+      Taro.setEnableDebug({
+        enableDebug: true
+      });
+    }
   }
 
   // 在 App 类中的 render() 函数没有实际作用
