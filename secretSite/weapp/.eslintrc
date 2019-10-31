@@ -30,7 +30,7 @@
     "prop-types": "off",
     "react/destructuring-assignment": "off",
     "react/prop-types": "off",
-    "no-console": 1,
+    "no-console": 0,
     "no-undef": "error",
     "indent": [
       "error",

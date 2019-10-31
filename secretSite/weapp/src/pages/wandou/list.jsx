@@ -45,7 +45,7 @@ class WandouLiveList extends Component {
               <Image
                 className='live-item__cover'
                 mode='aspectFill'
-                src={item.avatar}
+                src={item.thumb || item.avatar}
                 lazyLoad
               />
               <View className='live-item__name'>

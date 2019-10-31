@@ -1,8 +1,8 @@
 import Taro from '@tarojs/taro';
 
-const host = 'http://106.53.82.122:7001';
-
-// const host = 'http://127.0.0.1:7001';
+const host = process.env.NODE_ENV === 'development'
+  ? 'http://127.0.0.1:7001'
+  : 'http://106.53.82.122:7001';
 
 export async function request(url, options = {}) {
   const {
@@ -12,7 +12,10 @@ export async function request(url, options = {}) {
   const res = await Taro.request({
     url: host + url,
     method,
-    data
+    data,
+    header: {
+      Accept: 'application/json'
+    }
   });
   if (res.statusCode !== 200) {
     await Taro.showToast({

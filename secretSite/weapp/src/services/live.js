@@ -29,16 +29,23 @@ export default function getRtmpUrl(roomId) {
     });
     socket.on('message', () => {
       count++;
-      if (count > 30) {
+      if (count > 50) {
         reject();
+        console.log('主动关闭 Websocket');
         socket.close();
       }
     });
-    // socket.on('history', (data) => {
-    //   console.log('历史消息：', data);
-    // });
-    // socket.on('chat', (data) => {
-    //   console.log('收到对话消息：', data.s_name, data.msg);
-    // });
+    socket.on('history', (data) => {
+      data.items.forEach((item) => {
+        console.log('历史消息：', item.s_name, item.msg);
+      });
+    });
+    socket.on('chat', (data) => {
+      console.log('收到对话消息：', data.s_name, data.msg);
+    });
+
+    socket.on('gift', (data) => {
+      console.log('收到礼物：', data.s_name, data.msg);
+    });
   });
 }

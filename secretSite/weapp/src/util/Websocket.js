@@ -7,7 +7,6 @@ export default class Websocket extends Events {
   constructor(url) {
     super();
     this._connect(url);
-    this.timer = setInterval(() => this._heartBeat(), 5000);
   }
 
   /**
@@ -19,6 +18,8 @@ export default class Websocket extends Events {
    * @type {Taro.SocketTask | null}
    */
   task = null;
+
+  isOpened = false;
 
   timer;
 
@@ -41,6 +42,8 @@ export default class Websocket extends Events {
 
   _onOpen() {
     console.log(`Websocket打开：${this.url}`);
+    this.isOpened = true;
+    this.timer = setInterval(() => this._heartBeat(), 5000);
     this.trigger('open');
   }
 
@@ -53,19 +56,29 @@ export default class Websocket extends Events {
     this.trigger('error', err);
   }
 
-  _onClose(...args) {
-    console.log('Websocket已关闭：', ...args);
-    this.trigger('close', ...args);
+  _onClose(e) {
+    this.task = null;
+    this.isOpened = false;
+    clearInterval(this.timer);
+    if (e.code === 1000) {
+      console.log('Websocket正常关闭：', e);
+    } else {
+      console.error('Websocket异常关闭：', e);
+    }
+    // 清除所有监听
+    this.off();
+    this.trigger('close', e);
   }
 
   _heartBeat() {
-    if (this.task) {
-      this.send(JSON.stringify({
-        cmd: 19209
-      }));
+    if (this.isOpened) {
+      this.ping();
     } else {
       clearInterval(this.timer);
     }
+  }
+
+  ping() {
   }
 
   /**
@@ -73,7 +86,7 @@ export default class Websocket extends Events {
    * @param data
    */
   async send(data) {
-    if (this.task) {
+    if (this.isOpened) {
       await this.task.send({
         data:
           typeof data !== 'string'
@@ -91,9 +104,9 @@ export default class Websocket extends Events {
   /**
    * 关闭 WebSocket 连接
    */
-  close() {
-    if (this.task) {
-      this.task.close({});
+  close(obj = { code: '0000' }) {
+    if (this.task && this.isOpened) {
+      this.task.close(obj);
       this.task = null;
     }
     clearInterval(this.timer);

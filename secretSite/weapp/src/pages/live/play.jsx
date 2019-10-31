@@ -20,16 +20,6 @@ class LivePlay extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    const { liveStore: { room } } = this.props;
-    const { liveStore: { room: prevRoom } } = prevProps;
-    if (room.nickname !== prevRoom.nickname) {
-      Taro.setNavigationBarTitle({
-        title: room.nickname
-      });
-    }
-  }
-
   componentWillUnmount() {
     this.props.liveStore.resetRoom();
   }

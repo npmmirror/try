@@ -13,19 +13,9 @@ class WandouLivePlay extends Component {
 
   componentDidMount() {
     const { wandouStore: { room } } = this.props;
-    if (room.nickName) {
+    if (room.title) {
       Taro.setNavigationBarTitle({
-        title: room.nickname
-      });
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    const { wandouStore: { room } } = this.props;
-    const { wandouStore: { room: prevRoom } } = prevProps;
-    if (room.nickname !== prevRoom.nickname) {
-      Taro.setNavigationBarTitle({
-        title: room.nickname
+        title: room.title || room.user_nicename
       });
     }
   }

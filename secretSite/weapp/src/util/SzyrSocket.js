@@ -8,7 +8,10 @@ const whiteList = [
   19213,
 
   // ServerListPlay 另一个有房间信息的命令，但是不用
-  39211
+  39211,
+
+  // ServerGift 收到礼物
+  79213,
 ];
 const blockList = [
   // 用户进入房间
@@ -23,6 +26,8 @@ const blockList = [
   99211,
   // 莫名其妙的其他房间的信息
   19233,
+  // ServerNumGift2 本场贡献排行
+  31215,
   // ServerChat 对话消息
   59213,
   // ListServerChat 历史消息
@@ -31,6 +36,8 @@ const blockList = [
   109219,
   // ServerBroadChat 全体广播
   59215,
+  // ServerExp 用户经验？没用
+  159215,
   // Ping
   19209
 ].concat(whiteList);
@@ -43,7 +50,7 @@ class SzyrSocket extends Websocket {
 
   /**
    *
-   * @param roomId {SzyrSocket.roomId}
+   * @param roomId {number}
    */
   constructor(roomId) {
     super(websocketHost + roomId);
@@ -54,7 +61,7 @@ class SzyrSocket extends Websocket {
     super._onMessage(msg);
     try {
       const d = JSON.parse(msg.data);
-      if (!blockList.includes(d.cmd)) console.warn('Websocket收到：', d.className, d.cmd, JSON.parse(d.content), d);
+      if (!blockList.includes(d.cmd)) console.warn('Websocket收到：', d.className, d.cmd, JSON.parse(d.content));
     } catch (e) {
       //
     }
@@ -81,23 +88,20 @@ class SzyrSocket extends Websocket {
 
       // 19213 中有推流码 格式为 lexxx
       case 19213:
-        this.send(JSON.stringify({
-          cmd: 39211
-        }));
-        this.send(JSON.stringify({
+        this.send({ cmd: 39211 });
+        this.send({
           cmd: 21211,
           start: 0,
           end: 10
-        }));
-        this.send(JSON.stringify({
-          cmd: 27211
-        }));
+        });
+        this.send({ cmd: 27211 });
         if (msgContent.sid) {
           msgContent.sid && this.play(msgContent.sid);
         }
         break;
 
       // 有时也在 39217 中有推流码
+      // TODO: 在从免费切换到收费时会收到39217命令，需要刷新 rtmpUrl
       case 39217:
         msgContent.sid && this.play(msgContent.sid);
         break;
@@ -112,6 +116,11 @@ class SzyrSocket extends Websocket {
         this.trigger('chat', msgContent);
         break;
 
+      // 收到礼物
+      case 79213:
+        this.trigger('gift', msgContent);
+        break;
+
       default:
         break;
     }
@@ -120,6 +129,12 @@ class SzyrSocket extends Websocket {
   play(sid) {
     const rtmpUrl = `${rtmpHost}/${sid}`;
     this.trigger('play', rtmpUrl);
+  }
+
+  ping() {
+    this.send({
+      cmd: 19209
+    });
   }
 }
 
