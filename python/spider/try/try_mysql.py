@@ -8,8 +8,7 @@ import re
 
 def main():
     # 打开数据库连接
-    db = pymysql.connect(host="showhand.top", user="hzh", password="1q2w3e4r5t", database="comics_site")
-    # db = pymysql.connect(host="193.112.1.213", user="hzh", password="1q2w3e4r5t", database="comics_site")
+    db = pymysql.connect(host="xxx.com", user="userName", password="password", database="comics_site")
 
     # 使用cursor()方法获取操作游标
     cursor = db.cursor() \

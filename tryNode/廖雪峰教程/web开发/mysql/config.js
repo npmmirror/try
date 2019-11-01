@@ -1,8 +1,8 @@
 // var config = {
-//     database: 'comics_site', // 使用哪个数据库
-//     username: 'hzh', // 用户名
-//     password: '1q2w3e4r5t', // 口令
-//     host: '193.112.1.213', // 主机名
+//     database: 'database', // 使用哪个数据库
+//     username: 'username', // 用户名
+//     password: 'password', // 口令
+//     host: 'host', // 主机名
 //     port: 3306 // 端口号，MySQL默认3306
 // };
 
