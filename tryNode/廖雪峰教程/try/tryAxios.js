@@ -1,6 +1,6 @@
 const axios = require('axios');
-const appid = 'wx714a4ca793d60349';
-const appserect = 'c01a99263798d78d5ae4da8b580b1ee0';
+const appid = '';
+const appserect = '';
 
 const assert = require('assert');
 var fs = require('fs');
@@ -87,7 +87,7 @@ function wxLogin(code){
 
 
 async function testCase() {
-    let wxCode = "033JwEFp1Js52q0vO6Hp15mFFp1JwEF5";
+    let wxCode = "";
     try {
         let res = await getOpenId2(wxCode);
         console.log('res', res);
