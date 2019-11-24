@@ -26,8 +26,12 @@ class App extends Component {
       backgroundColor: '#f2f2f2',
       navigationBarBackgroundColor: '#F2F2F2',
       navigationBarTitleText: '偷鸡小程序',
-      navigationBarTextStyle: 'black'
+      navigationBarTextStyle: 'black',
+      renderingMode: 'mixed'
     },
+    debug: false,
+    resizable: true,
+    style: 'v2',
     tabBar: {
       color: '#cdcdcd',
       selectedColor: '#00aced',

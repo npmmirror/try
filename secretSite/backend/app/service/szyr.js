@@ -10,7 +10,7 @@ class SzyrService extends Service {
   async getAllRoom() {
     const { ctx } = this;
     const res = await ctx.curl(`${ctx.app.config.szyrHost}/video_rest/index/all_anchor`);
-    const r = /\(([^\(\)]*)\)/.exec(String(res.data));
+    const r = /cb_anchor\(([\s\S]*)\)\s*/.exec(String(res.data));
     if (!r) {
       throw new Error('szyr getAll parse faile');
     }

@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Image } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
-
+import { isDevelopment } from '@/util/util';
 import './list.less';
 
 @inject('liveStore')
@@ -17,6 +17,7 @@ class LiveList extends Component {
   }
 
   getLiveList() {
+    if (isDevelopment) return;
     const { liveStore } = this.props;
     return liveStore.getList();
   }

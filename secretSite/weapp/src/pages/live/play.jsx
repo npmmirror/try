@@ -45,7 +45,7 @@ class LivePlay extends Component {
         <LivePlayer
           className='player'
           src={rtmpUrl}
-          mode='RTC'
+          mode='live'
           autoplay
           muted={false}
           orientation='vertical'

@@ -1,6 +1,8 @@
 import Taro from '@tarojs/taro';
 
-const host = process.env.NODE_ENV === 'development'
+const systemInfo = Taro.getSystemInfoSync();
+export const isDevelopment = process.env.NODE_ENV === 'development' && systemInfo.platform === 'devtools';
+const host = isDevelopment
   ? 'http://127.0.0.1:7001'
   : 'http://106.53.82.122:7001';
 

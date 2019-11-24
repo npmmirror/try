@@ -11,7 +11,8 @@ const videoStore = observable({
     // 视频封面：https://video.vodstatic.com/B3TyZIm5/1.jpg
     this.list = list.map((item) => ({
       key: item.secret_key,
-      videoSrc: `https://aicdn-20180326-1.mannersteel.com/${item.secret_key}/500kb/hls/index.m3u8`,
+      // videoSrc: `https://aicdn-20180326-1.mannersteel.com/${item.secret_key}/500kb/hls/index.m3u8`,
+      videoSrc: `https://cloudbigdatacdn-0.zjjfstz.com/${item.secret_key}/500kb/hls/index.m3u8`,
       coverSrc: `https://video.vodstatic.com/${item.secret_key}/1.jpg`
     }));
   },
