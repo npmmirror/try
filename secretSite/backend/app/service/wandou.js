@@ -17,7 +17,7 @@ class WandouService extends Service {
     const data = JSON.parse(String(res.data));
     const list = data.data.info[0].list;
     // 排序后把 type === '2'，也就是在秀的排在前面，避免客户端再排序了
-    const sortedList = list.filter(item => item.type === '2').concat(list.filter(item => item.type !== '2'));
+    const sortedList = list.filter(item => item.type !== '0').concat(list.filter(item => item.type === '0'));
     return sortedList;
   }
 

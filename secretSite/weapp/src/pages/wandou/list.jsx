@@ -53,7 +53,7 @@ class WandouLiveList extends Component {
                 {item.user_nicename}
               </View>
               {
-                item.type === '2' && (
+                item.type !== '0' && (
                   <View className='live-item--playing'>在秀</View>
                 )
               }
