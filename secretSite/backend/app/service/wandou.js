@@ -3,7 +3,8 @@
 const Service = require('egg').Service;
 
 // const wandouHost = 'web.sesuzhi.org';
-const wandouHost = 'https://web.longwangcs.cc';
+// const wandouHost = 'https://web.longwangcs.cc';
+const wandouHost = 'https://3wandou.com';
 const wandouWss = 'wss://wss.zhih.cc';
 
 class WandouService extends Service {
