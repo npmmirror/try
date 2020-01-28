@@ -1,23 +1,23 @@
 {
-  "miniprogramRoot": "dist/",
-  "projectname": "weapp",
-  "description": "secret",
-  "appid": "wx714a4ca793d60349",
-  "setting": {
-    "urlCheck": false,
-    "es6": false,
-    "postcss": false,
-    "minified": false,
-    "uglifyFileName": false,
-    "checkSiteMap": false,
-    "babelSetting": {
-      "ignore": [
-        "*"
-      ]
-    }
-  },
-  "compileType": "miniprogram",
-  "simulatorType": "wechat",
-  "simulatorPluginLibVersion": {},
-  "condition": {}
+	"miniprogramRoot": "dist/",
+	"projectname": "weapp",
+	"description": "secret",
+	"appid": "wx714a4ca793d60349",
+	"setting": {
+		"urlCheck": false,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"uglifyFileName": false,
+		"checkSiteMap": false,
+		"babelSetting": {
+			"ignore": [
+				"*"
+			]
+		}
+	},
+	"compileType": "miniprogram",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {}
 }

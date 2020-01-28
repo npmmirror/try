@@ -15,7 +15,7 @@ const wandouStore = observable({
       ...room,
       rtmpUrl
     };
-    this.connectSocket(room);
+    // this.connectSocket(room);
   },
 
   async connectSocket(room) {

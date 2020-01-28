@@ -11,14 +11,14 @@ class App extends Component {
    */
   config = {
     pages: [
-      'pages/live/list',
-      'pages/live/play',
+      // 'pages/live/list',
+      // 'pages/live/play',
       'pages/wandou/list',
       'pages/wandou/play',
       'pages/comic/list',
       'pages/comic/reader',
-      'pages/video/list',
-      'pages/video/play',
+      // 'pages/video/list',
+      // 'pages/video/play',
       'pages/mine/history',
     ],
     window: {
@@ -38,12 +38,12 @@ class App extends Component {
       backgroundColor: '#F2F2F2',
       borderStyle: 'black',
       list: [
-        {
-          pagePath: 'pages/live/list',
-          iconPath: 'images/tabbar/live_inactive.png',
-          selectedIconPath: 'images/tabbar/live_active.png',
-          text: '秀场直播'
-        },
+        // {
+        //   pagePath: 'pages/live/list',
+        //   iconPath: 'images/tabbar/live_inactive.png',
+        //   selectedIconPath: 'images/tabbar/live_active.png',
+        //   text: '秀场直播'
+        // },
         {
           pagePath: 'pages/wandou/list',
           iconPath: 'images/tabbar/wandou_inactive.png',
@@ -56,12 +56,12 @@ class App extends Component {
           selectedIconPath: 'images/tabbar/comic_active.png',
           text: '里番漫画'
         },
-        {
-          pagePath: 'pages/video/list',
-          iconPath: 'images/tabbar/film_inactive.png',
-          selectedIconPath: 'images/tabbar/film_active.png',
-          text: '岛国电影'
-        },
+        // {
+        //   pagePath: 'pages/video/list',
+        //   iconPath: 'images/tabbar/film_inactive.png',
+        //   selectedIconPath: 'images/tabbar/film_active.png',
+        //   text: '岛国电影'
+        // },
         {
           pagePath: 'pages/mine/history',
           iconPath: 'images/tabbar/history_inactive.png',

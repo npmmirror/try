@@ -2,9 +2,9 @@
 
 const Service = require('egg').Service;
 
-// const wandouHost = 'web.sesuzhi.org';
+// const wandouHost = 'https://web.sesuzhi.org';
 // const wandouHost = 'https://web.longwangcs.cc';
-const wandouHost = 'https://3wandou.com';
+const wandouHost = 'https://web.e83v.cn';
 const wandouWss = 'wss://wss.zhih.cc';
 
 class WandouService extends Service {
@@ -14,9 +14,11 @@ class WandouService extends Service {
    */
   async getAllRoom() {
     const { ctx } = this;
-    const res = await ctx.curl(wandouHost + '/api/public/?service=Home.getHot&p=1');
+    const url = wandouHost + '/api/public/?service=Home.getHot&p=1';
+    const res = await ctx.curl(url);
     const data = JSON.parse(String(res.data));
-    const list = data.data.info[0].list;
+    // 部分 uid 为空的是广告
+    const list = data.data.info[0].list.filter(item => item.uid);
     // 排序后把 type === '2'，也就是在秀的排在前面，避免客户端再排序了
     const sortedList = list.filter(item => item.type !== '0').concat(list.filter(item => item.type === '0'));
     return sortedList;
