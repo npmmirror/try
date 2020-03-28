@@ -1,8 +1,10 @@
-# Taro 项目初始配置
+# 为 Taro 的小程序 TS 模板加点料
 
 Taro 初始化后提供的项目骨架比较简单，需要进行一些二次加工~
 
-- [Taro 项目初始配置](#taro-%e9%a1%b9%e7%9b%ae%e5%88%9d%e5%a7%8b%e9%85%8d%e7%bd%ae)
+[项目地址：https://github.com/WozHuang/try/tree/master/taro/ts-template](https://github.com/WozHuang/try/tree/master/taro/ts-template)
+
+- [为 Taro 的小程序 TS 模板加点料](#%e4%b8%ba-taro-%e7%9a%84%e5%b0%8f%e7%a8%8b%e5%ba%8f-ts-%e6%a8%a1%e6%9d%bf%e5%8a%a0%e7%82%b9%e6%96%99)
   - [运行环境](#%e8%bf%90%e8%a1%8c%e7%8e%af%e5%a2%83)
   - [添加 alias](#%e6%b7%bb%e5%8a%a0-alias)
   - [配置 eslint 校验](#%e9%85%8d%e7%bd%ae-eslint-%e6%a0%a1%e9%aa%8c)
@@ -87,24 +89,24 @@ npm install mobx-persist
 ```js
 const storage = {
   getItem(key) {
-    return Taro.getStorage({ key }).then(res => res.data);
+    return Taro.getStorage({ key }).then((res) => res.data);
   },
   setItem(key, data) {
     return Taro.setStorage({ key, data });
-  }
+  },
 };
 ```
 
 4. 在 store 初始化完成后使用 `mobx-persist` 提供的 hydrate 持久化
 
 ```js
-import { create } from "mobx-persist";
+import { create } from 'mobx-persist';
 const hydrate = create({
   storage,
   debounce: 20,
-  jsonify: false
+  jsonify: false,
 });
-hydrate("persistKey", store);
+hydrate('persistKey', store);
 ```
 
 5. 在需要持久化的成员变量上加上 @persist 装饰器但是不知道为什么 string 和 number 类型会有问题，另外三种类型（`object`, `list`, `map`）都可以正常使用，估计是 `@tarojs/mobx` 这个库的某些实现和 `mobx-react` 不一样导致的问题
@@ -112,9 +114,9 @@ hydrate("persistKey", store);
 ```js
 export default class Store {
   @observable
-  @persist("object")
+  @persist('object')
   data = {
-    counter: 0
+    counter: 0,
   };
 }
 ```
