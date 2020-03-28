@@ -1,3 +1,5 @@
+const path = require('path');
+
 const config = {
   projectName: 'mp',
   date: '2020-3-28',
@@ -9,6 +11,9 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
+  alias: {
+    '@utils': path.resolve(__dirname, '..', 'src/utils'),
+  },
   babel: {
     sourceMap: true,
     presets: [
@@ -21,16 +26,15 @@ const config = {
       'transform-class-properties',
       'transform-object-rest-spread',
       ['transform-runtime', {
-          helpers: false,
-          polyfill: false,
-          regenerator: true,
-          moduleName: 'babel-runtime'
-        }
+        helpers: false,
+        polyfill: false,
+        regenerator: true,
+        moduleName: 'babel-runtime'
+      }
       ]
     ]
   },
-  defineConstants: {
-  },
+  defineConstants: {},
   mini: {
     postcss: {
       autoprefixer: {
@@ -45,9 +49,7 @@ const config = {
       },
       pxtransform: {
         enable: true,
-        config: {
-
-        }
+        config: {}
       },
       url: {
         enable: true,
@@ -87,11 +89,11 @@ const config = {
       }
     }
   }
-}
+};
 
 module.exports = function (merge) {
   if (process.env.NODE_ENV === 'development') {
-    return merge({}, config, require('./dev'))
+    return merge({}, config, require('./dev'));
   }
-  return merge({}, config, require('./prod'))
-}
+  return merge({}, config, require('./prod'));
+};

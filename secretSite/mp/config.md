@@ -4,6 +4,8 @@
 
 ## 添加 alias
 
+[参考 Taro 编译详情配置](https://nervjs.github.io/taro/docs/config-detail.html#alias)
+
 1. 在 `config/index.js` 中添加 alias 的配置
 
 ```
@@ -12,18 +14,10 @@
   }
 ```
 
-2. 新建 `webpack.config.js`
+2. `tsconfig.json` 添加 `paths` 规则
 
-```javascript
-/**
- * 此文件无实际作用，只是为了让 WebStorm 能感受识别 alias 引入
- */
-const path = require("path");
-module.exports = {
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "..", "src")
-    }
+```
+  "paths": {
+    "@/*": ["src/*"]
   }
-};
 ```
