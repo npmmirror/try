@@ -1,7 +1,6 @@
 import Taro, { Component } from '@tarojs/taro';
 import { Provider } from '@tarojs/mobx';
 import { View } from '@tarojs/components';
-import '@tarojs/async-await';
 import store from './store';
 import './app.less';
 
