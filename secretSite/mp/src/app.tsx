@@ -13,11 +13,10 @@ import './app.less';
 // }
 
 const store = {
-  counterStore
+  counterStore,
 };
 
 class App extends Component {
-
   /**
    * 指定config的类型声明为: Taro.Config
    *
@@ -31,21 +30,17 @@ class App extends Component {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
-    }
+      navigationBarTextStyle: 'black',
+    },
   };
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
-  componentDidShow() {
-  }
+  componentDidShow() {}
 
-  componentDidHide() {
-  }
+  componentDidHide() {}
 
-  componentDidCatchError() {
-  }
+  componentDidCatchError() {}
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
@@ -58,4 +53,5 @@ class App extends Component {
   }
 }
 
+// eslint-disable-next-line react/no-deprecated
 Taro.render(<App />, document.getElementById('app'));
