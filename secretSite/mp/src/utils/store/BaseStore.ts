@@ -1,9 +1,14 @@
 import { RootStore } from '@/utils/store/index';
+import { hydrate } from '@/utils/storage';
 
 export default class BaseStore {
-  getRootStore: () => RootStore;
+  static rootStore: RootStore;
 
-  constructor(rootStore: RootStore) {
-    this.getRootStore = () => rootStore;
+  getRootStore(): RootStore {
+    return BaseStore.rootStore;
+  }
+
+  hydrate(persistKey) {
+    hydrate(persistKey, this).catch(() => {});
   }
 }

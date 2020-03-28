@@ -54,7 +54,9 @@ class Index extends Component<PageStateProps> {
 
   render() {
     const {
-      counterStore: { counter },
+      counterStore: {
+        data: { counter },
+      },
     } = this.props;
     return (
       <View className='index'>
