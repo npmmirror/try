@@ -33,6 +33,8 @@
   "dependencies": {
     "@tarojs/components": "2.0.7",
     "@tarojs/components-qa": "2.0.7",
+    "@tarojs/mobx": "2.0.7",
+    "@tarojs/mobx-h5": "2.0.7",
     "@tarojs/router": "2.0.7",
     "@tarojs/taro": "2.0.7",
     "@tarojs/taro-alipay": "2.0.7",
@@ -42,12 +44,11 @@
     "@tarojs/taro-swan": "2.0.7",
     "@tarojs/taro-tt": "2.0.7",
     "@tarojs/taro-weapp": "2.0.7",
-    "@tarojs/mobx": "2.0.7",
-    "@tarojs/mobx-h5": "2.0.7",
-    "mobx": "4.8.0",
     "babel-runtime": "^6.26.0",
-    "nervjs": "^1.5.5",
+    "mobx": "4.8.0",
+    "mobx-persist": "^0.4.1",
     "nerv-devtools": "^1.5.5",
+    "nervjs": "^1.5.5",
     "regenerator-runtime": "0.11.1"
   },
   "devDependencies": {

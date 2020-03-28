@@ -1,9 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro';
 import { Provider } from '@tarojs/mobx';
 import { View } from '@tarojs/components';
-
-import counterStore from './store/counter';
-
+import store from '@/utils/store';
 import './app.less';
 
 // 如果需要在 h5 环境中开启 React Devtools
@@ -11,10 +9,6 @@ import './app.less';
 // if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
 //   require('nerv-devtools')
 // }
-
-const store = {
-  counterStore,
-};
 
 class App extends Component {
   /**

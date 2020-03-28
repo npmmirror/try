@@ -12,7 +12,7 @@ const config = {
   sourceRoot: 'src',
   outputRoot: 'dist',
   alias: {
-    '@utils': path.resolve(__dirname, '..', 'src/utils'),
+    '@': path.resolve(__dirname, '..', 'src'),
   },
   babel: {
     sourceMap: true,

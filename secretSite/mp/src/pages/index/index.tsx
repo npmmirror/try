@@ -2,16 +2,11 @@ import { ComponentType } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
-
+import CounterStore from '@/store/CounterStore';
 import './index.less';
 
 interface PageStateProps {
-  counterStore: {
-    counter: number;
-    increment: Function;
-    decrement: Function;
-    incrementAsync: Function;
-  };
+  counterStore: CounterStore;
 }
 
 @inject('counterStore')

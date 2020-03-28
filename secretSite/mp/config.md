@@ -62,3 +62,18 @@ npm install --save-dev eslint@latest typescript@latest @typescript-eslint/parser
 [直接复制内容](https://github.com/AlloyTeam/eslint-config-alloy/blob/master/.prettierrc.js)
 
 5. （可选）修改配置文件成你喜欢的规则，并处理 taro 初始化提供的项目文件中的 eslint 错误
+
+## mobx 数据持久化
+
+1. taro 提供的 mobx 模板是没有使用装饰器的，需要修改成装饰器的形式方便使用
+
+2. 安装 `mobx-persist`
+
+```
+npm install mobx-persist
+```
+
+## TODO
+
+- husky + lint-stage 做提交前预处理
+- request 封装网络请求功能
