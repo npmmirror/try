@@ -63,6 +63,7 @@
     "stylelint": "9.3.0",
     "stylelint-config-taro-rn": "2.0.7",
     "stylelint-taro-rn": "2.0.7",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "webpack-bundle-analyzer": "^3.6.1"
   }
 }

@@ -70,6 +70,11 @@ const config = {
         },
       },
     },
+    // 可以用来分析打包后的大小
+    // webpackChain (chain, webpack) {
+    //   chain.plugin('analyzer')
+    //     .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin, [])
+    // }
   },
   h5: {
     publicPath: '/mp/dist',
