@@ -18,12 +18,7 @@
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".js",
-          ".ts",
-          ".jsx",
-          ".tsx"
-        ]
+        "extensions": [".js", ".ts", ".jsx", ".tsx"]
       }
     ],
     "@typescript-eslint/no-unused-vars": [
@@ -46,18 +41,14 @@
       }
     ],
     "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/no-empty-function": [
-      "off"
-    ],
+    "@typescript-eslint/no-empty-function": ["off"],
     "@typescript-eslint/ban-ts-ignore": 0,
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/explicit-member-accessibility": 0,
     "no-trailing-spaces": "error",
     "no-multi-spaces": "error",
-    "semi": [
-      "error",
-      "always"
-    ]
+    "semi": ["error", "always"],
+    "@typescript-eslint/prefer-optional-chain": 0
   },
   "parserOptions": {
     "ecmaFeatures": {

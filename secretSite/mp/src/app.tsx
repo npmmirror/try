@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro';
 import { Provider } from '@tarojs/mobx';
-import { View } from '@tarojs/components';
-import store from '@/utils/store';
+import store from '@/store';
+import '@/api';
 import './app.less';
 
 // 如果需要在 h5 环境中开启 React Devtools
@@ -19,13 +19,53 @@ class App extends Component {
    * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
    */
   config: Config = {
-    pages: ['pages/index/index'],
+    pages: [
+      'pages/wandou/list',
+      'pages/wandou/play',
+      'pages/comic/list',
+      'pages/comic/reader',
+      'pages/mine/history',
+    ],
     window: {
-      backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
+      backgroundTextStyle: 'dark',
+      backgroundColor: '#f2f2f2',
+      navigationBarBackgroundColor: '#F2F2F2',
+      navigationBarTitleText: '偷鸡小程序',
       navigationBarTextStyle: 'black',
+      // @ts-ignore
+      // 小程序强制开启同层渲染
+      renderingMode: 'mixed',
     },
+    debug: false,
+    resizable: false,
+    style: 'v2',
+    tabBar: {
+      color: '#cdcdcd',
+      selectedColor: '#00aced',
+      backgroundColor: '#F2F2F2',
+      borderStyle: 'black',
+      list: [
+        {
+          pagePath: 'pages/wandou/list',
+          iconPath: 'assets/tabbar/wandou_inactive.png',
+          selectedIconPath: 'assets/tabbar/wandou_active.png',
+          text: '豌豆直播',
+        },
+        {
+          pagePath: 'pages/comic/list',
+          iconPath: 'assets/tabbar/comic_inactive.png',
+          selectedIconPath: 'assets/tabbar/comic_active.png',
+          text: '里番漫画',
+        },
+        {
+          pagePath: 'pages/mine/history',
+          iconPath: 'assets/tabbar/history_inactive.png',
+          selectedIconPath: 'assets/tabbar/history_active.png',
+          text: '历史记录',
+        },
+      ],
+    },
+    sitemapLocation: 'sitemap.json'
   };
 
   componentDidMount() {}
@@ -39,11 +79,7 @@ class App extends Component {
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
   render() {
-    return (
-      <Provider store={store}>
-        <View />
-      </Provider>
-    );
+    return <Provider store={store} />;
   }
 }
 
