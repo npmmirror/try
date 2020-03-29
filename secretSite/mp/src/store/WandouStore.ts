@@ -14,8 +14,8 @@ export interface WandouLiveItem {
   thumb: string;
   // 头像？
   avatar: string;
-  // type !== 0 代表是收费房间
-  type: number;
+  // type !== '0' 代表是收费房间
+  type: number | '0';
 }
 
 export default class WandouStore extends BaseStore {
