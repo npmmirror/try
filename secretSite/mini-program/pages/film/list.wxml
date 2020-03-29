@@ -1,7 +1,0 @@
-<!--pages/film/list.wxml-->
-<view class='video-list'>
-  <view class='video-item' wx:for="{{list}}" wx:key="item.key">
-    <image src='{{item.coverSrc}}' mode='widthFix' bindtap='play' data-key="{{item.key}}" data-cover="{{item.coverSrc}}"></image>
-  </view>
-</view>
-<!-- <view class='top' bindtap='refresh'></view> -->
