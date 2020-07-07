@@ -64,6 +64,7 @@
     "eslint-plugin-react-hooks": "^1.6.1",
     "prettier": "^2.0.5",
     "stylelint": "9.3.0",
-    "typescript": "^3.9.6"
+    "typescript": "^3.9.6",
+    "webpack-bundle-analyzer": "^3.8.0"
   }
 }
