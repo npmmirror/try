@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <link rel="stylesheet/less" type="text/css" href="style.less" />
+    <script src="https://cdn.staticfile.org/less.js/3.11.3/less.min.js"></script> -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      @keyframes ul-rotate {
+        from {
+          transform: rotate(0);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      #menu {
+        margin: 100px;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        border: 1px solid gray;
+        position: relative;
+      }
+      #menu ul {
+        transform-origin: 150px 150px;
+        animation: ul-rotate 10s linear infinite;
+      }
+      #menu ul li {
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
+        text-align: center;
+        border: 1px solid #333;
+        border-radius: 50%;
+        list-style: none;
+        position: absolute;
+        left: -20px;
+        top: 130px;
+        transform-origin: 170px;
+        background: red;
+      }
+      #menu ul li span {
+        display: block;
+      }
+      #menu ul li:nth-child(8) {
+        transform: rotate(315deg);
+      }
+      @keyframes rotate-span-8 {
+        from {
+          transform: rotate(-315deg);
+        }
+        to {
+          transform: rotate(-675deg);
+        }
+      }
+      #menu ul li:nth-child(8) span {
+        animation: rotate-span-8 10s linear infinite;
+      }
+      #menu ul li:nth-child(7) {
+        transform: rotate(270deg);
+      }
+      @keyframes rotate-span-7 {
+        from {
+          transform: rotate(-270deg);
+        }
+        to {
+          transform: rotate(-630deg);
+        }
+      }
+      #menu ul li:nth-child(7) span {
+        animation: rotate-span-7 10s linear infinite;
+      }
+      #menu ul li:nth-child(6) {
+        transform: rotate(225deg);
+      }
+      @keyframes rotate-span-6 {
+        from {
+          transform: rotate(-225deg);
+        }
+        to {
+          transform: rotate(-585deg);
+        }
+      }
+      #menu ul li:nth-child(6) span {
+        animation: rotate-span-6 10s linear infinite;
+      }
+      #menu ul li:nth-child(5) {
+        transform: rotate(180deg);
+      }
+      @keyframes rotate-span-5 {
+        from {
+          transform: rotate(-180deg);
+        }
+        to {
+          transform: rotate(-540deg);
+        }
+      }
+      #menu ul li:nth-child(5) span {
+        animation: rotate-span-5 10s linear infinite;
+      }
+      #menu ul li:nth-child(4) {
+        transform: rotate(135deg);
+      }
+      @keyframes rotate-span-4 {
+        from {
+          transform: rotate(-135deg);
+        }
+        to {
+          transform: rotate(-495deg);
+        }
+      }
+      #menu ul li:nth-child(4) span {
+        animation: rotate-span-4 10s linear infinite;
+      }
+      #menu ul li:nth-child(3) {
+        transform: rotate(90deg);
+      }
+      @keyframes rotate-span-3 {
+        from {
+          transform: rotate(-90deg);
+        }
+        to {
+          transform: rotate(-450deg);
+        }
+      }
+      #menu ul li:nth-child(3) span {
+        animation: rotate-span-3 10s linear infinite;
+      }
+      #menu ul li:nth-child(2) {
+        transform: rotate(45deg);
+      }
+      @keyframes rotate-span-2 {
+        from {
+          transform: rotate(-45deg);
+        }
+        to {
+          transform: rotate(-405deg);
+        }
+      }
+      #menu ul li:nth-child(2) span {
+        animation: rotate-span-2 10s linear infinite;
+      }
+      #menu ul li:nth-child(1) {
+        transform: rotate(0deg);
+      }
+      @keyframes rotate-span-1 {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(-360deg);
+        }
+      }
+      #menu ul li:nth-child(1) span {
+        animation: rotate-span-1 10s linear infinite;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="menu">
+      <ul>
+        <li><span>1</span></li>
+        <li><span>2</span></li>
+        <li><span>3</span></li>
+        <li><span>4</span></li>
+        <li><span>5</span></li>
+        <li><span>6</span></li>
+        <li><span>7</span></li>
+        <li><span>8</span></li>
+      </ul>
+    </div>
+  </body>
+</html>

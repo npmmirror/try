@@ -1,0 +1,146 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@duration: 10s;
+
+@keyframes ul-rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#menu {
+  margin: 100px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 1px solid gray;
+  position: relative;
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  @duration: 10s;
+
+  @keyframes ul-rotate {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  #menu {
+    margin: 100px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 1px solid gray;
+    position: relative;
+
+    ul {
+      transform-origin: 150px 150px;
+      animation: ul-rotate @duration linear infinite;
+    }
+  }
+  #menu ul li {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid #333;
+    border-radius: 50%;
+    list-style: none;
+    position: absolute;
+    left: -20px;
+    top: 130px;
+    transform-origin: 170px;
+    background: red;
+    span {
+      display: block;
+    }
+  }
+
+  .gen(@index) when (@index > 0) {
+    // 容器旋转
+    #menu ul li:nth-child(@{index}) {
+      transform: rotate((@index - 1) * 45deg);
+    }
+
+    // 文字旋转
+    @animation-name: ~"rotate-span-@{index}";
+
+    @keyframes @animation-name {
+      from {
+        transform: rotate((@index - 1) * -45deg);
+      }
+      to {
+        transform: rotate((@index - 1) * -45deg - 360deg);
+      }
+    }
+
+    #menu ul li:nth-child(@{index}) span {
+      animation: @animation-name @duration linear infinite;
+    }
+
+    .gen(@index - 1);
+  }
+  .gen(8);
+
+  ul {
+    transform-origin: 150px 150px;
+    animation: ul-rotate @duration linear infinite;
+  }
+}
+#menu ul li {
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  text-align: center;
+  border: 1px solid #333;
+  border-radius: 50%;
+  list-style: none;
+  position: absolute;
+  left: -20px;
+  top: 130px;
+  transform-origin: 170px;
+  background: red;
+  span {
+    display: block;
+  }
+}
+
+.gen(@index) when (@index > 0) {
+  // 容器旋转
+  #menu ul li:nth-child(@{index}) {
+    transform: rotate((@index - 1) * 45deg);
+  }
+
+  // 文字旋转
+  @animation-name: ~"rotate-span-@{index}";
+
+  @keyframes @animation-name {
+    from {
+      transform: rotate((@index - 1) * -45deg);
+    }
+    to {
+      transform: rotate((@index - 1) * -45deg - 360deg);
+    }
+  }
+
+  #menu ul li:nth-child(@{index}) span {
+    animation: @animation-name @duration linear infinite;
+  }
+
+  .gen(@index - 1);
+}
+.gen(8);
