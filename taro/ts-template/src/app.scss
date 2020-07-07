@@ -1,0 +1,57 @@
+@import './style/index.scss';
+@import '~taro-ui/dist/style/index.scss';
+
+page {
+  background-color: $color-bg-grey;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.icon-btn {
+  margin-right: $spacing-h-md;
+}
+
+// 下一步按钮容器
+.btn-next-contaner {
+  margin: $spacing-v-xl $spacing-h-md $spacing-v-xl $spacing-h-md;
+}
+
+.at-input {
+  margin-left: $spacing-v-lg;
+
+  &__title {
+    width: 200px;
+  }
+}
+
+.at-search-bar {
+  padding: 22px 30px;
+
+  .at-search-bar__input {
+    height: 64px !important;
+    padding: 0 60px 0 60px;
+  }
+
+  &:after {
+    display: none !important;
+  }
+}
+
+.btn-container {
+  margin: $spacing-v-xl $spacing-h-md $spacing-v-xl $spacing-h-md;
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  .btn {
+    width: 694px;
+
+    &-fixed {
+      margin: 30px;
+    }
+  }
+}

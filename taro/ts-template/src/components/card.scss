@@ -1,0 +1,10 @@
+@import "../style/variables/default.scss";
+@import "../style/mixins/index.scss";
+
+.at-card--noheaderborder {
+  border-top: none;
+
+  &__header {
+    border-bottom: none;
+  }
+}

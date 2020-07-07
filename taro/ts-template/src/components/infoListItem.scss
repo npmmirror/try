@@ -1,0 +1,32 @@
+@import "../style/variables/default.scss";
+
+.info-listitem {
+  display: flex;
+  margin: $spacing-h-sm $spacing-v-lg;
+  font-size: $font-size-lg;
+
+  &--small {
+    font-size: $font-size-base;
+  }
+
+  &__title {
+    flex: none;
+    width: 200px;
+    margin-right: $spacing-v-lg;
+    white-space: pre-wrap;
+  }
+
+  &__title--short {
+    width: 150px;
+    margin-right: $spacing-v-sm;
+  }
+
+  &__title--long {
+    width: 400px;
+  }
+
+  &__extra {
+    white-space: pre-wrap;
+  }
+
+}

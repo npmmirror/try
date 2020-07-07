@@ -1,0 +1,18 @@
+@import "../style/variables/default.scss";
+@import "../style/mixins/index.scss";
+
+.info-images {
+  display: flex;
+  flex-flow: row wrap;
+  padding: $spacing-h-sm $spacing-v-sm;
+  box-sizing: border-box;
+
+  &__img {
+    flex: none;
+    width: 208px;
+    height: 208px;
+    margin: $spacing-v-sm;
+    border-radius: $spacing-v-sm;
+  }
+}
+

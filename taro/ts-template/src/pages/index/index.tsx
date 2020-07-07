@@ -6,6 +6,8 @@ import TaobaoStore from '@/store/taobao';
 import { observable, action } from 'mobx';
 import coverImage from '@/assets/cover.jpg';
 import consts from '@/consts';
+import Banner from '@/components/banner';
+import Card from '@/components/card';
 
 import './index.scss';
 
@@ -109,6 +111,18 @@ class Index extends Component<PageProps> {
             枚举自定义成员方法 getLevel()
             <View>passport.level：{consts.hello.IdType.passport.getLevel()}</View>
           </View>
+        </View>
+        <View>
+          组件库：
+          <Banner />
+          <Card
+            noHeaderBorder
+            isFull
+            note='点击即可上传, 照片文件大小在1024k以内'
+            title='上传证件照片'
+          >
+            <View>我是内容</View>
+          </Card>
         </View>
       </View>
     );

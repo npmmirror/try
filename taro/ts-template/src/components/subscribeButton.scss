@@ -1,0 +1,83 @@
+
+.subscribe-content {
+  padding: 63px 30px;
+  box-sizing: border-box;
+
+  .content {
+    .title {
+      text-align: center;
+      font-size: 36px;
+      font-weight: bold;
+      margin: 40px 0 20px;
+    }
+
+    .tips {
+      font-size: 32px;
+      color: #666666;
+      text-align: center;
+    }
+
+    .btn-container {
+      margin-bottom: 40px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      .btn {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border-radius: 30px;
+        width: 204px;
+        height: 60px;
+        border: 1px solid #2F78EC;
+        margin: 0 25px;
+
+        &-cancel {
+          background: white;
+          color: #2F78EC;
+          font-size: 30px;
+        }
+
+        &-auth {
+          background: #2F78EC;
+          color: white;
+          font-size: 30px;
+        }
+      }
+    }
+
+    .agreement-container {
+      margin: 10px 0 30px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      height: 60px;
+      line-height: 60px;
+
+      .agree-n {
+        width: 32px;
+        height: 32px;
+      }
+
+      .agree-y {
+        width: 32px;
+        height: 32px;
+      }
+
+      .tips-container {
+        display: inline-block;
+        margin-left: 10px;
+        font-size: 28px;
+        color: rgba(153, 153, 153, 1);
+        align-self: center;
+      }
+    }
+  }
+
+}
+

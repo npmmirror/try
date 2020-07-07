@@ -1,0 +1,11 @@
+@import "../style/variables/default.scss";
+@import "../style/mixins/index.scss";
+
+.panel {
+  background-color: $color-bg;
+
+  &--steps { // AtSteps
+    padding-top: $spacing-v-sm;
+    @include hairline-top($color-border-grey);
+  }
+}
