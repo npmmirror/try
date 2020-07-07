@@ -1,3 +1,5 @@
+const path = require('path');
+
 const config = {
   projectName: 'template2',
   date: '2020-7-7',
@@ -9,6 +11,10 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
+  // 支持
+  alias: {
+    '@': path.resolve(__dirname, '..', 'src'),
+  },
   plugins: [],
   defineConstants: {
   },
