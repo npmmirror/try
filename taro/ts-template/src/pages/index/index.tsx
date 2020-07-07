@@ -5,6 +5,7 @@ import CounterStore from '@/store/counter';
 import TaobaoStore from '@/store/taobao';
 import { observable, action } from 'mobx';
 import coverImage from '@/assets/cover.jpg';
+import consts from '@/consts';
 
 import './index.scss';
 
@@ -70,14 +71,45 @@ class Index extends Component<PageProps> {
         />
         <Button onClick={this.getSuggest}>调用 API 查询商品</Button>
         <View style={{ color: 'red' }}>搜索关键词：{taobao.data.search}</View>
-        {taobao.list.length > 0
-          ? taobao.list.map((item) => (
-              <View key={item[0]}>
-                {item[0]}
-                {item[1]}
+        <View>
+          {taobao.list.length > 0
+            ? taobao.list.map((item) => (
+                <View key={item[0]}>
+                  {item[0]}
+                  {item[1]}
+                </View>
+              ))
+            : '列表空空如也'}
+        </View>
+        <View>
+          <View>枚举值：</View>
+          <View>
+            列举所有枚举：
+            {consts.hello.IdType.enumValues.map((item) => (
+              <View key={item.enumKey}>
+                {item.label}：{item.value}
               </View>
-            ))
-          : '列表空空如也'}
+            ))}
+          </View>
+          <View>
+            获取单个枚举：
+            <View>
+              {consts.hello.IdType.passport.label}：{consts.hello.IdType.passport.value}
+            </View>
+          </View>
+          <View>
+            根据 value 渲染 label：
+            <View>{consts.hello.IdType.renderByValue('01')}</View>
+          </View>
+          <View>
+            枚举自定义静态方法 static canUse(value)：
+            <View>{consts.hello.IdType.canUse('01') ? '是' : '否'}</View>
+          </View>
+          <View>
+            枚举自定义成员方法 getLevel()
+            <View>passport.level：{consts.hello.IdType.passport.getLevel()}</View>
+          </View>
+        </View>
       </View>
     );
   }
