@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro';
 import config from '@/config';
+import url from 'url';
 import { sessionStorage } from '@/utils/storage';
 
 // 默认过期时长，10分钟
@@ -16,7 +17,7 @@ interface RequestOptions {
   showErrorToast?: boolean;
 }
 
-async function request(url: string, options: RequestOptions = {}) {
+async function request(path: string, options: RequestOptions = {}) {
   const {
     method = 'GET',
     data,
@@ -24,7 +25,7 @@ async function request(url: string, options: RequestOptions = {}) {
     expires = defaultExpires,
     showErrorToast = true,
   } = options;
-  const cacheKey: string = cache ? `${url}?${JSON.stringify(data)}` : '';
+  const cacheKey: string = cache ? `${path}?${JSON.stringify(data)}` : '';
   if (cache) {
     const cachedData = sessionStorage.getItem(cacheKey);
     if (cachedData) {
@@ -32,7 +33,7 @@ async function request(url: string, options: RequestOptions = {}) {
     }
   }
   const res = await Taro.request({
-    url: config.API_URL + url,
+    url: url.resolve(config.API_URL, path),
     method,
     data,
     header: {

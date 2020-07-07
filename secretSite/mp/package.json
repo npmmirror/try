@@ -37,7 +37,8 @@
     "mobx-persist": "^0.4.1",
     "nerv-devtools": "^1.5.5",
     "nervjs": "^1.5.5",
-    "regenerator-runtime": "0.11.1"
+    "regenerator-runtime": "0.11.1",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "@tarojs/mini-runner": "2.0.7",

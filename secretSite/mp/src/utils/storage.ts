@@ -31,15 +31,19 @@ const sessionStorage = {
       data,
       expiredTime: expires === -1 ? -1 : Date.now() + expires,
     };
-    this._map.set(key, storageData);
+    Taro.setStorageSync(key, storageData);
+    // this._map.set(key, storageData);
   },
   getItem(key: string) {
-    const storageData: SessionStorageData | undefined = this._map.get(key);
+    // const storageData: SessionStorageData | undefined = this._map.get(key);
+    const storageData: SessionStorageData | undefined = Taro.getStorageSync(key);
     if (storageData) {
       const { data, expiredTime } = storageData;
       if (expiredTime === -1 || expiredTime > Date.now()) {
         return data;
       } else {
+        // this._map.delete(key);
+        Taro.removeStorageSync(key);
         return undefined;
       }
     }

@@ -24,6 +24,8 @@ class App extends Component {
       'pages/wandou/play',
       'pages/comic/list',
       'pages/comic/reader',
+      'pages/hanman/search',
+      'pages/hanman/read',
       'pages/mine/history',
     ],
     window: {
@@ -56,6 +58,12 @@ class App extends Component {
           iconPath: 'assets/tabbar/comic_inactive.png',
           selectedIconPath: 'assets/tabbar/comic_active.png',
           text: '里番漫画',
+        },
+        {
+          pagePath: 'pages/hanman/search',
+          // iconPath: 'assets/tabbar/comic_inactive.png',
+          // selectedIconPath: 'assets/tabbar/comic_active.png',
+          text: '韩漫',
         },
         {
           pagePath: 'pages/mine/history',
