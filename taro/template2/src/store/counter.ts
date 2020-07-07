@@ -1,22 +1,39 @@
-import { observable } from 'mobx';
+import BaseStore from '@/Base/BaseStore';
+import { observable, action, runInAction, computed } from 'mobx';
+import { persist } from 'mobx-persist';
 
-const counterStore = observable({
-  counter: 0,
-  counterStore() {
-    this.counter++;
-  },
+export default class CounterStore extends BaseStore {
+  @observable
+  @persist('object')
+  data = {
+    counter: 0,
+  };
+
+  constructor() {
+    super();
+    // 持久化
+    this.hydrate('@persist-CounterStore');
+  }
+
+  @computed
+  get counter() {
+    return this.data.counter;
+  }
+
+  @action
   increment() {
-    console.log('increment');
-    this.counter++;
-  },
+    this.data.counter++;
+  }
+  @action
   decrement() {
-    this.counter--;
-  },
+    this.data.counter--;
+  }
+  @action
   incrementAsync() {
     setTimeout(() => {
-      this.counter++;
+      runInAction(() => {
+        this.data.counter++;
+      });
     }, 1000);
-  },
-});
-
-export default counterStore;
+  }
+}

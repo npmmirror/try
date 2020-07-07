@@ -4,7 +4,7 @@
   "description": "基于新版 Taro 3 制作的小程序模板",
   "appid": "wx714a4ca793d60349",
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": false,
     "postcss": false,
     "minified": false

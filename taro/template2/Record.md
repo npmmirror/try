@@ -9,6 +9,7 @@ Taro 初始化后提供的项目骨架比较简单，需要进行一些二次加
   - [添加 alias](#添加-alias)
   - [配置 eslint 校验](#配置-eslint-校验)
   - [mobx 数据持久化](#mobx-数据持久化)
+  - [封装缓存、网络请求功能](#封装缓存网络请求功能)
   - [TODO](#todo)
 
 ## 运行环境
@@ -21,7 +22,7 @@ Taro 初始化后提供的项目骨架比较简单，需要进行一些二次加
 
 1. 在 `config/index.js` 中添加 alias 的配置
 
-```js
+```
   alias: {
     '@': path.resolve(__dirname, '..', 'src'),
   }
@@ -29,7 +30,7 @@ Taro 初始化后提供的项目骨架比较简单，需要进行一些二次加
 
 2. `tsconfig.json` 添加 `paths` 规则
 
-```js
+```
   "paths": {
     "@/*": ["src/*"]
   }
@@ -62,7 +63,7 @@ npm install --save-dev eslint@latest typescript@latest @typescript-eslint/parser
 
 添加 `extends`
 
-```js
+```
   extends: [
       'alloy',
       'alloy/react',
@@ -132,7 +133,20 @@ export default class Store {
 }
 ```
 
+## 封装缓存、网络请求功能
+
+见 `src/utils` 目录
+
+**sessionStorage**
+
+- 支持设置过期时间
+
+**request**
+
+- 支持前端缓存和设置缓存过期时间
+- 可控制是否自动对错误响应做提示，默认自动提示
+
 ## TODO
 
 - husky + lint-stage + prettier 做提交前预处理
-- 封装网络请求功能 `request.js`
+- 优化 API 和 Store 的加载方式，使用 `require.ensure` 做自动加载，并额外生成 types 目录
