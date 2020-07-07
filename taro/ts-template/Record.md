@@ -2,7 +2,7 @@
 
 Taro 初始化后提供的项目骨架比较简单，需要进行一些二次加工~
 
-[项目地址：https://github.com/WozHuang/try/tree/master/taro/template2](https://github.com/WozHuang/try/tree/master/taro/template2)
+[项目地址：https://github.com/WozHuang/try/tree/master/taro/ts-template](https://github.com/WozHuang/try/tree/master/taro/ts-template)
 
 - [为 Taro 的小程序 TS 模板加点料](#为-taro-的小程序-ts-模板加点料)
   - [运行环境](#运行环境)
@@ -145,6 +145,13 @@ export default class Store {
 
 - 支持前端缓存和设置缓存过期时间
 - 可控制是否自动对错误响应做提示，默认自动提示
+
+## 添加枚举类型
+
+见 `src/consts`
+
+- 支持基本的 label、value 对应的枚举
+- 支持扩展枚举成员变量和方法
 
 ## TODO
 

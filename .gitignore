@@ -1,5 +1,4 @@
 ﻿.idea
-*.jpg
 node_modules
 __pycache__
 /tryNode/廖雪峰教程/批量下载/tmp
