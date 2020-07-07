@@ -8,6 +8,7 @@ import coverImage from '@/assets/cover.jpg';
 import consts from '@/consts';
 import Banner from '@/components/banner';
 import Card from '@/components/card';
+import sdk from '@/sdk';
 
 import './index.scss';
 
@@ -23,6 +24,10 @@ class Index extends Component<PageProps> {
   data = {
     search: '',
   };
+
+  componentDidMount() {
+    sdk.emit('ready');
+  }
 
   increment = () => {
     const { counter } = this.props;

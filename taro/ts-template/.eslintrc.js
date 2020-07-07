@@ -14,8 +14,9 @@ module.exports = {
       },
     ],
     'no-console': 'warn',
-    'react/no-unsafe': 'warn',
-    'react/no-deprecated': 'warn',
+    // Taro 和 react 的生命周期有所不同，因此不检查
+    'react/no-unsafe': 0,
+    'react/no-deprecated': 0,
     'react/jsx-filename-extension': [
       1,
       {

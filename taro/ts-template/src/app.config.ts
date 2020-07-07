@@ -1,4 +1,6 @@
-export default {
+import { Config } from '@tarojs/taro';
+
+const config: Config = {
   pages: ['pages/index/index'],
   subPackages: [
     // {
@@ -40,3 +42,5 @@ export default {
     uploadFile: 20000,
   },
 };
+
+export default config;

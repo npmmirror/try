@@ -166,8 +166,7 @@ function mobileEncrypt(mobile) {
   return `${mobile.substr(0, 3)}****${mobile.substr(7, 4)}`
 }
 
-// eslint-disable-next-line import/no-commonjs
-module.exports = {
+export {
   queryToString,
   showError,
   showErrorModal,
