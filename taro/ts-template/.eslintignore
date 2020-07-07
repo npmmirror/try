@@ -1,2 +1,6 @@
 config/*
 dist/*
+.vscode/*
+.idea/*
+.eslintrc.js
+babel.config.js
