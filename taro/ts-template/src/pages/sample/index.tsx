@@ -9,6 +9,8 @@ import consts from '@/consts';
 import Banner from '@/components/banner';
 import Card from '@/components/card';
 import sdk from '@/sdk';
+import { AtButton } from 'taro-ui';
+import Taro from '@tarojs/taro';
 
 import './index.scss';
 
@@ -58,11 +60,18 @@ class Index extends Component<PageProps> {
     this.data.search = value || '';
   };
 
+  toLogin = () => {
+    Taro.reLaunch({
+      url: '/pages/index/index',
+    });
+  };
+
   render() {
     const { counter, taobao } = this.props;
     const { search } = this.data;
     return (
       <View className='index'>
+        <AtButton onClick={this.toLogin}>前往登录步骤</AtButton>
         <Button onClick={this.increment}>+</Button>
         <Button onClick={this.decrement}>-</Button>
         <Button onClick={this.incrementAsync}>Add Async</Button>

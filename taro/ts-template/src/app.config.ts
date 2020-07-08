@@ -1,7 +1,7 @@
 import { Config } from '@tarojs/taro';
 
 const config: Config = {
-  pages: ['pages/index/index'],
+  pages: ['pages/sample/index'],
   subPackages: [
     {
       root: 'pages/bindAccount',
@@ -16,7 +16,7 @@ const config: Config = {
       pages: ['index'],
     },
     {
-      root: 'pages/sample',
+      root: 'pages/index',
       pages: ['index'],
     },
   ],
