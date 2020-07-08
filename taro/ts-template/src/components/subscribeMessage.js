@@ -1,12 +1,13 @@
-import Taro, {PureComponent} from '@tarojs/taro'
+import Taro from '@tarojs/taro'
+import React from 'react'
 import dayjs from 'dayjs'
-import {observable} from 'mobx'
+import { observable } from 'mobx'
 import { observer, inject } from '@tarojs/mobx'
-import {throttle, compareVersion} from '@/utils/utils'
+import { throttle, compareVersion } from '@/utils/utils'
 
 @inject('userStore', 'dictStore')
 @observer
-export default class SubscribeMessage extends PureComponent {
+export default class SubscribeMessage extends React.PureComponent {
 
   @observable store = {
     isOpened: false,
@@ -14,10 +15,10 @@ export default class SubscribeMessage extends PureComponent {
     support: true   // 是否支持批量订阅
   }
 
-  async isSupportBatch () {  // 是否支持订阅消息批量订阅，Android7.0.7， ios7.0.6之后支持批量操作
+  async isSupportBatch() {  // 是否支持订阅消息批量订阅，Android7.0.7， ios7.0.6之后支持批量操作
     const { dictStore } = this.props
     let { systemInfo = {} } = dictStore
-    const {platform, version} = systemInfo
+    const { platform, version } = systemInfo
     const support = platform === ('android' && compareVersion(version, '7.0.7') >= 0) || ('ios' && compareVersion(version, '7.0.6') >= 0)
     return support
   }
@@ -25,7 +26,7 @@ export default class SubscribeMessage extends PureComponent {
   onClick = throttle(async () => {
     const { userStore, showModal = true, dictStore } = this.props
     const { sdk, ga } = userStore
-    if(ga || !showModal) {  // 公安端直接执行
+    if (ga || !showModal) {  // 公安端直接执行
       this.handleClick()
       return
     }
@@ -33,28 +34,28 @@ export default class SubscribeMessage extends PureComponent {
     let { systemInfo = {} } = dictStore
     const { SDKVersion } = systemInfo
     const canUse = compareVersion(SDKVersion, '2.8.2') >= 0  // 判断基础库版本，高于2.8.2可以使用
-    if(!canUse) {
+    if (!canUse) {
       const versionUpdateData = sdk.storage.getJson('versionUpdateData') || {}  // 版本升级数据
-      const {time = 0} = versionUpdateData || {}
+      const { time = 0 } = versionUpdateData || {}
       const isExpired = (dayjs().valueOf() - time) > 7 * 24 * 60 * 60 * 1000
 
-      if(!time || isExpired) { // 超时则提醒，否则不提醒
+      if (!time || isExpired) { // 超时则提醒，否则不提醒
         await Taro.showModal({
           content: '旧版本不支持审核通过消息提醒，请前往应用商店升级微信',
           showCancel: false,
           confirmText: '知道了'
         })
-        sdk.storage.setJson('versionUpdateData', {time: dayjs().valueOf()})
+        sdk.storage.setJson('versionUpdateData', { time: dayjs().valueOf() })
       }
       this.handleClick()
       return
     }
 
     let subscribeData = sdk.storage.getJson('subscribeData')
-    if(subscribeData) {
-      const {status, time} = subscribeData || {}
+    if (subscribeData) {
+      const { status, time } = subscribeData || {}
       const isExpired = (dayjs().valueOf() - time) > 7 * 24 * 60 * 60 * 1000
-      if(status === 1 && !isExpired) {  // 勾选了不再提示并且没有超过七天
+      if (status === 1 && !isExpired) {  // 勾选了不再提示并且没有超过七天
         this.handleClick()
         return
       }
@@ -73,15 +74,15 @@ export default class SubscribeMessage extends PureComponent {
         res['DHpnDRFmQy2B9gzv3gFWR9kK2ws_BA7Ic3PQMDy3bMg'] === 'reject' ||
         res.errCode
 
-      if(reject) {
+      if (reject) {
         const support = await this.isSupportBatch()
-        if(!support) this.store.support = false
+        if (!support) this.store.support = false
         this.store.isOpened = true
         this.props.onSubscribeModal && this.props.onSubscribeModal()
-      }else {
+      } else {
         this.handleClick()
       }
-    }catch (e) {
+    } catch (e) {
       console.error('error: ', e)
       this.handleClick()
     }

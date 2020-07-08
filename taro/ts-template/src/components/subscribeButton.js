@@ -1,10 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
-import {View, Text, Button, Image} from '@tarojs/components'
-import {AtModal, AtButton} from 'taro-ui'
-import {observable, toJS} from 'mobx'
+import { View, Text, Button, Image } from '@tarojs/components'
+import { AtModal, AtButton } from 'taro-ui'
+import { observable, toJS } from 'mobx'
 import { observer, inject } from '@tarojs/mobx'
-import agree_y from '@/images/yes.png'
-import agree_n from '@/images/no.png'
+import agree_y from '@/assets/images/yes.png'
+import agree_n from '@/assets/images/no.png'
 import SubscribeMessage from './subscribeMessage'
 import './subscribeButton.scss'
 
@@ -16,8 +16,8 @@ export default class SubscribeButton extends SubscribeMessage {
   }
 
   render() {
-    const {text = '', type, disabled} = this.props
-    const {isOpened, support, isAgree} = toJS(this.store)
+    const { text = '', type, disabled } = this.props
+    const { isOpened, support, isAgree } = toJS(this.store)
     return (
       <View className='subscribe-content'>
         <AtButton className='subscribe-btn' type={type} disabled={disabled} onClick={this.onClick}>{text}</AtButton>
@@ -32,8 +32,8 @@ export default class SubscribeButton extends SubscribeMessage {
             <View className='tips'>允许发送通知，及时收到通知消息</View>
 
             <View className='agreement-container' onClick={this.switchAgree}>
-              {isAgree && <Image src={agree_y} className='agree-y' /> }
-              {!isAgree && <Image src={agree_n} className='agree-n' /> }
+              {isAgree && <Image src={agree_y} className='agree-y' />}
+              {!isAgree && <Image src={agree_n} className='agree-n' />}
               <View className='tips-container'>
                 七天内不再提示
               </View>

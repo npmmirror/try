@@ -3,23 +3,22 @@ import { Config } from '@tarojs/taro';
 const config: Config = {
   pages: ['pages/index/index'],
   subPackages: [
-    // {
-    //   root: 'pages/bindAccount',
-    //   pages: ['index']
-    // },
-    // {
-    //   root: 'pages/auth',
-    //   pages: [
-    //     'index',
-    //     'agreement'
-    //   ]
-    // },
-    // {
-    //   root: 'pages/template',
-    //   pages: [
-    //     'index'
-    //   ]
-    // },
+    {
+      root: 'pages/bindAccount',
+      pages: ['index'],
+    },
+    {
+      root: 'pages/auth',
+      pages: ['index', 'agreement'],
+    },
+    {
+      root: 'pages/template',
+      pages: ['index'],
+    },
+    {
+      root: 'pages/sample',
+      pages: ['index'],
+    },
   ],
   preloadRule: {
     'pages/index/index': {

@@ -1,0 +1,76 @@
+@import '../../style/variables/default.scss';
+
+page {
+  background-color: $color-bg;
+}
+
+.form {
+  margin: 80px 60px 60px 60px;
+}
+
+.btn {
+  margin: 20px 30px 20px 30px;
+}
+
+.title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  margin: 40px 0 40px;
+}
+
+.feature {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 32px;
+  color: #666666;
+
+  &-item {
+    margin-left: 30px;
+  }
+}
+
+.tips {
+  margin: 20px 0 20px;
+  font-size: 32px;
+  color: #666666;
+}
+
+.btn-container {
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  .btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    width: 204px;
+    height: 60px;
+    border: 1px solid #2F78EC;
+
+    &-cancel {
+      background: white;
+      color: #2F78EC;
+      font-size: 30px;
+    }
+
+    &-auth {
+      background: #2F78EC;
+      color: white;
+      font-size: 30px;
+    }
+  }
+}
+
+.at-modal__container {
+  width: 640px;
+  padding: 0 40px;
+  box-sizing: border-box;
+}

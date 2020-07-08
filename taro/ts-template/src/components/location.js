@@ -1,12 +1,13 @@
 import Taro from '@tarojs/taro'
-import {Button, Text, View} from '@tarojs/components'
+import React, { PureComponent } from 'react';
+import { Button, Text, View } from '@tarojs/components'
 import { observable, toJS } from 'mobx'
 import { observer } from '@tarojs/mobx'
-import {AtIcon, AtModal, AtModalAction, AtModalContent} from 'taro-ui'
+import { AtIcon, AtModal, AtModalAction, AtModalContent } from 'taro-ui'
 import './banner.scss'
 
 @observer
-export default class Index extends Taro.PureComponent {
+export default class Index extends PureComponent {
 
   @observable store = {
     authReminder: false
@@ -17,20 +18,20 @@ export default class Index extends Taro.PureComponent {
   };
 
   handleClick = async () => {
-    const {needAuth = true, type} = this.props
+    const { needAuth = true, type } = this.props
     let doc
-    if(needAuth) {
-      try{
-        if(type === 'chooseLocation') {
+    if (needAuth) {
+      try {
+        if (type === 'chooseLocation') {
           doc = await Taro.chooseLocation()
-        }else if(type === 'getLocation'){
+        } else if (type === 'getLocation') {
           doc = await Taro.getLocation({
             type: 'gcj02'
           })
         }
-      }catch (e) {
+      } catch (e) {
         const { errMsg } = e
-        if(errMsg && errMsg.includes('fail auth')) {
+        if (errMsg && errMsg.includes('fail auth')) {
           this.store.authReminder = true
           return
         }
@@ -39,9 +40,9 @@ export default class Index extends Taro.PureComponent {
     this.props.onClick(doc)
   }
 
-  render () {
-    const {authReminder} = toJS(this.store)
-    const {size, color, styles} = this.props
+  render() {
+    const { authReminder } = toJS(this.store)
+    const { size, color, styles } = this.props
     const rootClass = {
       position: 'relative',
       ...styles
@@ -72,5 +73,5 @@ export default class Index extends Taro.PureComponent {
 
 Index.defaultProps = {
   needAuth: true,
-  onClick: () => {},
+  onClick: () => { },
 }

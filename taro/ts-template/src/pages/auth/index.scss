@@ -1,0 +1,46 @@
+.logo {
+  width: 194px;
+  height: 196px;
+  margin-top: 20px;
+  align-self: center;
+}
+
+.btn {
+  margin: 80px 30px 0px 30px;
+}
+
+.agreement-container {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+
+  .agree-n {
+    margin-top: 8px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .agree-y {
+    margin-top: 8px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .tips-container {
+    margin-left: 20px;
+
+    .tips {
+      font-size: 28px;
+      color: rgba(153, 153, 153, 1);
+      align-self: center;
+    }
+
+    .agreement-content {
+      color: #2F78EC;
+    }
+  }
+}
+

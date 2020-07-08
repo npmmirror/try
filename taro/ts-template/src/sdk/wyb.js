@@ -2,11 +2,11 @@ const name = 'wyb'
 
 export default function () {
   let app = this
-  if (app.store.config.env === 'development') {
-    this.bind(name, '/wyb-test')
-  } else {
-    this.bind(name)
-  }
+  // if (app.store.config.env === 'development') {
+  // this.bind(name, '/wyb-test')
+  // } else {
+  this.bind(name)
+  // }
   let $ = app[name]
 
   $.login = async function (code) {

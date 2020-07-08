@@ -58,7 +58,8 @@ export default function () {
     const { silence } = e
     e.status || (e.status = 500)
     const { data } = e
-    if (data && data.err) {
+    if (data?.err) {
+      if (data.err === 3001) data.msg = '帐号已被绑定'
       !silence && (showError(e))
       return
     }

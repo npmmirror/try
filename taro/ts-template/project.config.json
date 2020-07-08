@@ -2,7 +2,7 @@
   "miniprogramRoot": "./dist",
   "projectname": "template2",
   "description": "基于新版 Taro 3 制作的小程序模板",
-  "appid": "wx714a4ca793d60349",
+  "appid": "wxfac847a721806908",
   "setting": {
     "urlCheck": false,
     "es6": false,

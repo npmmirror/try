@@ -7,14 +7,14 @@ const API_URL = isDevelopment ? 'http://127.0.0.1:7001' : 'http://127.0.0.1:7001
 const configMap = {
   development: {
     log_level: 'debug',
-    api: 'https://api.wyb.d.yilisafe.com',
-    web: 'https://www.wyb.d.yilisafe.com',
+    api: 'https://api.co2.d.yilisafe.com',
+    web: 'https://www.co2.d.yilisafe.com',
     logapi: 'https://wyb.cn-shenzhen.log.aliyuncs.com/logstores/dev/track?APIVersion=0.6.0'
   },
   production: {
     log_level: 'warn',
-    api: 'https://api.wyb.yilisafe.com',
-    web: 'https://www.wyb.yilisafe.com',
+    api: 'https://api-co2.p.yilisafe.com',
+    web: 'https://www-co2.p.yilisafe.com',
     logapi: 'https://wyb.cn-shenzhen.log.aliyuncs.com/logstores/prod/track?APIVersion=0.6.0'
   }
 }

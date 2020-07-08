@@ -1,11 +1,11 @@
-import Taro, {PureComponent} from '@tarojs/taro'
+import React, { PureComponent } from 'react';
 import { View } from '@tarojs/components'
 
 import './divider.scss'
 
 // 数字符号
 export default class NumberSymbol extends PureComponent {
-  render () {
+  render() {
     const size = this.props.size ? `${this.props.size}rpx` : 0
     const style = {
       'display': 'inline-block',
