@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hello</title>
+    <style>
+      * {
+        margin: 0;
+      }
+      #main {
+        background-color: yellow;
+        color: green;
+        width: 756px;
+        height: 1086px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      @media print {
+        * {
+          margin: 0;
+        }
+        #print {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <div class="content">
+        <script>
+          for (let index = 0; index < 600; index++) {
+            document.write(index);
+            document.write("：滴滴滴");
+            if (index % 20 === 19) {
+              document.write("<br/>");
+            }
+          }
+        </script>
+      </div>
+      <div
+        style="
+          page-break-inside: avoid;
+          height: 600px;
+          background-color: green;
+          color: white;
+        "
+      >
+        <span>hhhhh</span>
+      </div>
+      <div>1111</div>
+      <div style="page-break-before: always;">
+        <span>hhhhh</span>
+      </div>
+      <div>22222</div>
+      <button id="print">打印</button>
+    </div>
+    <script>
+      window.addEventListener("load", function () {
+        const printBtn = document.getElementById("print");
+        printBtn.addEventListener("click", function () {
+          window.print();
+        });
+      });
+    </script>
+  </body>
+</html>
