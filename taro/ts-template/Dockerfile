@@ -1,4 +1,4 @@
-FROM registry.cn-shenzhen.aliyuncs.com/yili-common/circleci-node:latest-browsers as build-deps
+FROM node:alpine as build-deps
 
 WORKDIR /usr/src/app/
 USER root

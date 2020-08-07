@@ -51,6 +51,9 @@ const config = {
   h5: {
     publicPath: '/',
     staticDirectory: 'static',
+    router: {
+      mode: 'hash'
+    },
     postcss: {
       autoprefixer: {
         enable: true,
