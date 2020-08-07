@@ -1,5 +1,6 @@
 import BaseEnum from '@/Base/BaseEnum';
 
+// 证件类型
 class IdType extends BaseEnum {
   static idCard = new IdType({ value: '01', label: '公民身份证', level: 2 });
   static gangao = new IdType({ value: '02', label: '港澳居民来往大陆通行证' });

@@ -5,6 +5,8 @@ interface CtorOptions {
   label?: any;
   // 枚举的值
   value?: any;
+  // 其他字段
+  [key: string]: any;
 }
 
 class BaseEnum extends Enumify {
