@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Taro from '@tarojs/taro';
 import { Provider } from 'mobx-react';
+import '@/utils/polyfill';
 
 import sdk from '@/sdk';
 import store from '@/store';
