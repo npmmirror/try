@@ -1,0 +1,16 @@
+{
+  "name": "processGray",
+  "version": "1.0.0",
+  "description": "目标：处理图片使除了笔迹外的内容显示为白色/透明",
+  "main": "index.js",
+  "dependencies": {
+    "@types/jquery": "^3.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
