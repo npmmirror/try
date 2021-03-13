@@ -1,0 +1,98 @@
+{
+  "api": [
+    {
+      "url": "https://pwb.sjzrongshida.cn"
+    },
+    {
+      "url": "https://pwb.zangxiangtz.cn"
+    },
+    {
+      "url": "https://pwb.wubabanjia.net"
+    },
+    {
+      "url": "https://pwb.yuanruige.net"
+    },
+    {
+      "url": "https://pwb.yubake.net"
+    },
+    {
+      "url": "https://pwb.gssyjz.com"
+    },
+    {
+      "url": "https://pwb.softcare-china.cn",
+      "mode": "final"
+    },
+    {
+      "url": "https://abc.iplay01.com",
+      "mode": "manual"
+    },
+    {
+      "url": "https://pwb.yubake.net",
+      "mode": "manual"
+    },
+    {
+      "url": "https://pwb.yjmsj1203.com",
+      "mode": "manual"
+    }
+  ],
+  "img": [
+    {
+      "url": "https://imz.zangxiangtz.cn",
+      "encrypt": "v2"
+    },
+    {
+      "url": "https://imz.sjzrongshida.cn",
+      "encrypt": "v2"
+    },
+    {
+      "url": "https://imz.wubabanjia.net",
+      "encrypt": "v2"
+    },
+    {
+      "url": "https://imz.yuanruige.net",
+      "encrypt": "v2"
+    },
+    {
+      "url": "https://imz.yubake.net",
+      "encrypt": "v2"
+    },
+    {
+      "url": "https://imz.gssyjz.com",
+      "encrypt": "v2"
+    },
+    {
+      "url": "https://imz.softcare-china.cn",
+      "mode": "final",
+      "encrypt": "v2"
+    },
+    {
+      "url": "https://imxx.iplay01.com",
+      "mode": "manual",
+      "encrypt": "v1"
+    },
+    {
+      "url": "https://imz.yubake.net",
+      "mode": "manual",
+      "encrypt": "v2"
+    },
+    {
+      "url": "https://imz.yjmsj1203.com",
+      "mode": "manual",
+      "encrypt": "v2"
+    }
+  ],
+  "stream": [
+    {
+      "url": "https://pwb.zangxiangtz.cn",
+      "mode": "novip"
+    },
+    {
+      "url": "https://pwb.softcare-china.cn",
+      "mode": "final"
+    },
+    {
+      "url": "https://abc.iplay01.com",
+      "mode": "manual"
+    }
+  ]
+}
