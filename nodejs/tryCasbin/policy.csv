@@ -1,0 +1,9 @@
+p, alice, data1, read
+p, bob, data2, write
+p, role::data_group_admin_big, data_group, write
+
+g, alice, role::data_group_admin
+g, role::data_group_admin, role::data_group_admin_big
+g, alice, role::data_group_admin_big
+g2, data1, data_group
+g2, data2, data_group

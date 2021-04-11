@@ -1,0 +1,20 @@
+{
+  "name": "tryCasbin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "keywords": [],
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/lodash": "^4.14.168",
+    "@types/node": "^14.14.35",
+    "casbin": "^5.6.0",
+    "ini": "^2.0.0",
+    "lodash": "^4.17.21"
+  }
+}
