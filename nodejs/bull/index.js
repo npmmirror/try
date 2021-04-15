@@ -9,27 +9,28 @@ const delay = (time) => {
 };
 
 helloQueue.process("default", async (job) => {
-  console.log("start job", job.data);
-  for (let i = 0; i < 2; i++) {
-    await delay(700);
+  console.log("start job", job.id, job.data);
+  for (let i = 0; i < 1; i++) {
+    await delay(1000);
     console.log("delay job", job.data);
     // job.progress(i * 10);
   }
-  console.log("finish job", job.data);
   const ram = Math.random();
   if (ram > 0.2) {
+    console.log("finished job", job.id, job.data);
     return {
       data: job.data,
       time: new Date().toLocaleString(),
     };
   } else {
+    console.log("failed job", job.id, job.data);
     throw new Error("random error" + ram);
   }
 });
 
 setInterval(() => {
   const t = "name" + Date.now().toFixed(0);
-  console.log(t);
+  console.log("add task", t);
   helloQueue
     .add(
       "default",
@@ -37,6 +38,8 @@ setInterval(() => {
       {
         removeOnComplete: true, // 完成后从队列移除
         removeOnFail: true,
+        attempts: 3, // 重试3次
+        delay: 1000, // 延时
       }
     )
     .then((res) => {
