@@ -1,4 +1,6 @@
 const Queue = require("bull");
+const express = require("express");
+const { router, BullAdapter, setQueues } = require("bull-board");
 
 const helloQueue = new Queue("hello", {
   redis: "redis://:@127.0.0.1:36379/1",
@@ -29,7 +31,7 @@ helloQueue.process("default", async (job) => {
 });
 
 setInterval(() => {
-  const t = "name" + Date.now().toFixed(0);
+  const t = "name" + new Date().toLocaleString();
   console.log("add task", t);
   helloQueue
     .add(
@@ -51,3 +53,10 @@ setInterval(() => {
 }, 1000);
 
 setTimeout(() => {}, 9999999);
+
+const app = express();
+
+setQueues([new BullAdapter(helloQueue)]);
+app.use("/", router);
+
+app.listen(3000);
