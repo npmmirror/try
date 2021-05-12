@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "dev": "nodemon ./parser.js",
+    "dev:m3u8stream": "node ./m3u8stream.js"
+  }
+}
