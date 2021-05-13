@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "dev:baidu": "nodemon ./baidu.js",
+    "dev:baidu-news": "nodemon ./baidu-news.js"
+  }
+}

@@ -11,3 +11,4 @@ yarn.lock
 config.prod.js
 tryMidway
 temp.*
+temp*
