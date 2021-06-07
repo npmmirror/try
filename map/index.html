@@ -1,0 +1,52 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>瓦片地图url测试</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        x:<input type="text" v-model="x" /><br />
+        y:<input type="text" v-model="y" /><br />
+        z:<input type="text" v-model="z" /><br />
+      </div>
+      <button @click="setMap">生成</button>
+      <div>
+        <div v-for="item in list" :key="item.name">
+          <div>{{item.name}}</div>
+          <div>{{item.url}}</div>
+          <image :src="item.url" width="256" height="256"></image>
+          <br />
+        </div>
+      </div>
+    </div>
+    <!-- <script src="./vue.js"></script> -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.js"></script>
+    <script src="./data.js"></script>
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          x: '105',
+          y: '48',
+          z: '7',
+          list: [],
+        },
+        mounted() {
+          this.setMap();
+        },
+        methods: {
+          setMap() {
+            const { x, y, z } = this;
+            this.list = data.map((item) => ({
+              name: item.mapName,
+              url: item.applyMapUrl.replace('{x}', x).replace('{y}', y).replace('{z}', z),
+            }));
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
