@@ -47,25 +47,25 @@ class WandouLiveList extends Component<PageProps> {
       wandouStore: { list },
     } = this.props;
     return (
-      <View className="wrap">
+      <View className='wrap'>
         {list.map((item) => (
           <View
             key={item.uid}
-            className="live-item"
+            className='live-item'
             onClick={() => this.onClickRoom(item)}
           >
             <Image
-              className="live-item__cover"
-              mode="aspectFill"
+              className='live-item__cover'
+              mode='aspectFill'
               src={item.thumb || item.avatar}
               lazyLoad
             />
-            <View className="live-item__name">
+            <View className='live-item__name'>
               {item.title}
               {item.user_nicename}
             </View>
             {item.type !== '0' && (
-              <View className="live-item--playing">在秀</View>
+              <View className='live-item--playing'>在秀</View>
             )}
           </View>
         ))}

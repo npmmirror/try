@@ -2,12 +2,13 @@ import { Config } from '@tarojs/taro';
 
 const config: Config = {
   pages: [
-    'pages/wandou/list',
-    'pages/wandou/play',
+    // 'pages/wandou/list',
+    // 'pages/wandou/play',
+    'pages/kuaimao/player',
     'pages/comic/list',
     'pages/comic/reader',
-    'pages/hanman/search',
-    'pages/hanman/read',
+    // 'pages/hanman/search',
+    // 'pages/hanman/read',
     'pages/mine/history',
   ],
   window: {
@@ -16,6 +17,7 @@ const config: Config = {
     navigationBarBackgroundColor: '#F2F2F2',
     navigationBarTitleText: '偷鸡小程序',
     navigationBarTextStyle: 'black',
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     // 小程序强制开启同层渲染
     renderingMode: 'mixed',
@@ -29,12 +31,12 @@ const config: Config = {
     backgroundColor: '#F2F2F2',
     borderStyle: 'black',
     list: [
-      {
-        pagePath: 'pages/wandou/list',
-        iconPath: 'assets/tabbar/wandou_inactive.png',
-        selectedIconPath: 'assets/tabbar/wandou_active.png',
-        text: '豌豆直播',
-      },
+      // {
+      //   pagePath: 'pages/wandou/list',
+      //   iconPath: 'assets/tabbar/wandou_inactive.png',
+      //   selectedIconPath: 'assets/tabbar/wandou_active.png',
+      //   text: '豌豆直播',
+      // },
       {
         pagePath: 'pages/comic/list',
         iconPath: 'assets/tabbar/comic_inactive.png',
@@ -42,11 +44,17 @@ const config: Config = {
         text: '里番漫画',
       },
       {
-        pagePath: 'pages/hanman/search',
-        // iconPath: 'assets/tabbar/comic_inactive.png',
-        // selectedIconPath: 'assets/tabbar/comic_active.png',
-        text: '韩漫',
+        pagePath: 'pages/kuaimao/player',
+        iconPath: 'assets/tabbar/wandou_inactive.png',
+        selectedIconPath: 'assets/tabbar/wandou_active.png',
+        text: '快猫视频',
       },
+      // {
+      //   pagePath: 'pages/hanman/search',
+      //   // iconPath: 'assets/tabbar/comic_inactive.png',
+      //   // selectedIconPath: 'assets/tabbar/comic_active.png',
+      //   text: '韩漫',
+      // },
       {
         pagePath: 'pages/mine/history',
         iconPath: 'assets/tabbar/history_inactive.png',

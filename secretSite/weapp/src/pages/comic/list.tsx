@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { View, Image } from '@tarojs/components';
 import { observer, inject } from 'mobx-react';
 import ComicStore from '@/store/ComicStore';
@@ -43,19 +43,19 @@ class ComicList extends Component<PageProps> {
   render() {
     const list = this.props.comicStore.list;
     return (
-      <View className="wrap">
+      <View className='wrap'>
         {list.map((item) => (
           <View
             key={item.comic_id}
-            className="comic-item"
+            className='comic-item'
             onClick={() => this.handleClick(item)}
           >
             <Image
-              className="comic-item__cover"
-              mode="aspectFill"
+              className='comic-item__cover'
+              mode='aspectFill'
               src={item.cover_url}
             />
-            <View className="comic-item__name">{item.name}</View>
+            <View className='comic-item__name'>{item.name}</View>
           </View>
         ))}
       </View>

@@ -18,10 +18,10 @@ class HanmanSearch extends Component<PageProps> {
     } = this.props;
     return (
       <View>
-        <View className="list">
+        <View className='list'>
           {chapterPages.map((item) => (
-            <View className="item" key={item.content}>
-              <Image src={item.content} mode="widthFix" />
+            <View className='item' key={item.content}>
+              <Image src={item.content} mode='widthFix' />
             </View>
           ))}
         </View>

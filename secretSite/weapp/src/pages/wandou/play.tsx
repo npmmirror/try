@@ -38,16 +38,16 @@ class WandouLivePlay extends Component<PageProps> {
     } = this.props;
     const rtmpUrl = room && room.pull;
     return (
-      <View className="wrap">
+      <View className='wrap'>
         {rtmpUrl && (
           <LivePlayer
-            className="player"
+            className='player'
             src={rtmpUrl}
-            mode="live"
+            mode='live'
             autoplay
             muted={false}
-            orientation="vertical"
-            objectFit="contain"
+            orientation='vertical'
+            objectFit='contain'
             backgroundMute={false}
             minCache={1}
             maxCache={3}

@@ -1,9 +1,9 @@
 module.exports = {
   extends: [
     'taro',
-    'alloy',
-    'alloy/react',
-    'alloy/typescript',
+    // 'alloy',
+    // 'alloy/react',
+    // 'alloy/typescript',
     'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
@@ -49,6 +49,9 @@ module.exports = {
     'no-multi-spaces': 'error',
     semi: ['error', 'always'],
     '@typescript-eslint/prefer-optional-chain': 0,
+    'react/react-in-jsx-scope': 0,
+    '@typescript-eslint/explicit-module-boundary-types': 0,
+    'react/sort-comp': 0
   },
   parserOptions: {
     ecmaFeatures: {

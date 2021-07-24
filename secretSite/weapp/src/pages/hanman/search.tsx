@@ -43,10 +43,10 @@ class HanmanSearch extends Component<PageProps> {
     return (
       <View>
         <Input onConfirm={this.onSearch} />
-        <View className="list">
+        <View className='list'>
           {searchResultList.map((item) => (
             <View
-              className="item"
+              className='item'
               key={item.comicId}
               onClick={this.handleClickComic.bind(this, item)}
             >
@@ -55,10 +55,10 @@ class HanmanSearch extends Component<PageProps> {
             </View>
           ))}
         </View>
-        <View className="list">
+        <View className='list'>
           {chapterList.map((item) => (
             <View
-              className="item"
+              className='item'
               key={item.chapterId}
               onClick={this.handleClickChapter.bind(this, item)}
             >

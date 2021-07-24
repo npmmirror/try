@@ -30,11 +30,11 @@ class ComicReader extends Component<PageProps> {
   render() {
     const { comic } = this.props.comicStore;
     return (
-      <View className="wrap">
+      <View className='wrap'>
         {comic.pages.map((url, index) => (
-          <View key={url} className="img">
-            <Image className="img__image" mode="aspectFit" lazyLoad src={url} />
-            <View className="index">
+          <View key={url} className='img'>
+            <Image className='img__image' mode='aspectFit' lazyLoad src={url} />
+            <View className='index'>
               {index + 1}/{comic.page_number}
             </View>
           </View>
