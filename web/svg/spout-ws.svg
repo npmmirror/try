@@ -1,0 +1,6 @@
+<svg width="120" stroke="#F00" height="120" xmlns="http://www.w3.org/2000/svg" stroke-width="1.5" fill="none">
+  <rect height="50" width="20" y="10" x="4" />
+  <line y2="20" x2="44" y1="20" x1="24" />
+  <line y2="55" x2="44" y1="55" x1="24" />
+  <path d="M44,55 Q55,55 55,60 L55,115 L110,115 L110,60 Q110,20 44 20"></path>
+</svg>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>svg</title>
+  <style>
+    .item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    .item .title {
+      font-size: 16px;
+      width: 150px;
+    }
+    .item img {
+      fill: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app">
+    <div v-for="item in list" class="item">
+      <div class="title">
+        {{item.title}}
+      </div>
+      <img :src="item.src">
+    </div>
+  </div>
+
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.js"></script>
+<script>
+  const list = [
+    {
+      title: '管线暗点',
+      src: './dir-point.svg'
+    },
+    {
+      title: '窨井-污水',
+      src: './well-ws.svg'
+    },
+    {
+      title: '窨井-雨水',
+      src: './well-ys.svg'
+    },
+    {
+      title: '窨井-雨污合流',
+      src: './well-hl.svg'
+    },
+    {
+      title: '排放口-污水',
+      src: './spout-ws.svg'
+    },
+    {
+      title: '排放口-雨水',
+      src: './spout-ys.svg'
+    },
+    {
+      title: '排放口-雨污合流',
+      src: './spout-hl.svg'
+    },
+  ]
+
+  const vm = new Vue({
+        el: '#app',
+        data: {
+          list,
+        },
+        mounted() {
+          // this.setMap();
+        },
+        // methods: {
+        //   setMap() {
+        //     const { x, y, z } = this;
+        //     this.list = data.map((item) => ({
+        //       name: item.mapName,
+        //       url: item.applyMapUrl.replace('{x}', x).replace('{y}', y).replace('{z}', z),
+        //     }));
+        //   },
+        // },
+      });
+</script>
+</body>
+</html>
