@@ -9,7 +9,7 @@
   "dependencies": {
     "@types/bull": "^3.15.0",
     "axios": "^0.21.1",
-    "bull": "^3.22.0",
+    "bull": "^3.27.0",
     "bull-board": "^1.5.1",
     "casbin": "^5.6.0",
     "cheerio": "^0.22.0",

@@ -9,9 +9,7 @@ log4js.configure({
 const logger = log4js.getLogger('bull-repeat');
 logger.level = 'debug';
 
-const myQueue = new Queue('myQueue', {
-  redis: 'redis://:@127.0.0.1:36379/1',
-});
+const myQueue = new Queue('myQueue', 'redis://:@127.0.0.1:36379/1');
 
 const delay = (time) => {
   return new Promise((resolve) => setTimeout(resolve, time));
