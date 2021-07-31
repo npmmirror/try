@@ -26,45 +26,80 @@ class Player extends Component<PageProps> {
 
   @observable
   data: any = {
-    videoId: '13805',
-    videoInfo: null
+    videoId: '',
+    videoInfo: null,
+    err: '',
   };
 
-   getVideo = async () => {
+  getVideo = async () => {
     const {kuaimaoStore} = this.props;
     const {videoId} = this.data;
+    this.data.err = '';
     if (videoId) {
       this.data.videoInfo = null;
-      const [urlRes, infoRes] = await Promise.all([
-        kuaimaoStore.getVideoUrl(+videoId),
-        kuaimaoStore.getVideoInfo(+videoId)
-      ]);
-      const videoInfo = infoRes.info;
-      videoInfo.url = urlRes.url;
-      this.data.videoInfo = videoInfo;
-      Taro.setStorageSync('videoId', videoId);
-      Taro.setStorageSync('videoInfo', videoInfo);
+      try {
+        const [urlRes, infoRes] = await Promise.all([
+          kuaimaoStore.getVideoUrl(+videoId),
+          kuaimaoStore.getVideoInfo(+videoId)
+        ]);
+        const videoInfo = infoRes.info;
+        videoInfo.url = urlRes.url;
+        this.data.videoInfo = videoInfo;
+        Taro.setStorageSync('videoId', videoId);
+        Taro.setStorageSync('videoInfo', videoInfo);
+      } catch (e) {
+        this.data.err = '获取地址失败' + e.message;
+      }
     }
-  }
+  };
 
   handleChangeVideoId = (e) => {
-    // console.log(e);
     const val = e.target.value;
     this.data.videoId = val || '';
   };
 
+  step = (step) => {
+    const num = parseInt(this.data.videoId);
+    if (!Number.isNaN(num)) {
+      this.data.videoId = num + step;
+    }
+  }
+
   render() {
-    const {videoId, videoInfo} = this.data;
+    const {videoId, videoInfo, err} = this.data;
     return (
-      <View>
-        <Input type='number' className='input' value={videoId} onConfirm={this.getVideo} onInput={this.handleChangeVideoId} />
-        <Button onClick={this.getVideo}>确认</Button>
+      <View className='page'>
         {
           videoInfo && (
-            <>
-              <View className='title'>{videoInfo.name}</View>
-              <Video direction={90} src={videoInfo.url} className='video' />
-            </>
+            <View className='title'>{videoInfo.name}</View>
+          )
+        }
+        <View className='video__wrapper'>
+          {
+            videoInfo && (
+              <>
+                <Video direction={90} src={videoInfo.url} className='video' />
+              </>
+            )
+          }
+        </View>
+        <View className='input__wrapper'>
+          <Button className='input-btn' onClick={() => this.step(-1)}>⬅️</Button>
+          <Input
+            type='number'
+            className='input'
+            value={videoId}
+            onConfirm={this.getVideo}
+            onInput={this.handleChangeVideoId}
+          />
+          <Button className='input-btn' onClick={() => this.step(1)}>➡️</Button>
+        </View>
+        <View className='confirm-btn__wrapper'>
+          <Button onClick={this.getVideo} className='confirm-btn'>确认</Button>
+        </View>
+        {
+          err && (
+            <View>{err}</View>
           )
         }
       </View>

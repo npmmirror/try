@@ -1,15 +1,71 @@
+.btn-wrapper {
+  height: 75px;
+  border: 2px solid #dddddd;
+  background: #FFFFFF;
+  border-radius: 8px;
+}
+
 .input {
-  padding: 3px;
-  margin: 3px;
-  border: 2px solid green;
-  font-size: 32px;
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    font-size: 50px;
+    line-height: 75px;
+    margin: 8px 16px;
+    padding: 12px 12px;
+    .btn-wrapper();
+  }
+
+  flex: 1;
+  //padding: 5px 0;
+  height: 100%;
+  //margin: 3px;
+  text-align: center;
+  background: #FFFFFF;
+
+  &-btn {
+    text-align: center;
+    width: 200px!important;
+    font-size: 50px;
+    line-height: 75px;
+    padding: 0;
+    background: #FFFFFF;
+    //background: #f5f5f5;
+  }
 }
 
 .title {
   font-size: 28px;
+  min-height: 150px;
+  box-sizing: border-box;
+  padding: 30px;
+  line-height: 50px;
+  font-family: 'douyu', sans-serif;
+  letter-spacing: 4px;
 }
 
 .video {
+  &__wrapper {
+    width: 750px;
+    height: 450px;
+  }
+
   width: 750px;
   height: 450px;
+}
+
+.err {
+
+}
+
+.page .confirm-btn {
+  &__wrapper {
+    margin: 8px 16px;
+    height: 99px;
+  }
+  padding: 12px 0;
+  .btn-wrapper();
+  height: 99px;
+  line-height: 75px;
+  width: 100%;
 }

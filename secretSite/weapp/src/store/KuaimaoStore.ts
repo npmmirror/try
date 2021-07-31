@@ -70,8 +70,9 @@ export default class KuaimaoStore extends BaseStore {
       });
       decryptResponse(res);
       const userInfo: User = res.data;
-      const str = CryptoJS.enc.Base64.parse(userInfo.token).toString(CryptoJS.enc.Utf8);
-      userInfo.expire = parseInt(str.split('|')[2]);
+      // const str = CryptoJS.enc.Base64.parse(userInfo.token).toString(CryptoJS.enc.Utf8);
+      // userInfo.expire = parseInt(str.split('|')[2]);
+      userInfo.expire = Date.now() + 2 * 3600 * 1000;
       runInAction(() => {
         this.userInfo = userInfo;
       });
@@ -81,7 +82,7 @@ export default class KuaimaoStore extends BaseStore {
     }
   }
 
-  async getVideoUrl(videoId: string|number) {
+  async getVideoUrl(videoId: string | number) {
     const token = await this.getToken();
     const res = await doRequest({
       url: 'https://api.lzafny.com/video/getUrl',
