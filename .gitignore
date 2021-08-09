@@ -1,15 +1,22 @@
-﻿.idea
+﻿# IDE配置文件
+.idea
+.vscode
+.history
+.lh
+
+# 临时文件
 node_modules
 __pycache__
-/tryNode/廖雪峰教程/批量下载/tmp
-/tryWebpack/build
 dist
-.vscode
-package-lock.json
-yarn.lock
-/tryAntdPro
-config.prod.js
-tryMidway
 temp.*
 temp*
+tmp
 *.exe
+
+# 不加版本控制
+package-lock.json
+yarn.lock
+config.prod.js
+
+# 其他
+tryMidway
