@@ -37,7 +37,7 @@ Basic usage involves defining a descriptor, assigning it to a schema and passing
 </details>
 
 ```javascript
-var schema = require('async-validator');
+var schema = require('front-end/async-validator/async-validator');
 var descriptor = {
   name: {
     type: "string",
@@ -46,8 +46,8 @@ var descriptor = {
   },
 };
 var validator = new schema(descriptor);
-validator.validate({name: "muji"}, (errors, fields) => {
-  if(errors) {
+validator.validate({ name: "muji" }, (errors, fields) => {
+  if (errors) {
     // validation failed, errors is an array of all errors
     // fields is an object keyed by field name with an array of
     // errors per field
@@ -70,7 +70,7 @@ validator.validate({
   name: "muji",
   asyncValidator: (rule, value) => axios.post('/nameValidator', { name: value }),
 }, (errors, fields) => {
-  if(errors) {
+  if (errors) {
     // validation failed, errors is an array of all errors
     // fields is an object keyed by field name with an array of
     // errors per field
@@ -83,7 +83,7 @@ validator.validate({
 })
   .then(() => {
     // validation passed
-	// 校验通过
+    // 校验通过
   })
   .catch(({ errors, fields }) => {
     return handleErrors(errors, fields);
