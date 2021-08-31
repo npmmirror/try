@@ -7,3 +7,5 @@
 - pkg: 将nodejs打包成单个可执行文件
 
   > 如果无法下载pkg预编译的node，可以自行到 release 页下载后放在 `~/.pkg-cache/v3.2/fetched-v14.17.2-win-x64`
+
+- proxy: 通过http代理发起请求
