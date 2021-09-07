@@ -1,5 +1,7 @@
 const download = require('download');
+const path = require('path');
 const qs = require('qs');
+const open = require('open');
 
 // 使用 wordpress 对网页生成预览图
 
@@ -16,9 +18,13 @@ if (process.argv[2]) {
   try {
     // const res = await axios.get();
     const u = wpUrl + encodeURIComponent(url) + qs.stringify({ w, h }, { addQueryPrefix: true });
-    const res = await download(u, 'temp', {
-      filename: Date.now() + '-' + url.replace('https://', '') + '.png',
+    const destination = 'temp';
+    const filename = Date.now() + '-' + url.replace('https://', '') + '.png';
+    const res = await download(u, destination, {
+      filename,
     });
+    await open(path.resolve(destination, filename));
+    await open(url);
     // console.log(res);
   } catch (err) {
     console.error(err);
