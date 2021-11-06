@@ -1,6 +1,7 @@
 {
   "scripts": {
     "dev": "nodemon index.js",
+    "dev:18comic": "nodemon 18comic/18comic.js",
     "image": "nodemon image.js"
   }
 }
