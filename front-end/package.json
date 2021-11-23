@@ -4,6 +4,7 @@
   },
   "dependencies": {
     "@types/node": "^15.0.1",
-    "crypto-js": "^4.0.0"
+    "crypto-js": "^4.0.0",
+    "zh2cht": "^0.0.2"
   }
 }
