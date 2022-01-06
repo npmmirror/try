@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>quill 测试</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css"
+      integrity="sha256-jyIuRMWD+rz7LdpWfybO8U6DA65JCVkjgrt31FFsnAE="
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!-- 自定义编辑器工具栏 -->
+    <div id="toolbar" style="display: none">
+      <!--粗体-->
+      <button class="ql-bold"></button>
+      <!--斜体-->
+      <button class="ql-italic"></button>
+      <!--字体-->
+      <select class="ql-font">
+        <option value="monospace"></option>
+        <option value="consolas"></option>
+        <option value="serif"></option>
+      </select>
+    </div>
+
+    <!-- Create the editor container -->
+    <div id="editor">
+      <p>Hello World!</p>
+      <p>Some initial <strong>bold</strong> text</p>
+      <p><br /></p>
+    </div>
+    <div>
+      <button id="getContents">getContents</button>
+      <button id="addContent">addContent</button>
+      <button id="setText">setText</button>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"
+      integrity="sha256-xnX1c4jTWYY3xOD5/hVL1h37HCCGJx+USguyubBZsHQ="
+      crossorigin="anonymous"
+    ></script>
+    <!-- Initialize Quill editor -->
+    <script src="./index.js"></script>
+  </body>
+</html>
