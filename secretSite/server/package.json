@@ -19,7 +19,11 @@
     "ci": "npm run lint && npm run cov && npm run tsc",
     "autod": "autod",
     "lint": "eslint . --ext .ts",
-    "clean": "ets clean"
+    "clean": "ets clean",
+    "db:migrate": "sequelize db:migrate && sequelize db:seed:all",
+    "db:undo": "sequelize db:seed:undo:all && sequelize db:migrate:undo",
+    "db:gen": "npx sequelize migration:generate --name",
+    "db:genSeed": "npx sequelize seed:generate --name"
   },
   "dependencies": {
     "@hackycy/egg-bull": "^0.0.5",

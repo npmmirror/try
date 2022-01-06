@@ -10,6 +10,7 @@ run/
 *.lock
 *.js
 !.autod.conf.js
+!db/**/*.js
 
 app/**/*.js
 test/**/*.js
