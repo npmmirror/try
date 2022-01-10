@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "egg-scripts start --daemon --title=egg-server-aliyun-ACR",
-    "docker-start": "egg-scripts start --title=egg-server-secret-site-backend",
+    "docker-start": "egg-scripts start --title=egg-server-aliyun-ACR",
     "stop": "egg-scripts stop --title=egg-server-aliyun-ACR",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",

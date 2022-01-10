@@ -1,9 +1,9 @@
-FROM node:alpine as build-deps
+FROM node:16-alpine
 
 WORKDIR /usr/src/app/
 USER root
-COPY package.json ./
-RUN npm install --production --registry=https://registry.npm.taobao.org
+COPY package.json .npmrc ./
+RUN npm install --production --registry=https://registry.npmmirror.com
 
 COPY ./ ./
 
