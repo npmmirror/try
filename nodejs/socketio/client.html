@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>socket.io测试</title>
+</head>
+<body>
+<div id="content">
+    <h2>内容：</h2>
+
+</div>
+<button id="send">发送</button>
+<a href="https://admin.socket.io/" target="_blank"><button>打开Admin-UI</button></a>
+<!--<script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.4.1/dist/socket.io.js" integrity="sha256-ePhD06u3YBidGJ90s/gLsMoT5A7ejKrRwFwyH/63jPQ=" crossorigin="anonymous"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script>
+  const socket = io('ws://localhost:3000', {
+    transports: ['websocket'],
+    auth: {
+      token: '12345'
+    }
+  });
+
+  socket.on('connect', () => {
+    // either with send()
+    socket.send('Hello! I\'m client.');
+
+    // or with emit() and custom event names
+    socket.emit('salutations', 'Hello!', { 'mr': 'john' }, Uint8Array.from([1, 2, 3, 4]));
+  });
+
+  // handle the event sent with socket.send()
+  socket.on('message', data => {
+    console.log(data);
+  });
+
+  // handle the event sent with socket.emit()
+  socket.on('greetings', (elem1, elem2, elem3) => {
+    console.log(elem1, elem2, elem3);
+  });
+
+  function show(content) {
+    $('#content').append(`<p>${content}</p>`);
+  }
+
+  $('#send').click(() => {
+    const clientTime = Date.now();
+    socket.emit('client-action', { clientTime });
+    console.log('client-action', Date.now());
+    console.log('clientTime', clientTime);
+  });
+
+  socket.on('server-action', ({ serverTime }) => {
+    console.log('server-action', Date.now());
+    console.log('serverTime', serverTime);
+  })
+
+
+
+  const socket2 = io('ws://localhost:3000/s2', {
+    transports: ['websocket'],
+    auth: {
+      token: '12345'
+    }
+  });
+
+  socket2.on('connect', () => {
+    // either with send()
+    socket2.send('Hello! I\'m client222.');
+
+    // or with emit() and custom event names
+    socket2.emit('salutations', 'Hello!', { 'mr': 'john' }, Uint8Array.from([1, 2, 3, 4]));
+  });
+</script>
+</body>
+</html>
