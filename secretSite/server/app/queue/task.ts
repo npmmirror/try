@@ -5,12 +5,13 @@ export default (app: Application) => {
   app.logger.info('queue');
   const q = new Queue('testqueue', {
     // createClient: () => app.redis,
-    redis: {
-      port: 36379,
-      host: '127.0.0.1',
-      // password: '123456',
-      db: 0,
-    },
+    redis: app.config.redis.client,
+    // redis: {
+    //   port: 6379,
+    //   host: '127.0.0.1',
+    //   // password: '123456',
+    //   db: 0,
+    // },
     defaultJobOptions: {
       removeOnComplete: 5,
       removeOnFail: 10,
