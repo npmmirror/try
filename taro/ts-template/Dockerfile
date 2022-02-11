@@ -3,8 +3,8 @@ FROM node:alpine as build-deps
 WORKDIR /usr/src/app/
 USER root
 COPY package.json .npmrc ./
-#RUN npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
-RUN npm install --registry=https://registry.npm.taobao.org
+#RUN npm i -g mirror-config-china --registry=https://registry.npmmirror.com
+RUN npm install --registry=https://registry.npmmirror.com
 
 COPY ./ ./
 
